@@ -1,11 +1,11 @@
-﻿namespace Microsoft.Samples.Tankster.GamePlay.Services
+﻿namespace Microsoft.Samples.SocialGames.GamePlay.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using Microsoft.IdentityModel.Claims;
-    using Microsoft.Samples.Tankster;
+    using Microsoft.Samples.SocialGames;
 
     public class HttpContextOrGuestUserProvider : IUserProvider
     {

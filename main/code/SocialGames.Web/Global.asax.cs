@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.Tankster.GamePlay
+﻿namespace Microsoft.Samples.SocialGames.GamePlay
 {
     using System.Collections.Generic;
     using System.Configuration;
@@ -8,8 +8,8 @@
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.IdentityModel.Web;
     using Microsoft.IdentityModel.Web.Configuration;
-    using Microsoft.Samples.Tankster.GamePlay.Services;
-    using Microsoft.Samples.Tankster.Repositories;
+    using Microsoft.Samples.SocialGames.GamePlay.Services;
+    using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.WindowsAzure;
     using Microsoft.WindowsAzure.ServiceRuntime;
 

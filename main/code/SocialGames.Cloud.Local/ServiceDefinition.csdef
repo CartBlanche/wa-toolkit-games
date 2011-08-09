@@ -15,7 +15,7 @@
       <Import moduleName="Diagnostics" />
     </Imports>
   </WebRole>
-  <WorkerRole name="Tankster.Worker">
+  <WorkerRole name="SocialGames.Worker">
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>

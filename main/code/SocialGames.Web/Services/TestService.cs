@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.Tankster.GamePlay.Services
+﻿namespace Microsoft.Samples.SocialGames.GamePlay.Services
 {
     using System;
     using System.Collections.Generic;
@@ -6,9 +6,9 @@
     using System.Linq;
     using System.Net.Http;
     using System.Runtime.Serialization.Json;
-    using Microsoft.Samples.Tankster;
-    using Microsoft.Samples.Tankster.Entities;
-    using Microsoft.Samples.Tankster.Repositories;
+    using Microsoft.Samples.SocialGames;
+    using Microsoft.Samples.SocialGames.Entities;
+    using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.Tests.GamePlay.Game;
 
     public class TestService : ServiceBase, ITestService

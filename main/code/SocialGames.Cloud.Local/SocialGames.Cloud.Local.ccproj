@@ -35,19 +35,19 @@
     <ServiceConfiguration Include="ServiceConfiguration.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\sgt\code\Tankster.Worker\Tankster.Worker.csproj">
-      <Name>Tankster.Worker</Name>
-      <Project>{8beae6b7-10b1-43aa-9ad1-324aa297e2c4}</Project>
-      <Private>True</Private>
-      <RoleType>Worker</RoleType>
-      <RoleName>Tankster.Worker</RoleName>
-    </ProjectReference>
     <ProjectReference Include="..\SocialGames.Web\SocialGames.Web.csproj">
       <Name>SocialGames.Web</Name>
       <Project>{ac2b07b3-8e93-4cb3-82cb-2129c3ab9ae2}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <RoleName>SocialGames.Web</RoleName>
+    </ProjectReference>
+    <ProjectReference Include="..\SocialGames.Worker\SocialGames.Worker.csproj">
+      <Name>SocialGames.Worker</Name>
+      <Project>{687afa5d-e5d7-4672-ad04-20ad35403e18}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>SocialGames.Worker</RoleName>
     </ProjectReference>
   </ItemGroup>
   <!-- Import the target files for this project template -->

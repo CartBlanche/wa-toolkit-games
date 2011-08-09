@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.Tankster.GamePlay.Security
+﻿namespace Microsoft.Samples.SocialGames.GamePlay.Security
 {
     using System;
     using System.Web;

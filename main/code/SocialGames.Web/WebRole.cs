@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.Tankster.GamePlay
+﻿namespace Microsoft.Samples.SocialGames.GamePlay
 {
     using System.Linq;
     using System.Net;

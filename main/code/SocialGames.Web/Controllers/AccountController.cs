@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.Tankster.GamePlay.Controllers
+﻿namespace Microsoft.Samples.SocialGames.GamePlay.Controllers
 {
     using System;
     using System.Linq;
@@ -6,9 +6,9 @@
     using System.Web.Mvc;
     using Microsoft.IdentityModel.Claims;
     using Microsoft.IdentityModel.Protocols.WSFederation;
-    using Microsoft.Samples.Tankster;
-    using Microsoft.Samples.Tankster.Entities;
-    using Microsoft.Samples.Tankster.Repositories;
+    using Microsoft.Samples.SocialGames;
+    using Microsoft.Samples.SocialGames.Entities;
+    using Microsoft.Samples.SocialGames.Repositories;
 
     public class AccountController : Controller
     {

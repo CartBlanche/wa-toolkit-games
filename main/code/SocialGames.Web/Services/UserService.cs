@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.Tankster.GamePlay.Services
+﻿namespace Microsoft.Samples.SocialGames.GamePlay.Services
 {
     using System;
     using System.Globalization;
@@ -10,8 +10,8 @@
     using System.Runtime.Serialization.Json;
     using System.Web;
     using Microsoft.ApplicationServer.Http;
-    using Microsoft.Samples.Tankster.Entities;
-    using Microsoft.Samples.Tankster.Repositories;
+    using Microsoft.Samples.SocialGames.Entities;
+    using Microsoft.Samples.SocialGames.Repositories;
 
     public class UserService : ServiceBase, IUserService
     {

@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
-    using Microsoft.Samples.Tankster.Entities;
-    using Microsoft.Samples.Tankster.Repositories;
+    using Microsoft.Samples.SocialGames.Entities;
+    using Microsoft.Samples.SocialGames.Repositories;
 
     public class ConfiguredGameActionProcessor : GameActionProcessor
     {

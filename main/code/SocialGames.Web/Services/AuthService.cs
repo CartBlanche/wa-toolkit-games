@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.Tankster.GamePlay.Services
+﻿namespace Microsoft.Samples.SocialGames.GamePlay.Services
 {
     using System;
     using System.Configuration;
@@ -8,7 +8,7 @@
     using System.Security.Permissions;
     using System.Text;
     using System.Web;
-    using Microsoft.Samples.Tankster.Repositories;
+    using Microsoft.Samples.SocialGames.Repositories;
 
     public class AuthService : ServiceBase, IAuthService
     {

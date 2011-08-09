@@ -3,10 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17FC5C88-FD8E-4E65-8E15-D2B5BD505950}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\sgt\code\CustomDictionary.xml = ..\..\sgt\code\CustomDictionary.xml
-		..\..\sgt\code\Local.testsettings = ..\..\sgt\code\Local.testsettings
-		..\..\sgt\code\Tankster.WithTests.vsmdi = ..\..\sgt\code\Tankster.WithTests.vsmdi
-		..\..\sgt\code\TraceAndTestImpact.testsettings = ..\..\sgt\code\TraceAndTestImpact.testsettings
+		CustomDictionary.xml = CustomDictionary.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{4F9F2F9E-5C83-4BAA-A737-DF13FA65876F}"
@@ -26,9 +23,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialGames.TicTacToe", "SocialGames.TicTacToe\SocialGames.TicTacToe.csproj", "{C9DDF0BB-5639-4D11-9173-91A386E88CA3}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = ..\..\sgt\code\Tankster.WithTests.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Ppe|Any CPU = Ppe|Any CPU

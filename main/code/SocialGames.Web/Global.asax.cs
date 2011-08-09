@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay
+﻿namespace Microsoft.Samples.SocialGames.Web
 {
     using System.Collections.Generic;
     using System.Configuration;

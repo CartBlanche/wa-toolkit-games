@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SocialGames.WebSamples.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Microsoft.Samples.SocialGames.TicTacToe.MvcApplication" Language="C#" %>

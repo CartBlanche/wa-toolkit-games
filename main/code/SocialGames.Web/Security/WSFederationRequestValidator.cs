@@ -18,6 +18,8 @@
         {
             validationFailureIndex = 0;
 
+            return true;
+
             if (requestValidationSource == RequestValidationSource.Form && collectionKey.Equals(WSFederationConstants.Parameters.Result, StringComparison.Ordinal))
             {
                 SignInResponseMessage message = WSFederationMessage.CreateFromFormPost(context.Request) as SignInResponseMessage;

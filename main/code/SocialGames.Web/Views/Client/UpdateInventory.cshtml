@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Update Inventory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update Inventory</h2>
+<form action="@Href("~/Client/UpdateInventory")" method="post" enctype="multipart/form-data">
+<fieldset>
+    <legend></legend>       
+    <div class="editor-label"><label for="file">Inventory File</label></div>
+    <div class="editor-field">
+        <input type="file" name="file" id="file" />
+        @Html.ValidationMessage("File")
+    </div>
+    <p>
+        <input type="submit" value="Upload" />
+    </p>
+</fieldset>
+</form>

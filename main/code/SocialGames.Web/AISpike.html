@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"> 
+	<head>
+        
+		<title>Tankster</title>
+        
+        <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"> 
+ 
+        <script type="text/javascript" src="Scripts/lib/easel.js"></script>
+		
+		<script type="text/javascript" src="Scripts/src/game/util/Rndm.js"></script> 
+		<script type="text/javascript" src="Scripts/src/com/gskinner/events/EventDispatcher.js"></script> 
+		<script type="text/javascript" src="Scripts/src/com/gskinner/utils/FilterBadWords.js"></script> 
+		<script type="text/javascript" src="Scripts/src/com/gskinner/utils/Rnd.js"></script> 
+		<script type="text/javascript" src="Scripts/src/com/gskinner/utils/StringUtils.js"></script> 
+		<script type="text/javascript" src="Scripts/src/com/gskinner/utils/Timer.js"></script> 
+		<script type="text/javascript" src="Scripts/src/com/gskinner/utils/Utils.js"></script> 
+		<script type="text/javascript" src="Scripts/src/model/AchievementsModel.js"></script> 
+		<script type="text/javascript" src="Scripts/src/model/CharacterSprites.js"></script>  
+		<script type="text/javascript" src="Scripts/src/model/CommandTypes.js"></script> 
+		<script type="text/javascript" src="Scripts/src/model/GameModel.js"></script> 
+		<script type="text/javascript" src="Scripts/src/model/GameTypes.js"></script> 
+		<script type="text/javascript" src="Scripts/src/model/WeaponsModel.js"></script> 
+		<script type="text/javascript" src="Scripts/src/ui/controller/CommandMap.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/Game.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/GameManager.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/actors/Actor.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/actors/Tank.js"></script>
+		<script type="text/javascript" src="Scripts/src/game/actors/AIUtil.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/weapons/WeaponUtil.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/weapons/Explosion.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/weapons/PowerUpFrames.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/weapons/PowerupList.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/weapons/Shell.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/weapons/WeaponFrames.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/weapons/WeaponList.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/weapons/WeaponManager.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/env/Liquid.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/env/SoundManager.js"></script> 
+		<script type="text/javascript" src="Scripts/src/game/env/Terrain.js"></script> 
+		<script type="text/javascript" src="Scripts/src/Main.js"></script> 
+		
+<script type="text/javascript">
+
+var s = new Shell({travel: WeaponUtil.arcMove},-1, 0,0, 0,0);
+var cont = new Graphics();
+var terrain = [];
+
+var x_origin = 480;
+var y_origin = 250;
+
+var x_end = 0;
+var y_end = 0;
+
+var canvas;
+var ctx;
+ 
+var img = new Image();
+
+function tick(){
+	var i;
+	var x_target = x_end;
+	var y_target = y_end;
+	
+	
+	var rx = (x_target - x_origin)*1.317;
+	var ry = (y_origin - y_target)*1.317;
+	var g = WeaponManager._gravity;
+	var result = [];
+	//document.getElementById("DEBUGME").innerHTML = '';
+	for(i=0; i <= 1.049; i += 0.05){
+		if(i > 1){ i = 1; }
+		var v = (Game.PROJECTILE*WeaponUtil.MIN_POWER_FACTOR) + (Game.PROJECTILE*i);
+		
+		var testP = Math.atan2(v*v + Math.sqrt((v*v*v*v)-(g*(g*rx*rx + 2*ry*v*v))), g*rx);
+		var testN = Math.atan2(v*v - Math.sqrt((v*v*v*v)-(g*(g*rx*rx + 2*ry*v*v))), g*rx);
+		//document.getElementById("DEBUGME").innerHTML += testP + "<br/><br/>";
+		if(!isNaN(testP)){ result.push({power:i, angle:testP+(Math.PI/2)}); }
+		if(!isNaN(testN)){ result.push({power:i, angle:testN+(Math.PI/2)}); }
+	}
+	
+	ctx.clearRect(0,0, 960,500);
+	var g = new Graphics();
+	g.beginFill("#FF0000").drawRect(x_origin-5,y_origin-5, 10,10).endFill();
+
+	var l = result.length;
+	for(i=0; i<l; i++){
+		var inspect = 200;
+		var persistance = inspect;
+		s.x = x_origin;
+		s.y = y_origin;
+		s.power = result[i].power;
+		s.angle = result[i].angle;
+		s.vX = undefined;
+		
+		g.setStrokeStyle(3).moveTo(s.x, s.y);
+		g.beginStroke("rgba(48,48,48,0.5)");
+		while(persistance > 0){
+			s.travel(s, Game.PROJECTILE, WeaponManager._wind, WeaponManager._gravity, terrain, 0, WeaponManager._maxX);
+			g.lineTo(s.x, s.y).moveTo(s.x, s.y);
+			persistance--;
+		}
+		g.endStroke();
+	}
+	
+	g.draw(ctx);
+}
+
+_touchEnd = function(e){
+	if(!e){ e = window.event; }			// fetch event from window if missing
+	
+	x_origin = e.pageX;		// steal mouse x co-ord
+	y_origin = e.pageY;		// steal mouse y co-ord
+	
+};
+
+_touchMove = function(e) {
+	if(!e){ e = window.event; }			// fetch event from window if missing
+	
+	x_end = e.pageX;		// steal mouse x co-ord
+	y_end = e.pageY;		// steal mouse y co-ord
+	
+	//document.getElementById("DEBUGME").innerHTML = x_end + ", " + y_end + "<br/>";
+};
+ 
+function init() {
+	//find canvas and load images, wait for last image to load
+	canvas = document.getElementById("testCanvas");
+	ctx = canvas.getContext("2d");
+	
+	for(i=0;i<Game.PLAY_WIDTH;i++){
+		terrain[i] = Game.PLAY_HEIGHT;
+	}
+	
+	window.onmouseup = _touchEnd;
+	window.onmousemove = _touchMove;
+	
+	setInterval(function(){ tick(); }, 100);
+}
+ 
+</script> 
+</head> 
+	
+<body onload="init();" style="padding: 0px; margin: 0px; background-color: #666;">
+	<canvas id="testCanvas" width="960" height="500" style="padding: 0px; margin: 0px; background-color: #FFF;"></canvas>
+	<div id="DEBUGME">
+	</div> 
+</body> 
+</html> 

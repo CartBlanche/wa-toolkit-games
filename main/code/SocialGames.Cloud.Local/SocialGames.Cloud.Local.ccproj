@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>1.3.0</ProductVersion>
+    <ProjectGuid>{7290833d-c698-45db-9db0-aa519017382b}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SocialGames.Cloud.Local</RootNamespace>
+    <AssemblyName>SocialGames.Cloud.Local</AssemblyName>
+    <StartDevelopmentStorage>True</StartDevelopmentStorage>
+    <Name>SocialGames.Cloud.Local</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- Items for the project -->
+  <ItemGroup>
+    <ServiceDefinition Include="ServiceDefinition.csdef" />
+    <ServiceConfiguration Include="ServiceConfiguration.cscfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\sgt\code\Tankster.Worker\Tankster.Worker.csproj">
+      <Name>Tankster.Worker</Name>
+      <Project>{8beae6b7-10b1-43aa-9ad1-324aa297e2c4}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>Tankster.Worker</RoleName>
+    </ProjectReference>
+    <ProjectReference Include="..\SocialGames.Web\SocialGames.Web.csproj">
+      <Name>SocialGames.Web</Name>
+      <Project>{ac2b07b3-8e93-4cb3-82cb-2129c3ab9ae2}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>SocialGames.Web</RoleName>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- Import the target files for this project template -->
+  <PropertyGroup>
+    <CloudExtensionsDir Condition=" '$(CloudExtensionsDir)' == '' ">$(MSBuildExtensionsPath)\Microsoft\Cloud Service\1.0\Visual Studio 10.0\</CloudExtensionsDir>
+  </PropertyGroup>
+  <Import Project="$(CloudExtensionsDir)Microsoft.CloudService.targets" />
+</Project>

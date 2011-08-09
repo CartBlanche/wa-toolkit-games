@@ -1,0 +1,810 @@
+@{
+    this.ViewBag.Title = "Tankster | Skirmish";
+}
+<!-- Constants - BEGIN -->
+<script type="text/javascript">
+    var GameStage = { "WaitingForGamQueueeId": 0, "WaitingRoom": 1, "ChoosingWeapons": 3, "Playing": 4, "Leaving": 5 };
+    var nullGameId = "00000000-0000-0000-0000-000000000000";
+</script>
+<!-- Constants - END -->
+<!-- WAITING FOR GAME QUEUE ID CLIENT - BEGIN -->
+<script type="text/javascript">
+    function WaitingForGameQueueIdClient(parentClient, serverInterface) {
+        var reallyThis = this;
+        window.sessionsCallback = function (userSession) {
+            reallyThis.onUserSessionUpdate(userSession);
+        };
+        this.parentClient = parentClient;
+        this.serverInterface = serverInterface;
+    }
+
+    WaitingForGameQueueIdClient.prototype.askServerToRefreshUserStatus = function () {
+        this.serverInterface.sendAjaxJsonpGet(viewModel.storageEndpoint + "sessions/" + viewModel.thisPlayerId + "?callback=?",
+            "sessionsCallback");
+    };
+
+    WaitingForGameQueueIdClient.prototype.onUserSessionUpdate = function (userSession) {
+        viewModel.userSession(userSession);
+        if (viewModel.userSession().ActiveGameQueueId != nullGameId) {
+            viewModel.currentGameStage(GameStage.WaitingRoom);
+        }
+        this.parentClient.restartPollingTimeout();
+    };
+</script>
+<!-- WAITING FOR GAME QUEUE ID CLIENT - END -->
+<!-- WAITING ROOM - BEGIN -->
+<div data-bind="visible: (currentGameStage() == GameStage.WaitingRoom) || (currentGameStage() == GameStage.WaitingForGamQueueeId)">
+    <fieldset>
+        <legend>Waiting Room</legend>Welcome <b><span data-bind='text: thisPlayerName()'></span>
+        </b>
+        <br />
+        
+        <div data-bind="visible: !waitingRoom.onlyYou()">
+        <span style="color: Red;">Disclaimer: The game will starts in&nbsp;</span> <span
+            style="color: Red;" data-bind='text: waitingRoom.gameQueueSecondsLeft'></span>
+        <span style="color: Red;">&nbsp;seconds or when another player join</span><br />
+        <span>Waiting for more players...</span>
+        </div>
+
+        <div data-bind="visible: waitingRoom.onlyYou()">
+        <span style="color: Red;">You are alone...</span>
+        <br />
+        <input type="button" value="Leave Battle" data-bind="click: onLeaveBattle"
+                        style="height: 32px" /><br />
+        </div>
+
+        <span>Current players:</span>
+        <div data-bind='template: { name: "queueStatus", foreach: gamePlay.gameUsers()}' />
+        <script id="queueStatus" type="text/html">
+            <li><b>${$data.UserName}</b></li>
+        </script>
+        <br />
+    </fieldset>
+</div>
+<script type="text/javascript">
+    function WaitingRoomViewModel() {
+        this.gameQueueStatus = ko.observable({ GameId: nullGameId });
+        this.gameQueueSecondsLeft = ko.observable(45);
+        this.onlyYou = ko.observable(false);
+    }
+
+    function WaitingRoomClient(parentClient, serverInterface) {
+        var reallyThis = this;
+        window.gamesqueuesCallback = function (gameQueueStatus) {
+            reallyThis.onGameQueueUpdateStatus(gameQueueStatus);
+        };
+        this.parentClient = parentClient;
+        this.serverInterface = serverInterface;
+        this.gameQueueTime = 45;
+    }
+
+    WaitingRoomClient.prototype.onGameQueueUpdateStatus = function (gameQueueStatus) {
+        viewModel.waitingRoom.gameQueueStatus(gameQueueStatus);
+        var creationDateTime = new Date(parseInt(viewModel.waitingRoom.gameQueueStatus().CreationTime.substr(6)));
+        var timeSinceQueueStartInSeconds = Math.floor((new Date() - creationDateTime) / 1000);
+        viewModel.waitingRoom.gameQueueSecondsLeft(Math.max(this.gameQueueTime - timeSinceQueueStartInSeconds, 0));
+
+        if (gameQueueStatus.Users.length <= 1 && this.gameQueueTime - timeSinceQueueStartInSeconds < 0)
+            viewModel.waitingRoom.onlyYou(true);
+
+        viewModel.gamePlay.gameUsers(gameQueueStatus.Users);
+        viewModel.initialUsers = gameQueueStatus.Users;
+        viewModel.thisPlayerName(IdToUserName(viewModel.thisPlayerId));
+        if (viewModel.waitingRoom.gameQueueStatus().GameId != nullGameId) {
+            viewModel.gamePlay.gameId = viewModel.waitingRoom.gameQueueStatus().GameId;
+            viewModel.currentGameStage(GameStage.ChoosingWeapons);
+            viewModel.choosingWeapons.choosingWeaponsStartTime = new Date();
+        }
+        this.parentClient.restartPollingTimeout();
+    };
+    WaitingRoomClient.prototype.askServerToRefreshGameQueueStatus = function () {
+        this.serverInterface.sendAjaxJsonpGet(viewModel.storageEndpoint + "gamesqueues/" + viewModel.userSession().ActiveGameQueueId + "?callback=?",
+            "gamesqueuesCallback");
+    };
+
+    function onLeaveBattle() {
+        window.location.replace("/Client/WarRoom");
+    }
+</script>
+<!-- WAITING ROOM - END -->
+<!-- CHOOSING WEAPONS - BEGIN -->
+<div data-bind="visible: (currentGameStage() == GameStage.ChoosingWeapons)">
+    Choose your weapons:<br />
+    You have&nbsp;<span style="color: Blue;" data-bind='text: choosingWeapons.choosingWeaponsSecondsLeft'></span>&nbsp;seconds.<br />
+    You have can choose up to &nbsp;<span style="color: Green;" data-bind='text: choosingWeapons.maximumWeaponsCount() - gamePlay.playerWeapons().length'></span>&nbsp;more
+    weapons.<br />
+    <select multiple="multiple" data-bind="options: choosingWeapons.availableWeapons(), selectedOptions: gamePlay.playerWeapons, optionsText: 'name'">
+    </select><br />
+    <input type="button" value="Ready!" data-bind="click: choosingWeaponsFinished" style="height: 32px;" /><br />
+</div>
+<script type="text/javascript">
+    var weapons = [
+        { id: "1b6e4f64-0eee-4a86-9d7b-9cd667b1fc46", name: 'Nuke' },
+        { id: "dd9752fd-1117-44df-8bae-3f0e62394600", name: 'Missile Launcher' },
+        { id: "9a4a45cd-da7f-4597-9892-4ec70fa5be97", name: 'Shotgun' },
+        { id: "bd43aa1e-3cc1-4273-bc1f-a133e9d57d3c", name: 'Napalm' },
+        { id: "1e3cf1ff-96fe-4375-a6e1-99fa4424bf0c", name: 'Air Strike' },
+        { id: "b2cbd0e0-ed2b-4740-88ad-db38104dcacd", name: 'Uzi' },
+        { id: "021ca00e-774f-423d-8165-e4bc37b3a2a6", name: 'Hammer' },
+        { id: 7, name: 'Granade'}];
+
+    function ChoosingWeaponsViewModel() {
+        this.choosingWeaponsStartTime = new Date();
+        this.choosingWeaponsSecondsLeft = ko.observable(45);
+        this.maximumWeaponsCount = ko.observable(2);
+        this.availableWeapons = ko.observableArray(weapons);
+    }
+
+    function ChoosingWeaponsClient(parentClient, serverInterface) {
+        this.parentClient = parentClient;
+        this.serverInterface = serverInterface;
+        this.timeToChoosWeapons = 45;
+        var reallyThis = this;
+        ViewModel.prototype.choosingWeaponsFinished = function () {
+            reallyThis.choosingWeaponsFinished();
+        };
+    }
+
+    ChoosingWeaponsClient.prototype.checkIfChoosingWeaponsTimeIsOut = function () {
+        var timeSinceChoosingWeaponsStart = Math.floor((new Date() - viewModel.choosingWeapons.choosingWeaponsStartTime) / 1000);
+        viewModel.choosingWeapons.choosingWeaponsSecondsLeft(this.timeToChoosWeapons - timeSinceChoosingWeaponsStart);
+        if (timeSinceChoosingWeaponsStart >= this.timeToChoosWeapons) {
+            this.choosingWeaponsFinished();
+        }
+        this.parentClient.restartPollingTimeout();
+    };
+    ChoosingWeaponsClient.prototype.choosingWeaponsFinished = function () {
+        var playerWeapons = viewModel.gamePlay.playerWeapons();
+        if (playerWeapons.length == 0) {
+            playerWeapons = [viewModel.choosingWeapons.availableWeapons()[0]];
+        }
+        var maxWeaponosCount = viewModel.choosingWeapons.maximumWeaponsCount();
+        if (playerWeapons.length > maxWeaponosCount) {
+            playerWeapons.splice(maxWeaponosCount, playerWeapons.length - maxWeaponosCount);
+        }
+
+        viewModel.gamePlay.playerWeapons(playerWeapons);
+        this.sendSetWeaponsCommand(playerWeapons);
+        viewModel.currentGameStage(GameStage.Playing);
+    };
+    ChoosingWeaponsClient.prototype.sendSetWeaponsCommand = function (weapons) {
+        var weaponIds = $.map(weapons, function (weapon) {
+            return weapon.id;
+        });
+        //        this.serverInterface.sendAjaxJsonPost('/game/' + viewModel.gamePlay.gameId + '/weapons/', { weaponIds: weaponIds });
+        this.serverInterface.sendAjaxJsonPost('/game/weapons/' + viewModel.gamePlay.gameId, { weaponIds: weaponIds });
+    };
+</script>
+<!-- CHOOSING WEAPONS - END -->
+<!-- GAME ROOM - BEGIN -->
+<div id='gamePlayDiv' data-bind="visible: (currentGameStage() == GameStage.Playing)">
+    <img id='avatar' src="" alt="" data-bind="visible: false" />
+    General <b><span data-bind='text: thisPlayerName()'></span></b>Control Room:<br />
+    <form action="">
+    <table>
+        <tr>
+            <td style="vertical-align: top;">
+                <fieldset>
+                    <legend>Players</legend>
+                    <div data-bind='template: { name: "playerStatus", templateOptions: {ActiveUser: gamePlay.activeUser(), turnSecondsLeft: gamePlay.turnSecondsLeft()}}' />
+                    <script id="playerStatus" type="text/html">
+                            <table>
+                                {{each initialUsers}}
+                                <tr>
+                                    {{if $value.UserId == $item.ActiveUser}}
+                                    <td><span style="color: Blue;"> <b>${$value.UserName}</b> is Playing</span><br/></td>
+                                    <td>${$item.turnSecondsLeft} &nbsp;secs</td>
+                                    {{else}}
+                                    {{if isAlive($value.UserId)}}
+                                    <td><span style="color: Green;"> <b>${$value.UserName}</b> is waiting</span><br/></td>
+                                    <td>-</td>
+                                    {{else}}
+                                    <td><span style="color: Gray;"> <b>${$value.UserName}</b> is dead</span><br/></td>
+                                    <td>-</td>
+                                    {{/if}}
+                                    {{/if}}
+                                </tr>
+                                {{/each}}
+                            </table>
+                    </script>
+                </fieldset>
+            </td>
+            <td style="vertical-align: top;">
+                <fieldset>
+                    <legend>Game Simulation</legend>
+                    <div data-bind='template: { name: "GameSimulationList", foreach: gamePlay.gameActions() }' />
+                    <script id="GameSimulationList" type="text/html">
+                            {{html printCommandInHtml($data)}} <br> 
+                    </script>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>Game Commands</legend>
+                    <table>
+                        <tr>
+                            <td>
+                                Angle:
+                            </td>
+                            <td>
+                                <input type="text" data-bind="value: gamePlay.currentFiringAngle" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Weapon:
+                            </td>
+                            <td style="width: 100%">
+                                <select data-bind="options: gamePlay.playerWeapons, value: gamePlay.currentWeapon, optionsText: 'name'">
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="button" value="Fire!" data-bind="enable: gamePlay.canSendActiveTurnCommand(), click: onFireButtonClick"
+                        disabled="true" style="height: 32px; width: 100%;" /><br />
+                    <input type="button" value="Leave Battle" data-bind="click: onLeaveBattleButtonClick"
+                        style="height: 32px; width: 100%;" /><br />
+                    <input type="button" value="Surrender" data-bind="click: onDeadButtonClick" style="height: 32px;
+                        width: 100%;" /><br />
+                    <input type="button" value="Victory!" data-bind="click: onWinButtonClick" style="height: 32px;
+                        width: 100%;" /><br />
+                </fieldset>
+            </td>
+            <td style="vertical-align: top;">
+                <fieldset>
+                    <legend>Notifications</legend>
+                    <div data-bind='template: { name: "NotificationList", foreach: notifications() }' />
+                </fieldset>
+<script id="NotificationList" type="text/html">
+                            {{html printNotificationInHtml($data)}} <br> 
+</script>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Chat:
+                <input type="text" data-bind="value: gamePlay.chatText, valueUpdate: 'afterkeydown'"
+                    style="width: 75%;" />
+                <input type="button" value="Send" data-bind="enable: gamePlay.chatText().length > 0, click: onChatSendButtonClick"
+                    disabled="true" style="height: 24px; width: 15%;" /><br />
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>
+<script type="text/javascript">
+    var GameActionType = { "Chat": 0, "ExpireUser": 1, "Shot": 2, "Shield": 3, "EndGame": 4, "PlayerDead": 5, "ShotBot": 6, "PlayerDeadBot": 7, "EndGameBot": 8 };
+    var GameActionNumericType = { "Chat": 0, "ExpireUser": 1, "Shot": 2, "Shield": 3, "EndGame": 4, "PlayerDead": 5, "ShotBot": 6, "PlayerDeadBot": 7, "EndGameBot": 8 };
+
+    var BotMessages = [
+        "Hi!",
+        "My name is Bot, James Bot",
+        "Where is Sarah Connor?",
+        "I'll be back",
+        "Hasta la vista, baby",
+        "I'll kill you!",
+        "I love R2D2",
+        "Use the force, Luke!"
+    ];
+
+    function GamePlayViewModel() {
+        this.gameID = nullGameId;
+        this.knownGameActionsIds = [];
+        this.game = ko.observable({ Users: [], ActiveUser: null });
+        this.activeUser = ko.observable("");
+        this.gameUsers = ko.observableArray();
+        this.gameActions = ko.observableArray();
+        this.playerWeapons = ko.observableArray();
+        this.currentWeapon = ko.observable(null);
+        this.currentFiringAngle = ko.observable(0);
+        this.turnStartDateTime = new Date();
+        this.turnSecondsLeft = ko.observable(0);
+        this.isThisPlayerTurn = ko.observable(false);
+        this.canSendActiveTurnCommand = ko.observable(false);
+        this.commands = ko.observableArray();
+        this.chatText = ko.observable("");
+    }
+
+    function FireCommand(shooterId, shootedId, weapon, angle) {
+        this.type = GameActionType.Shot;
+        this.commandData =
+            {
+                shooterId: shooterId,
+                angle: angle,
+                shootedId: shootedId,
+                weaponName: weapon.name
+            };
+    }
+
+    function BotFireCommand(shooterId, shootedId, weapon, angle) {
+        this.type = GameActionType.ShotBot;
+        this.commandData =
+            {
+                shooterId: shooterId,
+                angle: angle,
+                shootedId: shootedId,
+                weaponName: weapon.name
+            };
+    }
+
+    function EndTurnCommand(playerId) {
+        this.type = GameActionType.ExpireUser;
+        this.commandData = {
+            playerId: playerId
+        };
+    }
+
+    function PlayerDeadCommand(playerId) {
+        this.type = GameActionType.PlayerDead;
+
+        var kills = Math.floor(Math.random() * viewModel.gamePlay.game().Users.length) % viewModel.gamePlay.game().Users.length;
+        var xp = Math.random() * 10 - 3;
+
+        this.commandData = {
+            deadId: playerId,
+            xp: xp,
+            kills: kills,
+            accuracy: Math.random() * 100,
+            terrain: Math.random() * 50
+        };
+    }
+
+    function PlayerWinCommand(playerId) {
+        this.type = GameActionType.EndGame;
+
+        var kills = Math.floor(Math.random() * viewModel.gamePlay.game().Users.length) % viewModel.gamePlay.game().Users.length;
+        var xp = Math.random() * 10 - 3;
+
+        this.commandData = {
+            playerId: playerId,
+            xp: xp,
+            kills: kills,
+            accuracy: Math.random() * 100,
+            terrain: Math.random() * 50
+        };
+    }
+
+    function ChatCommand(playerId, text) {
+        this.type = GameActionType.Chat;
+        this.commandData = {
+            senderId: playerId,
+            text: text
+        };
+    }
+
+    function printPlayerDeadCommand(command) {
+        var playerDeadString = "";
+        if (command.CommandData.deadId == viewModel.thisPlayerId) {
+            playerDeadString = "<b>You</b> are dead :(";
+        }
+        else {
+            playerDeadString = "<b>" + IdToUserName(command.CommandData.deadId) + "</b> is dead :)";
+        }
+        if (viewModel.gamePlay.gameUsers().length == 1) {
+            var winner = viewModel.gamePlay.gameUsers()[0].UserId;
+            if (winner == viewModel.thisPlayerId) {
+                playerDeadString = playerDeadString + "<br/><b>You WON!!!</b>";
+            }
+            else {
+                playerDeadString = playerDeadString + "<br/><b>" + IdToUserName(winner) + "</b> won...";
+            }
+        }
+        return playerDeadString;
+    }
+
+    function printCommandInHtml(command) {
+        switch (command.Type) {
+            case GameActionNumericType.Chat:
+                return "<b>" + IdToUserName(command.CommandData.senderId) + "</b> says: " + command.CommandData.text;
+            case GameActionNumericType.PlayerDead:
+                return printPlayerDeadCommand(command);
+            case GameActionNumericType.EndGame:
+                return viewModel.thisPlayerId + "<br/><b>You WON!!!</b>";
+            case GameActionNumericType.ExpireUser:
+                return "<b>" + IdToUserName(command.CommandData.playerId) + "</b> lost his turn.";
+            case GameActionNumericType.Shot:
+                var deadsString = command.CommandData.shootedId != "null" ? "killed " + IdToUserName(command.CommandData.shootedId) + "!" : "no deaths";
+                return "<b>" + IdToUserName(command.CommandData.shooterId) + "</b> fired with " + command.CommandData.weaponName + " at " + command.CommandData.angle + "°: " + deadsString;
+            case GameActionNumericType.ShotBot:
+                deadsString = command.CommandData.shootedId != "null" ? "killed " + IdToUserName(command.CommandData.shootedId) + "!" : "no deaths";
+                return "<b>" + IdToUserName(command.CommandData.shooterId) + "</b> fired with " + command.CommandData.weaponName + " at " + command.CommandData.angle + "°: " + deadsString;
+            default:
+                alert("Error: Unknown command type");
+        }
+    }
+
+    function GamePlayClient(parentClient, serverInterface) {
+        var reallyThis = this;
+        window.gamesCallback = function (game) {
+            reallyThis.onGameUpdate(game);
+        };
+        ViewModel.prototype.onFireButtonClick = function () {
+            reallyThis.onFireButtonClick();
+        };
+        ViewModel.prototype.onLeaveBattleButtonClick = function () {
+            reallyThis.onLeaveBattleButtonClick();
+        };
+        ViewModel.prototype.onChatSendButtonClick = function () {
+            reallyThis.onChatSendButtonClick();
+        };
+        ViewModel.prototype.onDeadButtonClick = function () {
+            reallyThis.onDeadButtonClick();
+        };
+        ViewModel.prototype.onWinButtonClick = function () {
+            reallyThis.onWinButtonClick();
+        };
+        this.parentClient = parentClient;
+        this.serverInterface = serverInterface;
+        this.turnTime = 30;
+        this.lastBot = "";
+        this.players = null;
+    }
+
+    GamePlayClient.prototype.askServerToRefreshGameStatus = function () {
+        this.serverInterface.sendAjaxJsonpGet(viewModel.storageEndpoint + "games/" + viewModel.gamePlay.gameId + "?callback=?",
+            "gamesCallback");
+    };
+
+    GamePlayClient.prototype.isBot = function (userId) {
+        return userId.match("^Bot") == "Bot";
+    };
+
+    GamePlayClient.prototype.sendChatBotCommand = function (botId)
+    {
+        var npos = Math.floor(Math.random() * BotMessages.length);
+
+        if (npos >= 0 && npos < BotMessages.length)
+            this.sendChatCommand(botId, BotMessages[npos]);
+    };
+
+    GamePlayClient.prototype.iAmTheBotMaster = function (game) {
+        for (var nuser in game.Users) {
+            if (!this.isBot(game.Users[nuser].UserId)) {
+                if (viewModel.thisPlayerId == game.Users[nuser].UserId)
+                    return true;
+
+                return false;
+            }
+        }
+
+        return false;
+    };
+
+    GamePlayClient.prototype.nextTurn = function (userId) {
+        viewModel.gamePlay.turnStartDateTime = new Date();
+
+        for (var nuser in this.players) {
+            if (this.players[nuser].UserId == userId)
+                break;
+        }
+
+        nuser++;
+
+        if (nuser >= this.players.length)
+            nuser = 0;
+
+        this.activePlayerId = this.players[nuser].UserId;
+
+        if (this.activePlayerId == viewModel.thisPlayerId) {
+            viewModel.gamePlay.canSendActiveTurnCommand(true);
+            this.lastBot = ""; // a new round
+            viewModel.gamePlay.isThisPlayerTurn(true);
+        }
+        else {
+            viewModel.gamePlay.canSendActiveTurnCommand(false);
+            viewModel.gamePlay.isThisPlayerTurn(false);
+        }
+    };
+
+    GamePlayClient.prototype.onGameUpdate = function (game) {
+        // first update, get players
+        if (this.players == null) {
+            this.players = game.Users;
+            this.activePlayer = game.ActiveUser;
+
+            for (var nplayer = 0; nplayer < this.players.length; nplayer++)
+                this.players[nplayer].alive = true;
+
+            this.nextTurn(this.activePlayer);
+        }
+
+        var stillAlive = true;
+        // Process the new actions. Only add the new ones.
+        var currentActions = viewModel.gamePlay.gameActions();
+
+        for (action in game.GameActions) {
+            if ($.inArray(game.GameActions[action].Id, viewModel.gamePlay.knownGameActionsIds) == -1) {
+                viewModel.gamePlay.knownGameActionsIds.push(game.GameActions[action].Id);
+
+                var action = game.GameActions[action];
+
+                // If we were killed, send player dead command
+                if (action.Type == GameActionNumericType.Shot && action.CommandData.shootedId == viewModel.thisPlayerId) {
+                    this.sendPlayerDeadCommand();
+                    stillAlive = false;
+                }
+
+                // Next Turn?
+                if ((action.Type == GameActionNumericType.Shot || action.Type == GameActionNumericType.ExpireUser) && action.UserId != viewModel.thisPlayerId)
+                    this.nextTurn(action.UserId);
+
+                // Add the new action to the list
+                currentActions.push(action);
+            }
+        }
+
+        // Hack: force the active player
+        game.ActiveUser = this.activePlayerId;
+
+        // Process the bots if the current user is the bot master
+        if (this.iAmTheBotMaster(game) && this.isBot(game.ActiveUser) && game.ActiveUser != this.lastBot) {
+            this.lastBot = game.ActiveUser;
+            this.sendShotBotCommand(game.ActiveUser);
+
+            if (Math.random() > 0.5)
+                this.sendChatBotCommand(game.ActiveUser);
+        }
+
+        viewModel.gamePlay.game(game);
+        viewModel.gamePlay.gameUsers(game.Users);
+
+        // Only keep last 10 actions in the list
+        while (currentActions.length >= 10) {
+            currentActions.splice(0, 1);
+        }
+
+        // Refresh the view model
+        viewModel.gamePlay.gameActions(currentActions);
+        viewModel.gamePlay.activeUser(game.ActiveUser);
+        this.refreshTimeLeft();
+
+        // Start next timeout
+        this.parentClient.restartPollingTimeout();
+    };
+
+    GamePlayClient.prototype.refreshTimeLeft = function () {
+        var timeSinceTurnStartInSeconds = Math.floor((new Date() - viewModel.gamePlay.turnStartDateTime) / 1000);
+        viewModel.gamePlay.turnSecondsLeft(Math.max(this.turnTime - timeSinceTurnStartInSeconds, 0));
+        if (viewModel.gamePlay.isThisPlayerTurn() && viewModel.gamePlay.turnSecondsLeft() <= 0 && viewModel.gamePlay.canSendActiveTurnCommand()) {
+            viewModel.gamePlay.canSendActiveTurnCommand(false);
+            this.sendEndTurnCommand();
+            this.nextTurn(viewModel.thisPlayerId);
+        }
+    };
+
+    GamePlayClient.prototype.sendCommand = function (command) {
+        this.serverInterface.sendAjaxJsonPost('/game/command/v2/' + viewModel.gamePlay.gameId, command);
+        viewModel.gamePlay.commands.push(command);
+    };
+
+    GamePlayClient.prototype.sendEndTurnCommand = function () {
+        this.sendCommand(new EndTurnCommand(viewModel.thisPlayerId));
+    };
+
+    GamePlayClient.prototype.sendPlayerDeadCommand = function () {
+        this.sendCommand(new PlayerDeadCommand(viewModel.thisPlayerId));
+    };
+
+    GamePlayClient.prototype.sendChatCommand = function (playerId, text) {
+        this.sendCommand(new ChatCommand(playerId, text));
+    };
+
+    GamePlayClient.prototype.sendShotBotCommand = function (botId) {
+        var deadPlayerId = null;
+        if (Math.floor(Math.random() * 100) <= 33) {
+            var deadPlayerIndex = Math.floor(Math.random() * viewModel.gamePlay.game().Users.length) % viewModel.gamePlay.game().Users.length;
+            deadPlayerId = viewModel.gamePlay.game().Users[deadPlayerIndex].UserId;
+        }
+        this.sendCommand(new BotFireCommand(botId, deadPlayerId, weapons[0].id, Math.floor(Math.random()*180)));
+    };
+
+    GamePlayClient.prototype.onFireButtonClick = function () {
+        if (viewModel.gamePlay.currentWeapon() == undefined) {
+            return;
+        }
+        viewModel.gamePlay.canSendActiveTurnCommand(false);
+        var deadPlayerId = null;
+        if (Math.floor(Math.random() * 100) <= 33) {
+            var deadPlayerIndex = Math.floor(Math.random() * viewModel.gamePlay.game().Users.length) % viewModel.gamePlay.game().Users.length;
+            deadPlayerId = viewModel.gamePlay.game().Users[deadPlayerIndex].UserId;
+        }
+        this.sendCommand(new FireCommand(viewModel.thisPlayerId, deadPlayerId, viewModel.gamePlay.currentWeapon(), viewModel.gamePlay.currentFiringAngle()));
+        this.nextTurn(viewModel.thisPlayerId);
+    };
+
+    GamePlayClient.prototype.onLeaveBattleButtonClick = function () {
+        viewModel.currentGameStage(GameStage.Leaving);
+    };
+
+    GamePlayClient.prototype.onChatSendButtonClick = function () {
+        this.sendCommand(new ChatCommand(viewModel.thisPlayerId, viewModel.gamePlay.chatText()));
+        viewModel.gamePlay.chatText("");
+    };
+
+    GamePlayClient.prototype.onDeadButtonClick = function () {
+        this.sendCommand(new PlayerDeadCommand(viewModel.thisPlayerId));
+    };
+
+    GamePlayClient.prototype.onWinButtonClick = function () {
+        this.sendCommand(new PlayerWinCommand(viewModel.thisPlayerId));
+    };
+</script>
+<!-- GAME ROOM - END -->
+<!-- GAME CLIENT - BEGIN -->
+<script type="text/javascript">
+    SetBlobEndpoint("@this.ViewBag.BlobEndpoint");
+
+    function ViewModel() {
+        this.userProfile = null;
+        this.thisPlayerId = "";
+        this.thisPlayerName = ko.observable("User");
+        this.storageEndpoint = "@this.ViewBag.BlobEndpoint";
+        this.currentGameStage = ko.observable(GameStage.WaitingForGamQueueeId);
+        this.userSession = ko.observable({ ActiveGameQueueId: nullGameId });
+        this.notifications = ko.observableArray();
+        this.waitingRoom = new WaitingRoomViewModel();
+        this.gamePlay = new GamePlayViewModel();
+        this.choosingWeapons = new ChoosingWeaponsViewModel();
+        this.initialUsers = [];
+    }
+
+    ViewModel.prototype.addNotification = function (notification) {
+        var existing = this.notifications();
+        var n = existing.length;
+
+        for (var i = 0; i < n; i++)
+            if (notification.Id == existing[i].Id)
+                return;
+
+        this.notifications.push(notification);
+
+        if (this.notifications().length > 10)
+            this.notifications.shift();
+    }
+
+    function NotificationClient(userId, storageEndpoint) {
+        this.userId = userId;
+        this.storageEndpoint = storageEndpoint;
+        this.serverInterface = new ServerInterface();
+    };
+
+    NotificationClient.prototype.getNotifications = function (success, error) {
+        window.notificationsCallback = success;
+
+        this.serverInterface.sendAjaxJsonpGetWithError(this.storageEndpoint + "notifications/" + this.userId + "?callback=?",
+            "notificationsCallback", error);
+    };
+
+    NotificationClient.prototype.refreshStatus = function () {
+        this.restartPollingTimeout();
+
+        this.getNotifications(function (result) {
+            var notifications = result.Notifications;
+            var l = notifications.length;
+
+            for (var i = 0; i < l; i++)
+                viewModel.addNotification(notifications[i]);
+        });
+    };
+
+    NotificationClient.prototype.restartPollingTimeout = function () {
+        var reallyThis = this;
+        setTimeout(function () { reallyThis.refreshStatus(); }, 2000);
+    };
+
+    function printNotificationInHtml(notification) {
+        return notification.Message;
+    }
+
+    function GameClient() {
+        this.serverInterface = new ServerInterface(this);
+        this.choosingWeaponsClient = new ChoosingWeaponsClient(this, this.serverInterface);
+        this.waitingRoomClient = new WaitingRoomClient(this, this.serverInterface);
+        this.gamePlayClient = new GamePlayClient(this, this.serverInterface);
+        this.waitingForUserIdClient = new WaitingForGameQueueIdClient(this, this.serverInterface);
+    }
+
+    GameClient.prototype.refreshStatus = function () {
+        switch (viewModel.currentGameStage()) {
+            case GameStage.Playing:
+                this.gamePlayClient.askServerToRefreshGameStatus();
+                break;
+            case GameStage.ChoosingWeapons:
+                this.choosingWeaponsClient.checkIfChoosingWeaponsTimeIsOut();
+                break;
+            case GameStage.WaitingRoom:
+                this.waitingRoomClient.askServerToRefreshGameQueueStatus();
+                break;
+            case GameStage.WaitingForGamQueueeId:
+                this.waitingForUserIdClient.askServerToRefreshUserStatus();
+                break;
+            case GameStage.Leaving:
+                this.askServerToLeaveGame();
+                break;
+            default:
+                alert("Error: Unknown game stage");
+        }
+    };
+    GameClient.prototype.restartPollingTimeout = function () {
+        var reallyThis = this;
+        setTimeout(function () { reallyThis.refreshStatus(); }, 2000);
+    };
+    GameClient.prototype.inventoryitemFromId = function (imageId) {
+        return jQuery.filter(window.viewModel.userProfile.Inventory, function (item) { return item.Id == imageId; })[0];
+    };
+    GameClient.prototype.applyCustomizations = function () {
+        var reallyThis = this;
+        var customizations = viewModel.userProfile.Customizations;
+        jQuery.each(viewModel.userProfile.Customizations, function (type) {
+            var item = viewModel.userProfile.Customizations[type];
+            $('#avatar').hide();
+            switch (item.Type) {
+                case "Avatar":
+                    $('#avatar').attr('src', item.SmlIcon);
+                    $('#avatar').show();
+                    break;
+                case "Tank":
+                    //TODO: If we put better tank images, use them as background
+                    //$('#gamePlayDiv').attr('style', 'background-image:url({0});'.format(item.ImageUrl));
+                    //$('#gamePlayDiv').hide();
+                    break;
+            }
+        });
+    };
+    GameClient.prototype.askServerToLeaveGame = function () {
+        // In this case we won't create a new time out, so there is no pending requeres when we leave the page
+        this.serverInterface.sendAjaxJsonPost("/Game/Leave/" + viewModel.gamePlay.gameId,
+        { reason: "Unknown" },
+        function (result) {
+            window.location.replace("/Client/WarRoom");
+        });
+    };
+
+    function IdToUserName(userId) {
+        var array = viewModel.initialUsers;
+        for (var i = 0; i < array.length; i++) {
+            if (array[i].UserId == userId) {
+                return array[i].UserName;
+            }
+        }
+        return "Unknown User";
+    }
+
+    function isAlive(userId) {
+        var array = viewModel.gamePlay.gameUsers();
+        for (var i = 0; i < array.length; i++) {
+            if (array[i].UserId == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    jQuery(document).ready(function () {
+        window.gameClient = new GameClient();
+        window.viewModel = new ViewModel();
+
+        // We need the viewModel created for this to work
+        ChoosingWeaponsViewModel.prototype.remainingWeapons = ko.dependentObservable(function () {
+            return viewModel.choosingWeapons.maximumWeaponsCount() - viewModel.gamePlay.playerWeapons.length;
+        });
+
+        ko.applyBindings(window.viewModel);
+
+        var userProfileProvider = new UserProfileProvider();
+        userProfileProvider.get(function (userProfile) {
+            window.viewModel.userProfile = userProfile;
+            window.viewModel.thisPlayerId = userProfile.Id;
+
+            window.gameClient.applyCustomizations();
+            window.gameClient.restartPollingTimeout();
+
+            window.notificationClient = new NotificationClient(userProfile.Id, "@this.ViewBag.BlobEndpoint");
+            window.notificationClient.refreshStatus();
+        });
+    });
+
+</script>
+<!-- GAME CLIENT - END -->

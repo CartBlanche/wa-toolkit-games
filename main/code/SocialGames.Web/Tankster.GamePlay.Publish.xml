@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="http://siegeofaperion-qa.cloudapp.net" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="soagame" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="False" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="admin" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAApspRtpuOEGf4wxzbvm93QAAAAACAAAAAAAQZgAAAAEAACAAAADIGiDNsJDiUy8q9YXbJucg7BoFD6IXGlLsKmEof3KIygAAAAAOgAAAAAIAACAAAADE+q4+2hIYCRuMs6VySLXmsVerNzoobr3/flzPar9pHyAAAABmT9EaLQZwb3D7lETWmMhOzu1Yzpwe8fGkXj0UoLJa00AAAAD4nTCDEb6VTi5kNC/HEVReZC0sfcHjvhuI6eRv/x82DQqmEbYYeXcjlES+e0QHZd9S0n3XBf9LcwqvsHWz1MYY" SelectedForPublish="True" />
+</publishData>

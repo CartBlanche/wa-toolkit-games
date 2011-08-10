@@ -24,3 +24,7 @@ GameService.prototype.sendGameAction = function (gameId, action, success, error)
 GameService.prototype.getGameQueueStatus = function (queueId, error) {
     this.serverInterface.sendAjaxJsonpGet(this.blobURL + "sggamesqueues/" + queueId + "?callback=?", "sggamesqueuesCallback", error);
 };
+
+GameService.prototype.getGameStatus = function (gameId, error) {
+    this.serverInterface.sendAjaxJsonpGet(this.blobURL + "sggames/" + gameId + "?callback=?", "sggamesCallback", error);
+};

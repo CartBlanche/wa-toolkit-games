@@ -98,6 +98,7 @@
     <Content Include="Scripts\flXHR-1.0.6\jquery.flXHRproxy.js" />
     <Content Include="Scripts\flXHR-1.0.6\swfobject.js" />
     <Content Include="Scripts\flXHR-1.0.6\updateplayer.swf" />
+    <Content Include="Scripts\game\GameService.js" />
     <Content Include="Scripts\game\ServerInterface.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
@@ -139,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Test\ServerInterfaceTest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Test\GameServiceTest.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

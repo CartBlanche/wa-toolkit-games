@@ -55,3 +55,4 @@ TicTacToeGame.prototype.getWinner = function () {
         return color;
     }
 };
+

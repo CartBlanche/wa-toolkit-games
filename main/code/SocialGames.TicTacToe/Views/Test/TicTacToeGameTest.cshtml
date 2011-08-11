@@ -25,6 +25,9 @@
             for (var x = 0; x < 3; x++)
                 for (var y = 0; y < 3; y++)
                     ok(game.isEmpty(x, y));
+
+            equal(game.isTie(), false);
+            equal(game.hasWinner(), false);
         });
 
         test("Valid Moves on Empty Board", function () {
@@ -50,6 +53,9 @@
             game.move(2, 0, TTTColor.Cross);
 
             equal(game.getWinner(), TTTColor.Cross);
+
+            equal(game.isTie(), false);
+            equal(game.hasWinner(), true);
         });
 
         test("Get Winners in Rows", function () {
@@ -60,6 +66,9 @@
                 game.move(2, row, TTTColor.Circle);
 
                 equal(game.getWinner(), TTTColor.Circle);
+
+                equal(game.isTie(), false);
+                equal(game.hasWinner(), true);
             }
         });
 
@@ -71,6 +80,9 @@
                 game.move(col, 2, TTTColor.Circle);
 
                 equal(game.getWinner(), TTTColor.Circle);
+
+                equal(game.isTie(), false);
+                equal(game.hasWinner(), true);
             }
         });
 
@@ -81,6 +93,9 @@
             game.move(2, 0, TTTColor.Cross);
 
             equal(game.getWinner(), TTTColor.Cross);
+
+            equal(game.isTie(), false);
+            equal(game.hasWinner(), true);
         });
 
         test("Get Winner in Second Diagonal", function () {
@@ -90,6 +105,9 @@
             game.move(0, 2, TTTColor.Cross);
 
             equal(game.getWinner(), TTTColor.Cross);
+
+            equal(game.isTie(), false);
+            equal(game.hasWinner(), true);
         });
     });
 </script>

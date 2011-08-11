@@ -18,7 +18,7 @@ GameService.prototype.startGame = function (queueId, success, error) {
 };
 
 GameService.prototype.sendGameAction = function (gameId, action, success, error) {
-    this.serverInterface.sendAjaxPost(this.apiURL + "game/command/" + gameId, null, success, error);
+    this.serverInterface.sendAjaxPost(this.apiURL + "game/command/" + gameId, action, success, error);
 };
 
 GameService.prototype.getGameQueueStatus = function (queueId, error) {

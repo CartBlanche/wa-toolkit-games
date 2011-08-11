@@ -25,6 +25,30 @@ TicTacToeGame.prototype.isValid = function (x, y, color) {
     return this.isEmpty(x, y);
 };
 
+TicTacToeGame.prototype.nextColor = function (color) {
+    if (color == TTTColor.Cross)
+        return TTTColor.Circle;
+    if (color == TTTColor.Circle)
+        return TTTColor.Cross;
+    return TTTColor.Empty;
+};
+
+TicTacToeGame.prototype.isTie = function () {
+    if (this.hasWinner())
+        return false;
+
+    for (var x = 0; x < 3; x++)
+        for (var y = 0; y < 3; y++)
+            if (this.board[x][y] == TTTColor.Empty)
+                return false;
+
+    return true;
+};
+
+TicTacToeGame.prototype.hasWinner = function () {
+    return this.getWinner() != TTTColor.Empty;
+};
+
 TicTacToeGame.prototype.getWinner = function () {
     var winner;
 

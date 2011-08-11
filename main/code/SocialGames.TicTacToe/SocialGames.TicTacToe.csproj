@@ -102,8 +102,10 @@
     <Content Include="Scripts\game\GameService.js" />
     <Content Include="Scripts\game\ServerInterface.js" />
     <Content Include="Scripts\game\TicTacToeBoard.js" />
+    <Content Include="Scripts\game\TicTacToeController.js" />
     <Content Include="Scripts\game\TicTacToeGame.js" />
     <Content Include="Scripts\game\TicTacToeViewModel.js" />
+    <Content Include="Scripts\game\UserService.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -156,6 +158,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\TicTacToe\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Test\UserServiceTest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\TicTacToe\Login.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

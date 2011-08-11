@@ -31,6 +31,11 @@ namespace Microsoft.Samples.SocialGames.TicTacToe.Controllers
             return View();
         }
 
+        public ActionResult UserServiceTest()
+        {
+            return View();
+        }
+
         public ActionResult TicTacToeGameTest()
         {
             return View();

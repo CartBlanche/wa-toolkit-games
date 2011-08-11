@@ -6,64 +6,58 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/flXHR-1.0.6/jquery.flXHRproxy.js")"></script>
 <script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/GameService.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/TicTacToeBoard.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/TicTacToeGame.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/TicTacToeViewModel.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/TicTacToeController.js")" type="text/javascript"></script>
 <h2>
     Tic Tac Toe</h2>
 
-<div data-bind="visible: (stage() == TicTacToeStage.Create)">
+<div id="main">
     <div>
-    Welcome <b><span data-bind='text: playerName()'></span></b>
+        <div>
+            Welcome <b><span data-bind='text: playerName()'></span></b>
+        </div>
+        <div data-bind="visible: isOwner() && gameQueueId() != null && gameId() == null">
+            <span>Use this URL to invite other players: <span data-bind="text: inviteURL()" />
+            </span>
+            <br />
+        </div>
+        <div data-bind="visible: noPlayers() == 1 && isOwner()">
+            <span>Waiting for your opponent...</span>
+        </div>
     </div>
-    <div data-bind="visible: isOwner() && gameQueueId() != null">
-        <span>Use this URL to invite other players: <span data-bind="text: inviteURL()" />
-        </span>
-        <br />
-    </div>
-    <div data-bind="visible: noPlayers() == 1">
-        <span>Waiting for your opponent...</span>
-    </div>
-</div>
-
-<div>
-    <span>Current players:</span>
-    <div data-bind='template: { name: "queueStatus", foreach: players()}' />
-    <script id="queueStatus" type="text/html">
+    <div>
+        <span>Current players:</span>
+        <div data-bind='template: { name: "queueStatus", foreach: players()}' />
+        <script id="queueStatus" type="text/html">
             <li><b>${$data.UserName}</b></li>
-    </script>
+        </script>
+    </div>
+    <div style="display:none" data-bind="visible: gameId() != null">
+        <div>
+            You are <span data-bind="visible: playerColor() == TTTColor.Cross">Xs</span> <span
+                data-bind="visible: playerColor() == TTTColor.Circle">Os</span>
+        </div>
+        <div data-bind="visible: playerColor() == currentColor()">
+            Your turn!</div>
+        <div data-bind="visible: playerColor() != currentColor()">
+            Opponent turn!</div>
+        <div data-bind="visible: isTie()">
+            Tie!!</div>
+        <div data-bind="visible: playerColor() == winnerColor()">
+            You won!!</div>
+        <div data-bind="visible: playerColor() != winnerColor() && winnerColor() != TTTColor.Empty">
+            You lost!!</div>
+        <canvas id="board" width="300" height="300">
+    </canvas>
+    </div>
 </div>
-
-<div data-bind="visible: (stage() == TicTacToeStage.Play)">
-<canvas id="board" width="300" height="300">
-</canvas>
-</div>
-
 <script type="text/javascript">
     var viewModel;
     var gameQueueId = getQueryVariable("id");
     var nullGameId = "00000000-0000-0000-0000-000000000000";
-
-    var canvas = document.getElementById("board");
-    var board = new TicTacToeBoard(canvas);
-    var game = new TicTacToeGame();
-
-    function sggamesqueuesCallback(gameQueueStatus) {
-        viewModel.players(gameQueueStatus.Users);
-        viewModel.noPlayers(gameQueueStatus.Users.length);
-
-        if (gameQueueStatus.GameId != null && gameQueueStatus.GameId != nullGameId) {
-            viewModel.gameId(gameQueueStatus.GameId);
-            if (viewModel.stage() != TicTacToeStage.Play)
-                viewModel.stage(TicTacToeStage.Play);
-        }
-
-        if (viewModel.gameId() == null && viewModel.isOwner() && gameQueueStatus.Users.length == 2)
-            gs.startGame(viewModel.gameQueueId());
-    };
-
-    function sggamesCallback(gameStatus) {
-    };
 
     function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -77,45 +71,41 @@
         }
     }
 
-    function refreshStatus() {
-        restartRefreshStatus();
-
-        if (viewModel.gameId() != null)
-            gs.getGameStatus(viewModel.gameId());
-        else if (viewModel.gameQueueId() != null)
-            gs.getGameQueueStatus(viewModel.gameQueueId());
-    };
-
-    function restartRefreshStatus() {
-        setTimeout(refreshStatus, 1000);
-    };
-
     var apiURL = "http://127.0.0.1:81/";
     var blobURL = "http://127.0.0.1:10000/devstoreaccount1/";
 
     var si = new ServerInterface();
     var gs = new GameService(apiURL, blobURL, si);
+    var us = new UserService(apiURL, blobURL, si);
+
+    var controller;
+
+    function start() {
+        $("#main").show();
+        viewModel = new TicTacToeViewModel();
+        ko.applyBindings(viewModel);
+
+        var canvas = document.getElementById("board");
+        var board = new TicTacToeBoard(canvas);
+        var game = new TicTacToeGame();
+
+        var controller = new TicTacToeController(viewModel, gs, board, game);
+
+        controller.setGameQueueId(gameQueueId);
+
+        controller.start();
+    }
 
     $(function () {
         $.flXHRproxy.registerOptions(apiURL, { xmlResponseText: false, loadPolicyURL: apiURL + "crossdomain.xml" });
 
-        viewModel = new TicTacToeViewModel();
-
-        ko.applyBindings(viewModel);
-
-        if (gameQueueId != null) {
-            viewModel.gameQueueId(gameQueueId);
-            refreshStatus();
-            gs.joinGameQueue(gameQueueId, function (data) {
-            });
-        }
-        else {
-            gs.createGameQueue(function (data) {
-                viewModel.isOwner(true);
-                viewModel.gameQueueId(data);
-                refreshStatus();
-                viewModel.inviteURL(document.location.href + "?id=" + data);
-            });
-        }
+        us.verify(
+            function () { start(); },
+            function () {
+                var newlocation = '/TicTacToe/Login?ReturnUrl=' + encodeURIComponent(window.location.href);
+                window.location.assign(newlocation);
+            }
+        );
     });
+
 </script>

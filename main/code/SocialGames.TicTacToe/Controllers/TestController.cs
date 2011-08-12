@@ -43,6 +43,16 @@
             return View();
         }
 
+        public ActionResult ConnectFourGameTest()
+        {
+            return View();
+        }
+
+        public ActionResult ConnectFourBoardTest()
+        {
+            return View();
+        }
+
         public ActionResult CanvasTest()
         {
             return View();

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Microsoft.Samples.SocialGames.TicTacToe.Controllers
+﻿namespace Microsoft.Samples.SocialGames.TicTacToe.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+
     public class TicTacToeController : Controller
     {
-        //
-        // GET: /TicTacToe/
-
         public ActionResult Index()
         {
             this.SetConfigurationData();
@@ -23,6 +20,11 @@ namespace Microsoft.Samples.SocialGames.TicTacToe.Controllers
             return View();
         }
 
+        public ActionResult OldBrowser()
+        {
+            return View();
+        }
+
         private void SetConfigurationData()
         {
             this.ViewBag.BlobUrl = System.Configuration.ConfigurationManager.AppSettings["BlobUrl"];
@@ -30,4 +32,3 @@ namespace Microsoft.Samples.SocialGames.TicTacToe.Controllers
         }
     }
 }
-

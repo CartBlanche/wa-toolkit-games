@@ -102,7 +102,8 @@
                 Weapons = new List<Guid>()
             };
 
-            GameQueue gameQueue = new GameQueue() {
+            GameQueue gameQueue = new GameQueue() 
+            {
                 Id = gameQueueId,
                 CreationTime = DateTime.UtcNow,
                 Status = QueueStatus.Waiting,

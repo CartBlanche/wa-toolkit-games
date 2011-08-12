@@ -10,8 +10,6 @@ function TicTacToeBoard(canvas) {
         var width = board.canvas.width;
         var height = board.canvas.height;
 
-//        var clickX = e.clientX - board.canvas.offsetLeft;
-//        var clickY = e.clientY - board.canvas.offsetTop;
         var clickX = e.offsetX;
         var clickY = e.offsetY;
 
@@ -71,8 +69,8 @@ TicTacToeBoard.prototype.drawX = function (x, y) {
     var beginX = x * (width / 3) + offsetX;
     var beginY = y * (height / 3) + offsetY;
 
-    var endX = (x + 1) * (width / 3) - offsetX * 2;
-    var endY = (y + 1) * (height / 3) - offsetY * 2;
+    var endX = (x + 1) * (width / 3) - offsetX;
+    var endY = (y + 1) * (height / 3) - offsetY;
 
     context.moveTo(beginX, beginY);
     context.lineTo(endX, endY);
@@ -99,8 +97,8 @@ TicTacToeBoard.prototype.drawO = function (x, y) {
     var beginX = x * (width / 3) + offsetX;
     var beginY = y * (height / 3) + offsetY;
 
-    var endX = (x + 1) * (width / 3) - offsetX * 1;
-    var endY = (y + 1) * (height / 3) - offsetY * 1;
+    var endX = (x + 1) * (width / 3) - offsetX;
+    var endY = (y + 1) * (height / 3) - offsetY;
 
     context.arc(beginX + ((endX - beginX) / 2), beginY + ((endY - beginY) / 2), (endX - beginX) / 2, 0, Math.PI * 2, true);
 

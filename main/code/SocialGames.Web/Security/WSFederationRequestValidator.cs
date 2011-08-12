@@ -18,19 +18,20 @@
         {
             validationFailureIndex = 0;
 
+            // TODO Review stack overflow
+            ////if (requestValidationSource == RequestValidationSource.Form && collectionKey.Equals(WSFederationConstants.Parameters.Result, StringComparison.Ordinal))
+            ////{
+            ////    SignInResponseMessage message = WSFederationMessage.CreateFromFormPost(context.Request) as SignInResponseMessage;
+
+            ////    if (message != null)
+            ////    {
+            ////        return true;
+            ////    }
+            ////}
+
+            ////return base.IsValidRequestString(context, value, requestValidationSource, collectionKey, out validationFailureIndex);
+
             return true;
-
-            if (requestValidationSource == RequestValidationSource.Form && collectionKey.Equals(WSFederationConstants.Parameters.Result, StringComparison.Ordinal))
-            {
-                SignInResponseMessage message = WSFederationMessage.CreateFromFormPost(context.Request) as SignInResponseMessage;
-
-                if (message != null)
-                {
-                    return true;
-                }
-            }
-
-            return base.IsValidRequestString(context, value, requestValidationSource, collectionKey, out validationFailureIndex);
         }
     }
 }

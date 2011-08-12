@@ -70,7 +70,7 @@
 
             var gameRepository = new Mock<IGameRepository>();
             gameRepository.Setup(m => m.GetGame(It.Is<Guid>(g => g == testGameQueue.Id)))
-                          .Returns((Game) null)
+                          .Returns((Game)null)
                           .Verifiable();
             gameRepository.Setup(m => m.GetGameQueue(It.Is<Guid>(g => g == testGameQueue.Id)))
                           .Returns(testGameQueue)

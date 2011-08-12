@@ -1,0 +1,16 @@
+<ul id="navigationBar">
+<# 
+	foreach (var menuTopic in Sample.Document.Topics.Where(t => (t.Title != "Index")))
+	{
+#>
+		<li>
+<#		if (menuTopic.Title == topicTitle) { #>		
+			<a href="#" title="<#=  menuTopic.Title #>" class="selected">
+<# 		} else { #>
+			<a href="<#= String.Concat(menuTopic.Title, ".htm") #>" title="<#=  menuTopic.Title #>">
+<#  	} #>
+				<#=  menuTopic.Title.ToUpper() #>
+			</a>
+		</li>
+<#	} #>
+</ul>

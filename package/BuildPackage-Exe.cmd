@@ -1,0 +1,1 @@
+.\Resources\PackageSample.cmd "..\main\Sample.xml" ".\Output" "SelfExtracting" ".\Resources\Template"

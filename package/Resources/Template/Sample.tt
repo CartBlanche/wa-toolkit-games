@@ -1,0 +1,61 @@
+﻿<#@ template language="C#v3.5" debug="True" hostspecific="true" #>
+<#@ output extension="htm" #>
+<#@ assembly name="System.dll" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="ContentFramework.Model.dll" #>
+<#@ import namespace="ContentFramework.Model" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ property name="Sample" processor="PropertyProcessor" #>
+<#@ include file="functions.include.tt" #>
+<# 
+    var topics = Sample.Document.Topics.Where(t => t.Title != "Index").ToArray();
+	
+    for( var i = 0; i < topics.Length; i++)
+    {
+		var topic = topics[i];
+        var topicTitle = topic.Title;
+        var topicFileName = String.Concat(topicTitle, ".htm");
+#>
+<#@ include file="header.include.tt" #>
+<#@ include file="jsmessage.include.tt" #>
+
+			<div class="content">
+				<h1><#= Sample.Title #></h1>
+				
+				<!--<# if(topicTitle == "Overview"){ #>
+					<div id="thumbnailPanel">
+						<img src="images\Thumbnail.png" title="MyTodo Thumbnail" width="300px" height="232px;" />
+					</div>
+					<div class="docContent" style="float:left; width:625px; margin-left:15px; background-color:#ffffff">
+				<# } else { #>-->
+					<div class="docContent">
+				<!--<# } #>-->
+					<#= UpdateSampleLinks(UpdateImagesPath(topic.BodyContent, Path.Combine("..", Path.Combine(Sample.Document.RelativeHtmlPath, "html")))) #>
+					<# if (i < topics.Length - 1 ) { #>
+						<br />
+						<a href="<#= String.Concat(topics[i+1].Title, ".htm") #>" title="<#= topics[i+1].Title #>">
+							<#= topics[i+1].Title #> ->
+						</a>
+					<# } #>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+<#@ include file="footer.include.tt" #>
+
+<# 
+        SaveOutput(Path.Combine(Sample.BasePath, topicFileName));
+    } // foreach topic
+#>
+
+<#+
+void SaveOutput(string outputFileName)
+{
+    File.WriteAllText(outputFileName, this.GenerationEnvironment.ToString()); 
+    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+}
+#>
+

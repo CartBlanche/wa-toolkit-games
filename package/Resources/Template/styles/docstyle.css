@@ -1,0 +1,596 @@
+﻿.docContent div, span, p, a, img, ul, ol, li, table, th, tr, td, form, fieldset, legend, dl, dt, dd, blockquote, applet, object {
+	border: 0;
+	font-size: 11px;
+}
+
+.docContent .userDataStyle
+{
+	behavior: url(#default#userData);
+}
+
+.docContent div.saveHistory
+{
+	behavior: url(#default#saveHistory);
+	padding:1em;
+}
+
+.docContent img.toggle
+{
+	border: 0;
+	margin-right: 5;
+}
+
+.docContent img#languageFilterImage
+{
+	border: 0;
+	margin-left: 0;
+	vertical-align: middle;
+}
+
+.docContent img#membersOptionsFilterImage
+{
+	border: 0;
+	margin-left: 0;
+	vertical-align: middle;
+}
+
+.docContent img#toggleAllImage
+{
+	margin-left: 0;
+	vertical-align: middle;
+}
+
+.docContent 
+{	
+	padding:0;
+	margin:0;
+	background-color: #f4f4f4;
+	color: #333333;
+	margin: 0 auto;
+}
+
+.docContent dl
+{
+	margin-top:	15px;
+	margin-bottom:5px;
+	padding-left:	1;
+}
+
+.docContent dd
+{
+	margin-left:	0;
+}
+
+.docContent ul
+{
+	margin-top:0;
+	margin-bottom:0;
+	margin-left: 17px;
+	list-style-type: disc;
+}
+
+.docContent ul ul
+{
+	margin-bottom: 4;
+	margin-left: 17px;
+	margin-top: 3px;
+	list-style-type: disc;
+}
+
+.docContent ol
+{
+	margin-top:0;
+	margin-bottom:0;
+	margin-left: 28px;
+	list-style-type: decimal;
+}
+
+.docContent ol ol
+{
+	margin-bottom: 4px;
+	margin-left: 28px;
+	margin-top: 3px;
+	list-style-type: lower-alpha;
+}
+
+.docContent li
+{
+	margin-top:-2px;
+	margin-bottom: 3px;
+}
+
+.docContent p
+{
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+a {
+	color: #1E85BE;
+	text-decoration: none;
+}
+
+.docContent a:hover {
+	text-decoration: underline;
+}
+
+.docContent code
+{
+	color:	#000066;
+}
+
+.docContent span.parameter {
+	font-style: italic;
+}
+
+.docContent h1, h2, h3, h4 {
+	margin:0;
+	padding:0;
+}
+
+.docContent div#mainSection
+{
+	padding:0;
+	margin:0;
+	text-align: left;
+	background-color:white;	
+}
+
+.docContent div#mainBody
+{
+	
+}
+
+.docContent div#mainBody p, div#mainBody ol, div#mainBody ul, div#mainBody dl
+{
+	padding-right: 5px;
+}
+
+.docContent div#header
+{
+	padding:0;	
+	margin:0;
+	text-align: left;
+	background-color:white;
+}
+
+.docContent div#header table
+{	
+	width:	100%;
+	margin:	0;	
+	padding: 0;
+}
+
+.docContent div#header table td
+{
+	color: #0000FF;
+	font-size: 1em;
+	margin:	0;	
+	padding: 0;
+}
+
+.docContent div#header table tr#headerTableRow3 td
+{
+	padding-bottom: 2px;
+	padding-top: 5px;
+	padding-left: 15px;
+	
+}
+
+.docContent div#header table#bottomTable
+{
+	border-top-color: #FFFFFF;
+	border-top-style: solid;
+	border-top-width: 1px;
+	text-align: left;
+	padding-left: 15px;
+}
+
+.docContent div#mainSection table td.imageCell
+{
+	white-space: nowrap;
+}
+
+.docContent div#mainBody div.alert, div#mainBody div.code, div#mainBody div.tableSection
+{
+	width:98.9%;
+	margin-top:0.5em;
+}
+
+.docContent div#mainBody div.section div.alert, div#mainBody div.section div.code,
+.docContent div#mainBody div.section div.tableSection
+{
+	width:100%;
+}
+
+.docContent div#mainBody div.section ul div.alert, div#mainBody div.section ul div.code,
+.docContent div#mainBody div.section ul div.tableSection, div#mainBody div.section ol div.alert, 
+.docContent div#mainBody div.section ol div.code, div#mainBody div.section ol div.tableSection
+{
+	width:100%;
+}
+
+.docContent div.alert p, div.code p
+{
+	margin-top:5px;
+	margin-bottom:8px;
+}
+
+.docContent dd p
+{
+	margin-top:4px;
+	margin-bottom:4px;
+}
+
+.docContent div.tableSection p
+{
+	margin-top:1px;
+	margin-bottom:4px;
+}
+
+.docContent li p
+{
+	margin-top:2px;
+	margin-bottom:2px;
+}
+
+.docContent div.seeAlsoNoToggleSection dl
+{
+	margin-top:8px;
+	margin-bottom:1px;
+	padding-left:1px;
+}
+
+.docContent div.seeAlsoNoToggleSection dd p
+{
+	margin-top:2px;
+	margin-bottom:2px;
+}
+
+.docContent div.section dl
+{
+	margin-top:8px;
+	margin-bottom:1px;
+	padding-left:1px;
+}
+
+.docContent div.section dd p
+{
+	margin-top:2px;
+	margin-bottom:2px;
+}
+
+.docContent div.code table
+{
+	border: 0;
+	margin-bottom: 5px;
+	margin-top:-.4em;
+	width: 100%;
+}
+
+.docContent div.code table th
+{	
+	background:	#EFEFF7;
+	border-bottom-color: #C8CDDE;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	color: #000066;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-family: 'Segoe UI', 'Trebuchet MS', lucida, sans-serif;
+	font-size:1.2em;
+}
+
+.docContent div.code table td
+{
+	background:	#F7F7FF;
+	border-top-color: #FFFFFF;
+	border-top-style: solid;
+	border-top-width: 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+}
+
+.docContent div.code table td pre
+{
+   font-size:1.2em;
+   font-family: Consolas, Monospace, Courier New, Courier;
+   color: #000066;
+   white-space: pre-wrap
+}
+
+.docContent span.copyCode
+{
+	color: #0000ff;
+	font-size: 0.8em;
+	font-weight: normal;
+	cursor: pointer;
+	float: right;
+	display: inline;
+	text-align: right;
+}
+
+.docContent span#runningHeaderText
+{
+	color: #218FE8;
+	font-size:2em;
+	display:block;
+	margin-right:160px;
+}
+
+.docContent span#nsrTitle
+{	
+	font-size:1.1em;
+	line-height:1.9em;
+	color: #6B6B6B;
+}
+
+.docContent #topTable tbody{
+	margin:0;
+	padding:0;
+}
+
+.docContent #headerTableRow1 {
+	width:100%;	
+	background: url(logo.png) no-repeat top right;	
+	margin:0;
+	padding:0;
+	height:50px;
+}
+
+.docContent #headerTableRow1 td {
+ vertical-align:bottom;	
+}
+
+.docContent #headerTableRow2 {
+	width:100%;	
+	background: url(menu_bar.png) repeat-x bottom left;	
+	margin:0;
+	padding:0;
+	
+}
+
+.docContent div#footer
+{
+	font-size: 1em;
+	margin:0;	
+	padding:0 1em;	
+	width:	100%;
+	background: url(menu_bar.png) repeat-x bottom left;	
+}
+
+.docContent div#footer p
+{
+	margin:0;
+	line-height:1.9em;
+}
+
+.docContent div.seeAlsoNoToggleSection
+{
+	margin-left:0;
+	padding-top:	2px;
+	padding-bottom:	2px;
+	padding-left:	0px;
+	padding-right:	15px;
+	width:	100%;
+}
+
+.docContent div.section
+{
+	margin-left:0;
+	padding-top:	2px;
+	padding-bottom:	2px;
+	padding-left:	16px;
+	padding-right:	15px;
+	width:	100%;
+}
+
+.docContent div.seeSection
+{
+	margin-left:0;
+	padding-top:0;
+	padding-bottom:2px;
+	padding-left:16px;
+	padding-right:15px;
+	width:100%;
+}
+
+.docContent .heading
+{
+	font-weight:normal;
+	margin-top:2em;
+}
+
+.docContent h1.heading
+{
+	font-size: 1.6em;
+	line-height:22px;
+}
+
+.docContent h2.subHeading
+{
+	font-size: 1.4em;
+    font-weight: 800;
+    padding:0 0 0 16px;
+	line-height:18px;
+}
+
+.docContent h3.subHeading
+{
+	color:  #001177;
+	font-size: 1.8em;
+    font-weight:800;
+}
+
+.docContent h4.subHeading
+{
+	color: #000000;
+	font-size: 100%;
+	font-weight:800;
+}
+
+.docContent span.labelheading, div.labelheading
+{
+	color:#003399;
+}
+
+.docContent img.copyCodeImage
+{
+	border: 0;
+	margin: 1px;
+	margin-right: 3px;
+}
+
+.docContent img.downloadCodeImage
+{
+	border: 0;
+	margin-right: 3px;
+}
+
+.docContent img.viewCodeImage
+{
+	border: 0;
+	margin-right: 3px;
+}
+
+.docContent img.note
+{
+	border: 0;
+	margin-right: 3px;
+}
+
+.docContent div#mainSection table
+{
+	border: 0;
+	font-size: 1em;
+	width:	98.9%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.docContent div#mainSection table tr
+{
+	vertical-align: top;
+}
+
+.docContent div#mainSection table th
+{
+	background-color: #EFEFF7;
+	border-bottom: 1px solid #C8CDDE;
+	color: #000066;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: left;
+}
+
+.docContent div#mainSection table td
+{
+	background-color: #F7F7FF;
+	border-bottom: 1px solid #D5D5D3;
+	border-left-color: 1px solid #D5D5D3;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin: 1px;
+}
+
+.docContent div#mainSection table td.imageCell
+{
+	white-space: nowrap;
+}
+
+.docContent div.alert table
+{
+	border: 0;
+	font-size: 1em;
+	width:	100%;
+}
+
+.docContent div.alert table th
+{
+	background:	#EFEFF7;
+	border-bottom-width: 0;
+	color: #000066;
+	padding: 2px;
+}
+
+.docContent div.alert table td
+{
+	background:	#F7F7FF;
+	border-top-color: #FFFFFF;
+	border-top-style: solid;
+	border-top-width: 1px;
+	padding: 7px;
+}
+
+.docContent pre b
+{
+  background-color: #D4DFFF;
+}
+
+.docContent .tip
+{
+	color:	#0000FF;
+	font-style: italic;
+	cursor:pointer;
+	text-decoration:underline;
+}
+
+.docContent .languageFilter
+{
+	color:	#0000FF;
+	cursor:pointer;
+	text-decoration:underline;
+	padding-bottom:4px;
+}
+
+.docContent .math
+{
+	font-family: Times New Roman;
+}
+
+.docContent #languageSpan {
+	position: absolute;
+	visibility:hidden;
+	border-style: solid;	
+	border-color: #C8CDDE;
+	background: #d4dfff;	
+	font-size: 70%;
+}
+
+.docContent #membersOptionsSpan {
+	position: absolute;
+	visibility: hidden;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #C8CDDE;
+	background: #d4dfff;
+	padding: 4px;
+	font-size: .9em;
+}
+
+/* Line seperating footer from main body */
+
+.docContent div.footerLine {
+	
+}
+
+.docContent table th  p
+{
+	margin:0;
+	padding: 0px;
+}
+
+.docContent table td  p
+{
+	margin:0;
+	padding: 0px;
+}
+
+.docContent table td  li
+{
+	margin-top:	4px;
+	margin-bottom:	6px;
+	padding: 0px;
+}

@@ -1,0 +1,16 @@
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="microsoftLink">
+			<a href="http://www.microsoft.com/" title="Microsoft">
+				<img alt="Microsoft" src="images/ms-logo-footer.gif" /></a>
+			<span>&copy; 2011 Microsoft</span>
+		</div>
+		<div class="leftSideLinks">
+			<a href="mailto:azcfeed@microsoft.com">Contact Us</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="EULA.htm" target="_parent">Terms of Use</a><br />
+		</div>
+	</div>
+</body>
+</html>

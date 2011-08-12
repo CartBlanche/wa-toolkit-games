@@ -1,0 +1,36 @@
+<options xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+  <xml>
+    <MSHelp:Attr Name="DocSet" Value="docSet" />
+    <MSHelp:Attr Name="TopicType" Value="kbOrient" />
+    <MSHelp:Attr Name="Locale" Value="kbEnglish" />
+    <MSHelp:Attr Name="AssetId" Value="{GUID}" />
+  </xml>
+  
+  <stylesheet>../local/Classic.css</stylesheet>  
+  <script>../local/EventUtilities.js</script>
+  <script>../local/SplitScreen.js</script>
+  <script>../local/Dropdown.js</script>
+  <script>../local/script.js</script>
+  <imagespath>../local</imagespath>
+
+  <languages>
+    <language checkboxId="vbUsageCheckbox">Visual Basic Usage</language>
+    <language checkboxId="csCheckbox">C#</language>
+  </languages>
+  <languagesections>false</languagesections>
+  
+  <preReleaseText></preReleaseText>
+  <header>Custom Title</header>  
+  <footer>
+    <img alt="Footer image" width="100%" height="3px" src="../local/footer.gif" />
+  </footer>
+  <copyright>
+    Copyright © 2009 by Microsoft Corporation. All rights reserved.
+  </copyright>
+  <feedback>
+    To give feedback.
+  </feedback>  
+  
+  <tabspace>4</tabspace>
+  <collapsiblesections>false</collapsiblesections>
+</options>

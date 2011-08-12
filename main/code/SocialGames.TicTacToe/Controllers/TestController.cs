@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Microsoft.Samples.SocialGames.TicTacToe.Controllers
+﻿namespace Microsoft.Samples.SocialGames.TicTacToe.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+
     public class TestController : Controller
     {
-        //
-        // GET: /Test/
-
         public ActionResult Index()
         {
             this.SetConfigurationData();
@@ -42,6 +39,16 @@ namespace Microsoft.Samples.SocialGames.TicTacToe.Controllers
         }
 
         public ActionResult TicTacToeGameTest()
+        {
+            return View();
+        }
+
+        public ActionResult ConnectFourGameTest()
+        {
+            return View();
+        }
+
+        public ActionResult ConnectFourBoardTest()
         {
             return View();
         }

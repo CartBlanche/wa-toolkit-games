@@ -1,7 +1,9 @@
 ﻿
-function TicTacToeBoard(canvas) {
+function ConnectFourBoard(canvas, width, height) {
     var board = this;
     this.canvas = canvas;
+    this.width = width;
+    this.height = height;
 
     canvas.onclick = function (e) {
         if (board.onMove == null)
@@ -13,16 +15,16 @@ function TicTacToeBoard(canvas) {
         var clickX = e.offsetX;
         var clickY = e.offsetY;
 
-        var y = Math.floor(clickY / (height / 3));
-        var x = Math.floor(clickX / (width / 3));
+        var y = Math.floor(clickY / (height / board.height));
+        var x = Math.floor(clickX / (width / board.width));
 
-        board.onMove(x, y);
+        board.onMove(x);
     };
 
     this.draw();
 };
 
-TicTacToeBoard.prototype.draw = function () {
+ConnectFourBoard.prototype.draw = function () {
     var width = this.canvas.width;
     var height = this.canvas.height;
     var context = this.canvas.getContext("2d");
@@ -33,28 +35,23 @@ TicTacToeBoard.prototype.draw = function () {
     context.beginPath();
     context.lineWidth = 4;
 
-    context.moveTo((width / 3), 0);
-    context.lineTo((width / 3), height);
-    context.moveTo((width / 3) * 2, 0);
-    context.lineTo((width / 3) * 2, height);
-
-    context.moveTo(0, (height / 3));
-    context.lineTo(width, (height / 3));
-    context.moveTo(0, (height / 3) * 2);
-    context.lineTo(width, (height / 3) * 2);
+    for (var x = 1; x < this.width; x++) {
+        context.moveTo((width / this.width) * x, 0);
+        context.lineTo((width / this.width) * x, height);
+    }
 
     context.stroke();
     context.closePath();
 };
 
-TicTacToeBoard.prototype.drawMove = function (x, y, color) {
-    if (color == TTTColor.Cross)
+ConnectFourBoard.prototype.drawMove = function (x, y, color) {
+    if (color == C4Color.Cross)
         this.drawX(x, y);
-    if (color == TTTColor.Circle)
+    if (color == C4Color.Circle)
         this.drawO(x, y);
 };
 
-TicTacToeBoard.prototype.drawX = function (x, y) {
+ConnectFourBoard.prototype.drawX = function (x, y) {
     var width = this.canvas.width;
     var height = this.canvas.height;
     var context = this.canvas.getContext("2d");
@@ -63,14 +60,14 @@ TicTacToeBoard.prototype.drawX = function (x, y) {
     context.strokeStyle = "#0000ff";
     context.lineWidth = 4;
 
-    var offsetX = (width / 3) * 0.1;
-    var offsetY = (height / 3) * 0.1;
+    var offsetX = (width / this.width) * 0.1;
+    var offsetY = (height / this.height) * 0.1;
 
-    var beginX = x * (width / 3) + offsetX;
-    var beginY = y * (height / 3) + offsetY;
+    var beginX = x * (width / this.width) + offsetX;
+    var beginY = y * (height / this.height) + offsetY;
 
-    var endX = (x + 1) * (width / 3) - offsetX;
-    var endY = (y + 1) * (height / 3) - offsetY;
+    var endX = (x + 1) * (width / this.width) - offsetX;
+    var endY = (y + 1) * (height / this.height) - offsetY;
 
     context.moveTo(beginX, beginY);
     context.lineTo(endX, endY);
@@ -82,7 +79,7 @@ TicTacToeBoard.prototype.drawX = function (x, y) {
     context.closePath();
 };
 
-TicTacToeBoard.prototype.drawO = function (x, y) {
+ConnectFourBoard.prototype.drawO = function (x, y) {
     var width = this.canvas.width;
     var height = this.canvas.height;
     var context = this.canvas.getContext("2d");
@@ -91,14 +88,14 @@ TicTacToeBoard.prototype.drawO = function (x, y) {
     context.strokeStyle = '#00ff00';
     context.lineWidth = 4;
 
-    var offsetX = (width / 3) * 0.1;
-    var offsetY = (height / 3) * 0.1;
+    var offsetX = (width / this.width) * 0.1;
+    var offsetY = (height / this.height) * 0.1;
 
-    var beginX = x * (width / 3) + offsetX;
-    var beginY = y * (height / 3) + offsetY;
+    var beginX = x * (width / this.width) + offsetX;
+    var beginY = y * (height / this.height) + offsetY;
 
-    var endX = (x + 1) * (width / 3) - offsetX;
-    var endY = (y + 1) * (height / 3) - offsetY;
+    var endX = (x + 1) * (width / this.width) - offsetX;
+    var endY = (y + 1) * (height / this.height) - offsetY;
 
     context.arc(beginX + ((endX - beginX) / 2), beginY + ((endY - beginY) / 2), (endX - beginX) / 2, 0, Math.PI * 2, true);
 

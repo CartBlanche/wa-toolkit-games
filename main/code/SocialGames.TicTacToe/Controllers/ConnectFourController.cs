@@ -6,7 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
 
-    public class TicTacToeController : Controller
+    public class ConnectFourController : Controller
     {
         public ActionResult Index()
         {

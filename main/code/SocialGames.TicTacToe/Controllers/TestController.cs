@@ -43,12 +43,12 @@
             return View();
         }
 
-        public ActionResult ConnectFourBoardTest()
+        public ActionResult ConnectFourGameTest()
         {
             return View();
         }
 
-        public ActionResult ConnectFourGameTest()
+        public ActionResult ConnectFourBoardTest()
         {
             return View();
         }

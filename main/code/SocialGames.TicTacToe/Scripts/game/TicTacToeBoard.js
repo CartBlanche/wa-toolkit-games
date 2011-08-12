@@ -10,8 +10,10 @@ function TicTacToeBoard(canvas) {
         var width = board.canvas.width;
         var height = board.canvas.height;
 
-        var clickX = e.clientX - board.canvas.offsetLeft;
-        var clickY = e.clientY - board.canvas.offsetTop;
+//        var clickX = e.clientX - board.canvas.offsetLeft;
+//        var clickY = e.clientY - board.canvas.offsetTop;
+        var clickX = e.offsetX;
+        var clickY = e.offsetY;
 
         var y = Math.floor(clickY / (height / 3));
         var x = Math.floor(clickX / (width / 3));

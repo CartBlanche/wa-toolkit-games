@@ -33,10 +33,9 @@
     }
 
     jQuery(document).ready(function () {
-        var apiURL = "http://127.0.0.1:81/";
+        var apiURL = "@this.ViewBag.ApiUrl";
 
         $.flXHRproxy.registerOptions(apiURL, { xmlResponseText: false, loadPolicyURL: apiURL + "crossdomain.xml" });
-
 
         $(".status").text("Loading...");
 

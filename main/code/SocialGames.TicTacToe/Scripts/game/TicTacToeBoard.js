@@ -10,8 +10,10 @@ function TicTacToeBoard(canvas) {
         var width = board.canvas.width;
         var height = board.canvas.height;
 
-        var clickX = e.offsetX;
-        var clickY = e.offsetY;
+        var position = board.getPosition(e);
+
+        var clickX = position.x;
+        var clickY = position.y;
 
         var y = Math.floor(clickY / (height / 3));
         var x = Math.floor(clickX / (width / 3));
@@ -20,6 +22,31 @@ function TicTacToeBoard(canvas) {
     };
 
     this.draw();
+};
+
+TicTacToeBoard.prototype.getPosition = function (e) {
+    if (e.offsetX != undefined && e.offsetY != undefined) {
+        return { x: e.offsetX, y: e.offsetY };
+    }
+
+    var x;
+    var y;
+
+    if (e.x != undefined && e.y != undefined) {
+        x = e.x;
+        y = e.y;
+    }
+    else {
+        x = e.clientX + document.body.scrollLeft +
+              document.documentElement.scrollLeft;
+        y = e.clientY + document.body.scrollTop +
+              document.documentElement.scrollTop;
+    }
+
+    x -= this.canvas.offsetLeft;
+    y -= this.canvas.offsetTop;
+
+    return { x: x, y: y };
 };
 
 TicTacToeBoard.prototype.draw = function () {

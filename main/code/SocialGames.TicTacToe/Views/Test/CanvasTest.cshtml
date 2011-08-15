@@ -23,11 +23,6 @@
         currentColor = nextColor(currentColor);
     };
 
-    game.move(0, 0, TTTColor.Cross);
-    board.drawX(0, 0);
-    game.move(1, 1, TTTColor.Circle);
-    board.drawO(1, 1);
-
     var currentColor = TTTColor.Cross;
 
     function nextColor(color) {

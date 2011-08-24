@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="SocialGames.Cloud.NodeJs" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*">
+  <Role name="SocialGames.WorkerNodeJs">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEFCtkD3GyDWWTWKJUXFC898wDQYJKoZIhvcNAQEBBQAEggEANmv3Iecph4sm4imtYoEwyOoqsZBxyiYTDgV0T94NSKMXGto800D74IUuA4QjoSQ743MKkTh5gMEaxx7TEE4kAE4TNGFqmNM6BqQHM51xNadVsgwrSVDx4mYycmUu2qKdV/+fFAfiPxCHt+uBfFx/Ug23Wx1V8oHli740Iw4KTHCI9lz+B5jM1YVbz02SKI3rbZB3iY9Pw7tFtdq4AGAD1YS/30e58vxnP+54giGBkJVA3O3vYbYPRhTNXhMBxzGFc7t0NIpCmOTcoNr9dYTO+gCOYrCWQWAayA0h5pKjsxGzl0hTyM5XX4SuYxkWchLb3DRl3ZJ6Gf6v/fjf083GPDAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECI2Sc20BUIv7gBC/idiXNBqPSEwi4VQKSWZe" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2012-07-24T23:59:59.0000000-03:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="A724F6EFB6EE48D650455FAC0BC5CBCAE739336E" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

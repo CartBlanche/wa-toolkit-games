@@ -53,6 +53,7 @@
     <div style="display: none" data-bind="visible: gameId() != null">
         <fieldset>
             <legend>Game</legend>
+            <div>Game Id <span data-bind="text: gameId()"></span></div>
             <div>
                 You are <span data-bind="visible: playerColor() == TTTColor.Cross">Xs</span> <span
                     data-bind="visible: playerColor() == TTTColor.Circle">Os</span>

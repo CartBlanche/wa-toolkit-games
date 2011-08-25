@@ -99,4 +99,4 @@ function broadcast(data, sender)
     }
 }
 
-server.listen(8124, 'localhost');
+server.listen(8124);

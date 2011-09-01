@@ -33,27 +33,34 @@ var server = net.createServer(function (c) {
     c.on('data', function (data) {
         console.log(data);
 
-        var message = null;
+        var isEmpty = /^\s*$/;
+        var parts = data.split("\n");
+        var len = parts.length;
+        for (var i=0; i<len; i++) {
+            // ignore empty strings
+            if (isEmpty.test(parts[i])) { continue; }
+            var message = null;
 
-        try {
-            message = JSON.parse(data);
-        }
-        catch (err) {
-            console.log("Error Processing Data", err);
-            return;
-        }
-
-        if (message != null && message.name != null && message.args != null) {
-            if (message.name == 'join') {
-                c.room = message.args[0];
-             	console.log('Joining', c.room);
-                return;          
+            try {
+                message = JSON.parse(parts[i]);
+            }
+            catch (err) {
+                console.log("Error Processing Data", err, parts[i]);
+                continue;
             }
 
-            if (c.room != null) {
-                console.log("Broadcast", "Room " + c.room);
-                broadcast(data, c);
-                io.sockets.in(c.room).emit(message.name, message.args[0]);
+            if (message != null && message.name != null && message.args != null) {
+                if (message.name == 'join') {
+                    c.room = message.args[0];
+                 	console.log('Joining', c.room);
+                    return;          
+                }
+
+                if (c.room != null) {
+                    console.log("Broadcast", "Room " + c.room);
+                    broadcast(parts[i], c);
+                    io.sockets.in(c.room).emit(message.name, message.args[0]);
+                }
             }
         }
     });

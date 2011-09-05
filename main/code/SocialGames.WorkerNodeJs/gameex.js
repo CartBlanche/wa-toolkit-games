@@ -29,19 +29,33 @@ var server = net.createServer(function (c) {
     console.log('client connected');
     c.setEncoding('ascii');
     addClient(c);
+	
+	var state = null;
 
     c.on('data', function (data) {
-        console.log(data);
+        //console.log("Received", data);
 
         var isEmpty = /^\s*$/;
         var parts = data.split("\n");
         var len = parts.length;
+		
+		if (len>0 && state != null) {
+			parts[0] = state + parts[0];
+			state = null;
+		}
+		
+		if (len>0 && data.length > 0 && data[data.length-1] != '\n') {
+			state = parts[len-1];
+			parts[len-1] = '';
+		}
+		
         for (var i=0; i<len; i++) {
             // ignore empty strings
             if (isEmpty.test(parts[i])) { continue; }
             var message = null;
 
             try {
+			//	console.log("Parsing", parts[i]);
                 message = JSON.parse(parts[i]);
             }
             catch (err) {
@@ -58,7 +72,7 @@ var server = net.createServer(function (c) {
 
                 if (c.room != null) {
                     console.log("Broadcast", "Room " + c.room);
-                    broadcast(parts[i], c);
+                    broadcast(parts[i]+'\r\n', c);
                     io.sockets.in(c.room).emit(message.name, message.args[0]);
                 }
             }

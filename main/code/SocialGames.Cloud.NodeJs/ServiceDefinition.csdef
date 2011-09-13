@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="SocialGames.Cloud.NodeJs" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WorkerRole name="SocialGames.WorkerNodeJs" vmsize="Small">
+  <WorkerRole name="SocialGames.WorkerNodeJs" vmsize="ExtraLarge">
     <Imports>
       <Import moduleName="RemoteAccess" />
       <Import moduleName="RemoteForwarder" />

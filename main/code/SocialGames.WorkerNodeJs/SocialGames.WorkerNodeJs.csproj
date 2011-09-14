@@ -60,9 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="game.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="gameex.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -149,9 +146,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="node.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

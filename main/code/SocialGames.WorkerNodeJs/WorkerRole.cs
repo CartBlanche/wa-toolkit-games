@@ -11,6 +11,7 @@
     using Microsoft.WindowsAzure.ServiceRuntime;
     using Microsoft.WindowsAzure.StorageClient;
     using System.IO;
+    using System.Net.Sockets;
 
     public class WorkerRole : RoleEntryPoint
     {
@@ -18,11 +19,13 @@
 
         public override void Run()
         {
-            while (!proc.WaitForExit(10000))
+            while (!proc.WaitForExit(60000))
             {
                 if (!NodeIsOk())
                     break; 
             }
+
+            Trace.TraceError("NodeJs is down");
         }
 
         public override bool OnStart()
@@ -35,7 +38,24 @@
         private bool NodeIsOk()
         {
             Trace.TraceInformation("Testing Node.Js server");
-            return true;
+
+            try
+            {
+                TcpClient node;
+
+                node = new TcpClient("127.0.0.1", 8124);
+
+                Thread.Sleep(500);
+
+                node.Close();
+
+                return true;
+            }
+            catch
+            {
+                Trace.TraceError("Testing Failed");
+                return false;
+            }
         }
 
         private Process LaunchNode()

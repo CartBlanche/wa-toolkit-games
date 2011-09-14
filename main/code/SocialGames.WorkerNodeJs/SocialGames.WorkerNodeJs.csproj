@@ -8,8 +8,8 @@
     <ProjectGuid>{29CB5209-0D31-41CA-B74E-9BBDCD02C70D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WorkerRole1</RootNamespace>
-    <AssemblyName>WorkerRole1</AssemblyName>
+    <RootNamespace>Microsoft.Samples.SocialGames.WorkerNodeJs</RootNamespace>
+    <AssemblyName>Microsoft.Samples.SocialGames.WorkerNodeJs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RoleType>Worker</RoleType>

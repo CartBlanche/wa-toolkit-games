@@ -6,8 +6,6 @@
     {
         public uint Id { get; set; }
 
-        public Weapon[] RewardedWeapons { get; set; }
-
         public int RewardedResources { get; set; }
 
         public string Name { get; set; }

@@ -9,23 +9,20 @@
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.Repositories;
-    using Microsoft.Samples.Tests.GamePlay.Game;
 
     public class TestService : ServiceBase, ITestService
     {
         private readonly IGameRepository gameRepository;
-        private readonly GameActionProcessor gameActionProcessor;
 
         public TestService()
-            : this(new GameRepository(), new HttpContextOrGuestUserProvider(), new ConfiguredGameActionProcessor())
+            : this(new GameRepository(), new HttpContextOrGuestUserProvider())
         { 
         }
 
-        public TestService(IGameRepository gameRepository, IUserProvider userProvider, GameActionProcessor gameActionProcessor)
+        public TestService(IGameRepository gameRepository, IUserProvider userProvider)
             : base(userProvider)
         {
             this.gameRepository = gameRepository;
-            this.gameActionProcessor = gameActionProcessor;
         }
 
         public HttpResponseMessage Command(Guid gameId, HttpRequestMessage request)

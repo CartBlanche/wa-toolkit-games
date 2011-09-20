@@ -10,7 +10,6 @@
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.Repositories;
-    using Microsoft.Samples.Tests.GamePlay.Game;
     using Microsoft.WindowsAzure;
 
     public class EventService : ServiceBase, IEventService

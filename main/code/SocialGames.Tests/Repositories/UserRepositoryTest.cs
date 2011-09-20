@@ -32,7 +32,7 @@
 
             var serialized = this.Serialized(userFirstVersion, true);
 
-            Assert.AreEqual("users" + serialized, data);
+            Assert.AreEqual("sgusers" + serialized, data);
         }
 
         [TestMethod]

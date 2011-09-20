@@ -494,7 +494,7 @@
 
         private GameService CreateGameService(IGameRepository gameRepository, IUserRepository userRepository, string userId)
         {
-            return new GameService(gameRepository, userRepository, new StringUserProvider(userId), new GameActionProcessor());
+            return new GameService(gameRepository, userRepository, new StringUserProvider(userId));
         }
 
         private GameRepository CreateGameRepository()

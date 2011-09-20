@@ -136,8 +136,6 @@
   <ItemGroup>
     <Compile Include="Commands\GameActionStatisticsCommandTests.cs" />
     <Compile Include="Commands\GameActionNotificationCommandTests.cs" />
-    <Compile Include="Entities\ConfiguredGameActionProcessorTests.cs" />
-    <Compile Include="Entities\GameActionProcessorTests.cs" />
     <Compile Include="Helpers\AzureQueueExtensions.cs" />
     <Compile Include="Commands\CommandTest.cs" />
     <Compile Include="Commands\SkirmishGameAutoStartCommandTest.cs" />

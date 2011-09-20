@@ -9,25 +9,22 @@
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.Repositories;
-    using Microsoft.Samples.Tests.GamePlay.Game;
 
     public class GameService : ServiceBase, IGameService
     {
         private readonly IGameRepository gameRepository;
         private readonly IUserRepository userRepository;
-        private readonly GameActionProcessor gameActionProcessor;        
 
         public GameService()
-            : this(new GameRepository(), new UserRepository(), new HttpContextUserProvider(), new ConfiguredGameActionProcessor())
+            : this(new GameRepository(), new UserRepository(), new HttpContextUserProvider())
         { 
         }
 
-        public GameService(IGameRepository gameRepository, IUserRepository userRepository, IUserProvider userProvider, GameActionProcessor gameActionProcessor)
+        public GameService(IGameRepository gameRepository, IUserRepository userRepository, IUserProvider userProvider)
             : base(userProvider)
         {            
             this.gameRepository = gameRepository;
             this.userRepository = userRepository;
-            this.gameActionProcessor = gameActionProcessor;
         }
 
         public HttpResponseMessage Queue(HttpRequestMessage request)
@@ -197,7 +194,8 @@
                 game.GameActions.Add(gameAction);
                 this.gameRepository.AddOrUpdateGame(game);
 
-                this.gameActionProcessor.Process(gameAction);
+                // TODO remove
+                //this.gameActionProcessor.Process(gameAction);
 
                 return SuccessResponse;
             }

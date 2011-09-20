@@ -24,25 +24,5 @@
             this.repository = new NotificationRepository(container);
             this.command = new GameActionNotificationCommand(this.repository);
         }
-
-        [TestMethod]
-        public void SendShotCommand()
-        {
-            string userId = Guid.NewGuid().ToString();
-
-            GameAction gameAction = new GameAction()
-            {
-                Type = GameActionType.Shot,
-                Id = Guid.NewGuid(),
-                CommandData = new Dictionary<string, object>() { { "shootedId", userId } }
-            };
-
-            this.command.Do(gameAction);
-
-            var result = this.repository.GetNotificationStatus(userId);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Notifications.Count);
-        }
     }
 }

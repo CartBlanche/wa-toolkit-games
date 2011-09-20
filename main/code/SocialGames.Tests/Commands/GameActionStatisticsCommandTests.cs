@@ -29,7 +29,7 @@
             GameAction gameAction = new GameAction()
             {
                 UserId = userId,
-                Type = GameActionType.PlayerDead,
+                Type = 1,
                 Id = Guid.NewGuid(),
                 CommandData = new Dictionary<string, object>()
                 { 

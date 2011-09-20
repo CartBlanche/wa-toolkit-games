@@ -21,22 +21,7 @@
 
         public override void Do(GameAction gameAction)
         {
-            if (gameAction.Type == GameActionType.Shot)
-            {
-                var shootedId = (string)gameAction.CommandData["shootedId"];
-
-                if (!string.IsNullOrEmpty(shootedId) && shootedId != "null")
-                {
-                    var notification = this.NewAchievement("You've been shot!!!");
-                    this.notificationRepository.AddNotification(shootedId, notification);
-
-                    if (!string.IsNullOrEmpty(gameAction.UserId))
-                    {
-                        notification = this.NewAchievement("You've shot " + shootedId);
-                        this.notificationRepository.AddNotification(gameAction.UserId, notification);
-                    }
-                }
-            }
+            // TODO Any code?
         }
 
         private Notification NewAchievement(string message)

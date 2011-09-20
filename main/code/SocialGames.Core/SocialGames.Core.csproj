@@ -111,7 +111,6 @@
     <Compile Include="Entities\Error.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\GameAction.cs" />
-    <Compile Include="Entities\GameActionProcessor.cs" />
     <Compile Include="Entities\GameActionType.cs" />
     <Compile Include="Entities\GameQueue.cs" />
     <Compile Include="Entities\GameRule.cs" />
@@ -124,7 +123,6 @@
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Entities\UserSession.cs" />
     <Compile Include="Entities\UserStats.cs" />
-    <Compile Include="Entities\Weapon.cs" />
     <Compile Include="Helpers\GameExtensions.cs" />
     <Compile Include="Helpers\CollectionHaveSameElementsComparison.cs" />
     <Compile Include="Helpers\DictionaryHaveSameElementsComparison.cs" />

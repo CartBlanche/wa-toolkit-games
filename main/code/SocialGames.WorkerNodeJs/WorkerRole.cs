@@ -3,6 +3,7 @@
     using System;
     using System.Diagnostics;
     using System.Net.Sockets;
+    using System.Security.Permissions;
     using System.Threading;
     using Microsoft.WindowsAzure.ServiceRuntime;
 
@@ -10,6 +11,7 @@
     {
         private Process proc;
 
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         public override void Run()
         {
             while (!this.proc.WaitForExit(60000))
@@ -23,6 +25,7 @@
             Trace.TraceError("NodeJs is down");
         }
 
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         public override bool OnStart()
         {
             Trace.TraceInformation("Microsoft.Samples.SocialGames.WorkerNodeJs.OnStart");

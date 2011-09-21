@@ -1,1 +1,8 @@
-﻿[{"Name":"Windows Live ID"},{"Name":"Facebook"}]
+﻿[
+  {
+    "Name": "Windows Live ID"
+  },
+  {
+    "Name": "Facebook"
+  }
+]

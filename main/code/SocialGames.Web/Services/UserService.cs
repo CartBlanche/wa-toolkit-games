@@ -11,6 +11,7 @@
     using System.Web;
     using Microsoft.ApplicationServer.Http;
     using Microsoft.Samples.SocialGames.Entities;
+    using Microsoft.Samples.SocialGames.GamePlay.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
 
     public class UserService : ServiceBase, IUserService

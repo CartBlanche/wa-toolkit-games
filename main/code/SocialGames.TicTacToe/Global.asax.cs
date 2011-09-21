@@ -23,8 +23,7 @@
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "TicTacToe", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            );
+                new { controller = "TicTacToe", action = "Index", id = UrlParameter.Optional }); // Parameter defaults
         }
 
         protected void Application_Start()

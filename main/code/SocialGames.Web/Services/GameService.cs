@@ -195,7 +195,7 @@
                 this.gameRepository.AddOrUpdateGame(game);
 
                 // TODO remove
-                //this.gameActionProcessor.Process(gameAction);
+                ////this.gameActionProcessor.Process(gameAction);
 
                 return SuccessResponse;
             }

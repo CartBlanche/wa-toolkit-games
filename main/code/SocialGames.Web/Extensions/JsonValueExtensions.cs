@@ -12,10 +12,12 @@
             {
                 throw new ArgumentNullException("jsonValue");
             }
+
             if (jsonValue.JsonType != JsonType.Object)
             {
                 throw new NotSupportedException("The json value is not an object.");
             }
+
             return ToClrCollection<Dictionary<string, object>>(jsonValue);
         }
 
@@ -25,10 +27,12 @@
             {
                 throw new ArgumentNullException("jsonValue");
             }
+
             if (jsonValue.JsonType != JsonType.Array)
             {
                 throw new NotSupportedException("The json value is not an array.");
             }
+
             return ToClrCollection<object[]>(jsonValue);
         }
 
@@ -53,6 +57,7 @@
                     {
                         iterator = new Queue<KeyValuePair<string, JsonValue>>(parentJsonValue);
                     }
+
                     while ((iterator != null) && (iterator.Count > 0))
                     {
                         KeyValuePair<string, JsonValue> pair = iterator.Dequeue();
@@ -71,11 +76,13 @@
                                     index = 0;
                                     break;
                                 }
+
                             default:
                                 InsertClrItem(collection, ref index, pair.Key, ((JsonPrimitive)pair.Value).Value);
                                 break;
                         }
                     }
+
                     if ((iterator != null) && (stack.Count > 0))
                     {
                         ToClrCollectionStackInfo info = stack.Pop();
@@ -87,12 +94,13 @@
                 }
                 while (((stack.Count > 0) || (iterator == null)) || (iterator.Count > 0));
             }
+
             return collection;
         }
 
         private static bool CanConvertToClrCollection(JsonValue jsonValue, Type collectionType)
         {
-            return ((jsonValue != null) && (((jsonValue.JsonType == JsonType.Object) && (collectionType == typeof(Dictionary<string, object>))) || ((jsonValue.JsonType == JsonType.Array) && (collectionType == typeof(object[])))));
+            return jsonValue != null && ((jsonValue.JsonType == JsonType.Object && collectionType == typeof(Dictionary<string, object>)) || (jsonValue.JsonType == JsonType.Array && collectionType == typeof(object[])));
         }
 
         private static void InsertClrItem(object collection, ref int index, string key, object value)
@@ -116,6 +124,7 @@
             {
                 return new Dictionary<string, object>(jsonValue.Count);
             }
+
             return new object[jsonValue.Count];
         }
 

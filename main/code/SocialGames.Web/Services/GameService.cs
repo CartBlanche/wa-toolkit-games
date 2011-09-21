@@ -8,6 +8,7 @@
     using System.Runtime.Serialization.Json;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
+    using Microsoft.Samples.SocialGames.GamePlay.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
 
     public class GameService : ServiceBase, IGameService

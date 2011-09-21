@@ -9,6 +9,7 @@
     using System.Web.Mvc;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
+    using Microsoft.Samples.SocialGames.GamePlay.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.WindowsAzure;
 

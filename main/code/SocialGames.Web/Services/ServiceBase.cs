@@ -5,7 +5,6 @@
     using System.Net.Http.Headers;
     using System.Text;
     using Microsoft.ApplicationServer.Http;
-    using Microsoft.ServiceModel.Web;
 
     public class ServiceBase
     {

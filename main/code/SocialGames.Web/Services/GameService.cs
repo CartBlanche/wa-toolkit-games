@@ -195,120 +195,12 @@
                 game.GameActions.Add(gameAction);
                 this.gameRepository.AddOrUpdateGame(game);
 
-                // TODO remove
-                ////this.gameActionProcessor.Process(gameAction);
-
                 return SuccessResponse;
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-        }
-
-        public HttpResponseMessage Command2(Guid gameId, HttpRequestMessage request)
-        {
-            var formContent = GetFormContent(request);
-            var game = this.gameRepository.GetGame(gameId);
-            if (game == null)
-            {
-                return BadRequest("Game does not exist. Game Id: " + gameId);
-            }
-
-            // Command Type
-            int commandType;
-
-            try
-            {
-                commandType = int.Parse(formContent.type.Value);
-            }
-            catch
-            {
-                return BadRequest("Invalid type parameter");
-            }
-
-            // Command Data
-            var jsonCommandData = (JsonObject)(formContent.commandData ?? null);
-            IDictionary<string, object> commandData = null;
-
-            if (jsonCommandData != null)
-            {
-                commandData = jsonCommandData.ToDictionary();
-            }
-
-            try
-            {
-                // Add gameAction
-                var gameAction = new GameAction
-                {
-                    Id = Guid.NewGuid(),
-                    Type = commandType,
-                    CommandData = commandData,
-                    UserId = this.CurrentUserId,
-                    Timestamp = DateTime.UtcNow
-                };
-
-                // Cleanup game actions lists
-                for (int i = 0; i < game.GameActions.Count(); i++)
-                {
-                    if (game.GameActions[i].Timestamp < DateTime.UtcNow.AddSeconds(-10))
-                    {
-                        game.GameActions.RemoveAt(i);
-                        i--;
-                    }
-                }
-
-                game.GameActions.Add(gameAction);
-                this.gameRepository.AddOrUpdateGame(game);
-
-                return SuccessResponse;
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        public HttpResponseMessage SetWeapons(Guid gameId, HttpRequestMessage request)
-        {
-            var formContent = GetFormContent(request);
-            var weaponIds = (JsonArray)formContent.weaponIds;
-
-            List<Guid> weaponGuids = new List<Guid>();
-
-            foreach (var weaponId in weaponIds.ToObjectArray())
-            {
-                weaponGuids.Add(Guid.Parse(weaponId.ToString()));
-            }
-
-            Game game = this.gameRepository.GetGame(gameId);
-
-            if (game == null)
-            {
-                return BadRequest("Game does not exist. Game Id: " + gameId);
-            }
-
-            string userId = this.CurrentUserId;
-
-            if (string.IsNullOrEmpty(userId) || !game.Users.Any(u => u.UserId == userId))
-            {
-                return BadRequest("User does not exist. User Id: " + CurrentUserId);
-            }
-
-            GameUser gameUser = game.Users.Where(u => u.UserId == userId).FirstOrDefault();
-
-            gameUser.Weapons = weaponGuids;
-
-            try
-            {
-                this.gameRepository.AddOrUpdateGame(game);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return SuccessResponse;
         }
 
         private string GetCommandDataValue(IDictionary<string, object> commandData, string commandDataKey)

@@ -25,12 +25,5 @@
 
         [WebInvoke(Method = "POST", UriTemplate = "command/{gameId}")]
         HttpResponseMessage Command(Guid gameId, HttpRequestMessage request);
-
-        [WebInvoke(Method = "POST", UriTemplate = "command/v2/{gameId}")]
-        HttpResponseMessage Command2(Guid gameId, HttpRequestMessage request);
-        
-        // [WebInvoke(Method = "POST", UriTemplate = "{gameId}/weapons")]
-        [WebInvoke(Method = "POST", UriTemplate = "weapons/{gameId}")]
-        HttpResponseMessage SetWeapons(Guid gameId, HttpRequestMessage request);
     }
 }

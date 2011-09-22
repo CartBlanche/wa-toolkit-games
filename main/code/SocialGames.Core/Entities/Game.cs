@@ -13,7 +13,6 @@
             // Force an UTC date
             this.CreationTime = DateTime.UtcNow;
             this.GameActions = new List<GameAction>();
-            this.GameRules = new List<GameRule>();
             this.Users = new List<GameUser>();
         }
 
@@ -39,8 +38,6 @@
         public List<GameUser> Users { get; set; }
 
         public string ActiveUser { get; set; }
-
-        public List<GameRule> GameRules { get; set; }
 
         public List<GameAction> GameActions { get; set; }
 

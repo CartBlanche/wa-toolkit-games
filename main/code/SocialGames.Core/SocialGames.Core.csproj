@@ -103,9 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationConstants.cs" />
-    <Compile Include="Entities\Achievement.cs" />
-    <Compile Include="Entities\AchievementBase.cs" />
-    <Compile Include="Entities\AchievementProgress.cs" />
     <Compile Include="Entities\Board.cs" />
     <Compile Include="Entities\Enums.cs" />
     <Compile Include="Entities\Error.cs" />
@@ -113,10 +110,7 @@
     <Compile Include="Entities\GameAction.cs" />
     <Compile Include="Entities\GameActionType.cs" />
     <Compile Include="Entities\GameQueue.cs" />
-    <Compile Include="Entities\GameRule.cs" />
     <Compile Include="Entities\GameUser.cs" />
-    <Compile Include="Entities\InGameError.cs" />
-    <Compile Include="Entities\InventoryItem.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\NotificationStatus.cs" />
     <Compile Include="Entities\Score.cs" />
@@ -136,8 +130,6 @@
     <Compile Include="Repositories\IGameActionStatisticsQueue.cs" />
     <Compile Include="Repositories\IGameRepository.cs" />
     <Compile Include="Repositories\IIdentityProviderRepository.cs" />
-    <Compile Include="Repositories\IInventoryRepository.cs" />
-    <Compile Include="Repositories\InventoryRepository.cs" />
     <Compile Include="Repositories\IStatisticsRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\LeaveGameMessage.cs" />

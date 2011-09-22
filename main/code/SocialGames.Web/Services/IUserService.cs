@@ -16,9 +16,6 @@
         [WebGet(UriTemplate = "verify")]
         HttpResponseMessage Verify(HttpRequestMessage request);
 
-        [WebInvoke(Method = "POST", UriTemplate = "inventory/buy/{inventoryId}")]
-        HttpResponseMessage BuyInventory(Guid inventoryId, HttpRequestMessage request);
-
         [WebInvoke(Method = "GET", UriTemplate = "leaderboard/{count}")]
         HttpResponseMessage Leaderboard(int count);
 

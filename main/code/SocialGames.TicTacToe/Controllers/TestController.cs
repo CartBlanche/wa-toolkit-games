@@ -32,6 +32,12 @@
             return View();
         }
 
+        public ActionResult GameServiceExTest()
+        {
+            this.SetConfigurationData();
+            return View();
+        }
+
         public ActionResult UserServiceTest()
         {
             this.SetConfigurationData();

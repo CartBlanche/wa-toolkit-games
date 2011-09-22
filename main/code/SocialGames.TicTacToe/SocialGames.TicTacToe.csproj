@@ -124,6 +124,8 @@
     <Content Include="Scripts\game\ConnectFourBoard.js" />
     <Content Include="Scripts\game\ConnectFourViewModel.js" />
     <Content Include="Scripts\game\ConnectFourController.js" />
+    <Content Include="Scripts\game\GameServiceEx.js" />
+    <Content Include="Scripts\game\TicTacToeControllerEx.js" />
     <Content Include="Scripts\game\TicTacToeNodeJsController.js" />
     <Content Include="Scripts\game\GameService.js" />
     <Content Include="Scripts\game\ServerInterface.js" />
@@ -214,6 +216,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\TicTacToe\NodeJs.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\TicTacToe\IndexEx.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Test\GameServiceExTest.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

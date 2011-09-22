@@ -12,13 +12,19 @@
     <div class="page">
         <header>
             <div id="title">
-                <h1>Social Games - TicTacToe</h1>
+                <h1>Social Gaming Examples</h1>
             </div>
             <div id="logindisplay">
-                <br />
+                @Html.Partial("_LogOnPartial")
             </div>
+            <div style="clear:both;"></div>
+
             <nav>
-                <br />
+                <ul id="menu">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Tic Tac Toe", "Index", "TicTacToe")</li>
+                    <li>@Html.ActionLink("Connect Four", "Index", "ConnectFour")</li>
+                </ul>
             </nav>
         </header>
         <section id="main">
@@ -27,5 +33,4 @@
         <footer>
         </footer>
     </div>
-</body>
-</html>
+</body></html>

@@ -14,6 +14,12 @@
             return View();
         }
 
+        public ActionResult IndexEx()
+        {
+            this.SetConfigurationData();
+            return View();
+        }
+
         public ActionResult Login()
         {
             this.SetConfigurationData();
@@ -26,6 +32,12 @@
         }
 
         public ActionResult NodeJs()
+        {
+            this.SetConfigurationData();
+            return View();
+        }
+
+        public ActionResult NodeJsEx()
         {
             this.SetConfigurationData();
             return View();

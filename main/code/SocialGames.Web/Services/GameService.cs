@@ -269,48 +269,6 @@
             }
         }
 
-        public HttpResponseMessage SetWeapons(Guid gameId, HttpRequestMessage request)
-        {
-            var formContent = GetFormContent(request);
-            var weaponIds = (JsonArray)formContent.weaponIds;
-
-            List<Guid> weaponGuids = new List<Guid>();
-
-            foreach (var weaponId in weaponIds.ToObjectArray())
-            {
-                weaponGuids.Add(Guid.Parse(weaponId.ToString()));
-            }
-
-            Game game = this.gameRepository.GetGame(gameId);
-
-            if (game == null)
-            {
-                return BadRequest("Game does not exist. Game Id: " + gameId);
-            }
-
-            string userId = this.CurrentUserId;
-
-            if (string.IsNullOrEmpty(userId) || !game.Users.Any(u => u.UserId == userId))
-            {
-                return BadRequest("User does not exist. User Id: " + CurrentUserId);
-            }
-
-            GameUser gameUser = game.Users.Where(u => u.UserId == userId).FirstOrDefault();
-
-            gameUser.Weapons = weaponGuids;
-
-            try
-            {
-                this.gameRepository.AddOrUpdateGame(game);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return SuccessResponse;
-        }
-
         private string GetCommandDataValue(IDictionary<string, object> commandData, string commandDataKey)
         {
             if (!commandData.ContainsKey(commandDataKey))

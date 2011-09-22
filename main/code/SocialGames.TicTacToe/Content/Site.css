@@ -481,3 +481,10 @@ div#title
 {
     width: 6em;
 }
+
+/* Social Gaming
+----------------------------------------------------------*/
+#loginsTable input[type="button"]
+{
+    width: 200px;
+}

@@ -39,9 +39,6 @@
                     {
                         Id = userId,
                         DisplayName = Thread.CurrentPrincipal.Identity.Name ?? string.Empty,
-                        Credits = 1000, 
-                        Experience = 0,
-                        Ranking = 0,
                         LoginType = loginType,
                         AssociatedUserAccount = 
                             loginType.StartsWith("Facebook", StringComparison.OrdinalIgnoreCase) ? 

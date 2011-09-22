@@ -17,19 +17,17 @@
     public class UserService : ServiceBase, IUserService
     {
         private readonly IUserRepository userRepository;
-        private readonly IInventoryRepository inventoryRepository;
         private readonly IStatisticsRepository statsRepository;
 
         public UserService()
-            : this(new UserRepository(), new InventoryRepository(), new StatisticsRepository("StatisticsConnectionString"), new HttpContextUserProvider())
+            : this(new UserRepository(), new StatisticsRepository("StatisticsConnectionString"), new HttpContextUserProvider())
         {            
         }
 
-        public UserService(IUserRepository userRepository, IInventoryRepository inventoryRepository, IStatisticsRepository statsRepository, IUserProvider userProvider)
+        public UserService(IUserRepository userRepository, IStatisticsRepository statsRepository, IUserProvider userProvider)
             : base(userProvider)
         {
             this.userRepository = userRepository;
-            this.inventoryRepository = inventoryRepository;
             this.statsRepository = statsRepository;
         }
 
@@ -47,10 +45,6 @@
         {
             var formContent = GetFormContent(request);
             var displayName = (string)(formContent.displayName ?? string.Empty);
-            var customizationsIds = 
-                formContent.customizationsIds != null ? 
-                ((JsonArray)formContent.customizationsIds).ToObjectArray().Select(o => new Guid(o.ToString())) : 
-                null;
 
             var userProfile = this.userRepository.GetUser(CurrentUserId);
 
@@ -64,64 +58,8 @@
                 userProfile.DisplayName = displayName;
             }
 
-            if (customizationsIds != null)
-            {
-                foreach (var customizationId in customizationsIds)
-                {
-                    var item = userProfile.Inventory.First(i => i.Id == customizationId);
-                    if (item != null)
-                    {
-                        if (userProfile.Customizations.ContainsKey(item.Type))
-                        {
-                            userProfile.Customizations[item.Type] = item;
-                        }
-                        else
-                        {
-                            userProfile.Customizations.Add(item.Type, item);
-                        }
-                    }
-                }
-            }
-
             this.userRepository.AddOrUpdateUser(userProfile);
 
-            return SuccessResponse;
-        }
-
-        public HttpResponseMessage BuyInventory(Guid inventoryId, HttpRequestMessage request)
-        {
-            if (inventoryId == Guid.Empty)
-            {
-                return BadRequest("InventoryId cannot be empty");
-            }
-            
-            var userProfile = this.userRepository.GetUser(CurrentUserId);
-            if (userProfile == null)
-            {
-                return BadRequest("User does not exist");
-            }
-
-            var inventoryItem = this.inventoryRepository.GetInventoryItem(inventoryId);
-            if (inventoryItem == null)
-            {
-                return BadRequest(string.Format(CultureInfo.InvariantCulture, "Inventory with id '{0}' does not exist", inventoryId));
-            }
-
-            if (inventoryItem.Price > userProfile.Credits)
-            {
-                return BadRequest("Not enough credits");
-            }
-
-            if (userProfile.Inventory.Any(c => c.Id == inventoryId))
-            {
-                return BadRequest("Item already in inventory");
-            }
-
-            userProfile.Inventory.Add(inventoryItem);
-            userProfile.Credits -= inventoryItem.Price;
-
-            this.userRepository.AddOrUpdateUser(userProfile);
-            
             return SuccessResponse;
         }
 

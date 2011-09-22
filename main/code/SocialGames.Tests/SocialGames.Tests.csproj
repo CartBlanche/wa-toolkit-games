@@ -158,7 +158,6 @@
     <Compile Include="Repositories\NotificationRepositoryTest.cs" />
     <Compile Include="Repositories\GameActionStatisticsQueueTests.cs" />
     <Compile Include="Repositories\GameActionNotificationQueueTests.cs" />
-    <Compile Include="Repositories\InventoryItemRepositoryTest.cs" />
     <Compile Include="Repositories\GameRepositoryTest.cs" />
     <Compile Include="Repositories\IGameRepositoryExtensions.cs" />
     <Compile Include="Helpers\JsonResultExtensions.cs" />

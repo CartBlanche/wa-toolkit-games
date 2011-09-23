@@ -19,14 +19,6 @@ function UpdateWebConfigurationSetting($configurationFile, $settingValue, $setti
     $xml.Save($configurationFile);
 }
 
-function UpdateProperty($file, $property, $value)
-{
-    $content = get-content $file;
-	$replaceStr = '$1' + """$value""";
-	$content = $content -replace "($property\s*\=\s*)\""(.*)\""", $replaceStr
-	set-content $file $content
-}
-
 # ------------------------------ 
 # Obtaining Configuration Values
 # ------------------------------
@@ -46,7 +38,7 @@ Write-Output ""
 Write-Output "Updating connection strings..."
 
 
-if($connectionString) 
+if(!$storageAccountName -or !$storageAccountKey) 
 {
     $connectionString = "UseDevelopmentStorage=true";
 	$blobEndpoint = "http://127.0.0.1:10000/devstoreaccount1/";
@@ -59,7 +51,7 @@ else
 
 $settingKey = "DataConnectionString";
 UpdateConfigurationSetting $localServiceConfigurationPath $connectionString $settingKey;
-UpdateProperty $clientScriptPath $clientProperty $blobEndpoint;
+UpdateWebConfigurationSetting $webConfigurationPath $connectionString $settingKey;
 
 $settingKey = "BlobUrl";
 UpdateWebConfigurationSetting $webConfigurationPath $blobEndpoint $settingKey;

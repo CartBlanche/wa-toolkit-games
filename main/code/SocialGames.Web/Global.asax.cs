@@ -28,7 +28,6 @@
             routes.MapServiceRoute<AuthService>("auth");
             routes.MapServiceRoute<UserService>("user");
             routes.MapServiceRoute<EventService>("event");
-            routes.MapServiceRoute<TestService>("test");
 
             routes.MapRoute(
                 "Default",

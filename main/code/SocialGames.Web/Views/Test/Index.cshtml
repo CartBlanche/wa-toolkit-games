@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Tests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tests</h2>
+
+<h3>Game Support</h3>
+                <ul>
+                    <li>@Html.ActionLink("Server Interface", "ServerInterfaceTest", "Test")</li>
+                    <li>@Html.ActionLink("Game Service", "GameServiceTest", "Test")</li>
+                    <li>@Html.ActionLink("User Service", "UserServiceTest", "Test")</li>
+                </ul>
+
+<h3>Tic Tac Toe</h3>
+                <ul>
+                    <li>@Html.ActionLink("Game Logic", "TicTacToeGameTest", "ClientTest", new { area = "Samples" }, null)</li>
+                    <li>@Html.ActionLink("Board", "TicTacToeBoardTest", "ClientTest", new { area = "Samples" }, null)</li>
+                </ul>
+<h3>Connect Four</h3>
+                <ul>
+                    <li>@Html.ActionLink("Game Logic", "ConnectFourGameTest", "ClientTest", new { area = "Samples" }, null)</li>
+                    <li>@Html.ActionLink("Board", "ConnectFourBoardTest", "ClientTest", new { area = "Samples" }, null)</li>
+                </ul>

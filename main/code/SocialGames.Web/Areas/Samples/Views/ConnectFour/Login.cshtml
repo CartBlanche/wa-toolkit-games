@@ -1,10 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ConnectFour Login";
 }
 
-
-<h2>Login</h2>
+<h2>ConnectFour Login</h2>
 
 <p>
     To test the game, open another browser window using InPrivate mode (Ctrl+Shift+P in Internet Explorer), login with an alternate account and join the battle queue from both windows.
@@ -29,6 +27,7 @@
     }
 
     jQuery(document).ready(function () {
+        var apiURL = "@this.ViewBag.ApiUrl";
 
         $(".status").text("Loading...");
 
@@ -40,7 +39,7 @@
         // Get login info
         $.ajax({
             type: "GET",
-            url:  "/auth/loginselector?returnUrl=" + returnUrl,
+            url: apiURL + "auth/loginselector?returnUrl=" + returnUrl,
             dataType: "json",
             success: function (result) {
                 createLoginButtons(result);

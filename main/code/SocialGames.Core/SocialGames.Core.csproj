@@ -79,6 +79,9 @@
     <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Json">
+      <HintPath>..\packages\JsonValue.0.5.0\lib\40\Microsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files\Windows Azure SDK\v1.4\ref\Microsoft.WindowsAzure.ServiceRuntime.dll</HintPath>
@@ -102,6 +105,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comon\JobEngine\Conditions\CheckConditionWithAcceptCallback.cs" />
+    <Compile Include="Comon\JobEngine\Conditions\Message.cs" />
+    <Compile Include="Comon\JobEngine\Conditions\Schedule.cs" />
+    <Compile Include="Comon\JobEngine\ICommand.cs" />
+    <Compile Include="Comon\JobEngine\InMemoryWorkerContext.cs" />
+    <Compile Include="Comon\JobEngine\IWorkerContext.cs" />
+    <Compile Include="Comon\JobEngine\Language\ExecutionModel.cs" />
+    <Compile Include="Comon\JobEngine\Language\FuncWithOutput.cs" />
+    <Compile Include="Comon\JobEngine\Language\IDoBuilder.cs" />
+    <Compile Include="Comon\JobEngine\Language\ITriggeredByBuilder.cs" />
+    <Compile Include="Comon\JobEngine\Language\Task.cs" />
+    <Compile Include="Comon\JobEngine\Language\TaskBuilder.cs" />
+    <Compile Include="Comon\Providers\ITimeProvider.cs" />
+    <Compile Include="Comon\Providers\TimeProvider.cs" />
+    <Compile Include="Comon\Providers\UtcTimeProvider.cs" />
+    <Compile Include="Comon\Storage\AzureBlobContainer.cs" />
+    <Compile Include="Comon\Storage\AzureQueue.cs" />
+    <Compile Include="Comon\Storage\AzureQueueMessage.cs" />
+    <Compile Include="Comon\Storage\AzureTable.cs" />
+    <Compile Include="Comon\Storage\AzureTableExtensions.cs" />
+    <Compile Include="Comon\Storage\CloudBlobExtensions.cs" />
+    <Compile Include="Comon\Storage\IAzureBlobContainer.cs" />
+    <Compile Include="Comon\Storage\IAzureQueue.cs" />
+    <Compile Include="Comon\Storage\IAzureTable.cs" />
     <Compile Include="ConfigurationConstants.cs" />
     <Compile Include="Entities\Board.cs" />
     <Compile Include="Entities\Enums.cs" />
@@ -147,12 +174,6 @@
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SocialGames.Common\SocialGames.Common.csproj">
-      <Project>{37AF87B4-7DA5-47D5-8D05-07EB7EAB5F42}</Project>
-      <Name>SocialGames.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

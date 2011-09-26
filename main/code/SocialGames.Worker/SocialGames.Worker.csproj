@@ -127,10 +127,6 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SocialGames.Common\SocialGames.Common.csproj">
-      <Project>{37AF87B4-7DA5-47D5-8D05-07EB7EAB5F42}</Project>
-      <Name>SocialGames.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SocialGames.Core\SocialGames.Core.csproj">
       <Project>{2E79855F-7ABE-443E-A94E-85B9B12DA44F}</Project>
       <Name>SocialGames.Core</Name>

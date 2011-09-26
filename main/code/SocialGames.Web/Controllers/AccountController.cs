@@ -8,8 +8,8 @@
     using Microsoft.IdentityModel.Protocols.WSFederation;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.GamePlay.Services;
+    using Microsoft.Samples.SocialGames.Repositories;
 
     public class AccountController : Controller
     {

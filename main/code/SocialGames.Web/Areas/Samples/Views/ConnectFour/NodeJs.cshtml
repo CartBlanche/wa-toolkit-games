@@ -4,13 +4,14 @@
     ViewBag.Title = "ConnectFour";
 }
 
+<script src="@Url.AreaContent("Scripts/socket.io.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/game/GameServiceEx.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/GameServiceNodeJs.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/ConnectFourBoard.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/ConnectFourGame.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/ConnectFourViewModel.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/ConnectFourControllerEx.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/ConnectFourController.js")" type="text/javascript"></script>
 <h2>
     ConnectFour</h2>
 
@@ -88,9 +89,12 @@
 
     var apiURL = "@this.ViewBag.ApiUrl";
     var blobURL = "@this.ViewBag.BlobUrl";
+    var nodeJsURL = "@this.ViewBag.NodeJsUrl";
+
+    var socket = io.connect(nodeJsURL);
 
     var si = new ServerInterface();
-    var gs = new GameService(apiURL, blobURL, si);
+    var gs = new GameService(apiURL, blobURL, si, socket);
     var us = new UserService(apiURL, blobURL, si);
 
     var controller;

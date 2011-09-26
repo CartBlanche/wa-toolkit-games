@@ -181,19 +181,18 @@
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
     <Content Include="Areas\Samples\Scripts\game\ConnectFourBoard.js" />
+    <Content Include="Areas\Samples\Scripts\game\ConnectFourControllerOld.js" />
     <Content Include="Areas\Samples\Scripts\game\ConnectFourController.js" />
-    <Content Include="Areas\Samples\Scripts\game\ConnectFourControllerEx.js" />
     <Content Include="Areas\Samples\Scripts\game\ConnectFourGame.js" />
     <Content Include="Areas\Samples\Scripts\game\ConnectFourViewModel.js" />
+    <Content Include="Scripts\game\GameServiceOld.js" />
     <Content Include="Scripts\game\GameService.js" />
-    <Content Include="Scripts\game\GameServiceEx.js" />
-    <Content Include="Scripts\game\GameServiceNodeJsEx.js" />
+    <Content Include="Scripts\game\GameServiceNodeJs.js" />
     <Content Include="Scripts\game\ServerInterface.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeBoard.js" />
+    <Content Include="Areas\Samples\Scripts\game\TicTacToeControllerOld.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeController.js" />
-    <Content Include="Areas\Samples\Scripts\game\TicTacToeControllerEx.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeGame.js" />
-    <Content Include="Areas\Samples\Scripts\game\TicTacToeNodeJsController.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeViewModel.js" />
     <Content Include="Scripts\game\UserService.js" />
     <Content Include="Areas\Samples\Scripts\jquery-1.6.2-vsdoc.js" />
@@ -275,7 +274,7 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ConnectFour\Index.cshtml" />
+    <Content Include="Areas\Samples\Views\ConnectFour\IndexOld.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Samples\Views\ConnectFour\Login.cshtml" />
@@ -293,10 +292,10 @@
     <Content Include="Areas\Samples\Views\ClientTest\ConnectFourGameTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Test\GameServiceExTest.cshtml" />
+    <Content Include="Views\Test\GameServiceTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Test\GameServiceTest.cshtml" />
+    <Content Include="Views\Test\GameServiceOldTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Test\Index.cshtml" />
@@ -311,19 +310,16 @@
     <Content Include="Views\Test\UserServiceTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\Index.cshtml" />
+    <Content Include="Areas\Samples\Views\TicTacToe\IndexOld.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\IndexEx.cshtml" />
+    <Content Include="Areas\Samples\Views\TicTacToe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Samples\Views\TicTacToe\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Samples\Views\TicTacToe\NodeJs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\NodeJsEx.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Samples\Views\TicTacToe\OldBrowser.cshtml" />
@@ -344,10 +340,10 @@
     <Content Include="Areas\Samples\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ConnectFour\IndexEx.cshtml" />
+    <Content Include="Areas\Samples\Views\ConnectFour\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ConnectFour\NodeJsEx.cshtml" />
+    <Content Include="Areas\Samples\Views\ConnectFour\NodeJs.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

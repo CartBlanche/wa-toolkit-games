@@ -4,14 +4,13 @@
     ViewBag.Title = "TicTacToe";
 }
 
-<script src="@Url.AreaContent("Scripts/socket.io.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/game/GameServiceNodeJsEx.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/GameServiceOld.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/TicTacToeBoard.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/TicTacToeGame.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/TicTacToeViewModel.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeControllerEx.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/TicTacToeControllerOld.js")" type="text/javascript"></script>
 <h2>
     Tic Tac Toe</h2>
 
@@ -52,7 +51,6 @@
     <div style="display: none" data-bind="visible: gameId() != null">
         <fieldset>
             <legend>Game</legend>
-            <div>Game Id <span data-bind="text: gameId()"></span></div>
             <div>
                 You are <span data-bind="visible: playerColor() == TTTColor.Cross">Xs</span> <span
                     data-bind="visible: playerColor() == TTTColor.Circle">Os</span>
@@ -90,12 +88,9 @@
 
     var apiURL = "@this.ViewBag.ApiUrl";
     var blobURL = "@this.ViewBag.BlobUrl";
-    var nodeJsURL = "@this.ViewBag.NodeJsUrl";
-
-    var socket = io.connect(nodeJsURL);
 
     var si = new ServerInterface();
-    var gs = new GameService(apiURL, blobURL, si, socket);
+    var gs = new GameService(apiURL, blobURL, si);
     var us = new UserService(apiURL, blobURL, si);
 
     var controller;
@@ -115,8 +110,6 @@
     $(function () {
         viewModel = new TicTacToeViewModel();
         ko.applyBindings(viewModel);
-
-        $.flXHRproxy.registerOptions(apiURL, { xmlResponseText: false, loadPolicyURL: apiURL + "crossdomain.xml" });
 
         us.verify(
             function () { start(); },

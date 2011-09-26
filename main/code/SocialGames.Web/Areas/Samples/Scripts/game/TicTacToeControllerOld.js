@@ -1,31 +1,26 @@
 ﻿
-function TicTacToeController(viewModel, gameService, board, game, socket)
+function TicTacToeController(viewModel, gameService, board, game)
 {
     this.viewModel = viewModel;
     this.gameService = gameService;
     this.board = board;
     this.game = game;
     this.started = false;
-    this.joined = false;
-    this.socket = socket;
 
     var controller = this;
 
     this.board.onMove = function (x, y) { controller.onMove(x, y); };
 
     window.sggamesqueuesCallback = onGameQueueStatus;
-//    window.sggamesCallback = onGameStatus;
+    window.sggamesCallback = onGameStatus;
 
     function onGameQueueStatus(gameQueue) {
         try {
             controller.viewModel.players(gameQueue.Users);
             controller.viewModel.noPlayers(gameQueue.Users.length);
 
-            if (gameQueue.GameId != null && gameQueue.GameId != nullGameId && !this.joined) {
-                controller.socket.emit('join', gameQueue.GameId);
-                controller.socket.on('command', onNewCommand);
+            if (gameQueue.GameId != null && gameQueue.GameId != nullGameId) {
                 controller.viewModel.gameId(gameQueue.GameId);
-                this.joined = true;
             }
 
             if (controller.viewModel.gameId() == null && controller.viewModel.isOwner() && gameQueue.Users.length == 2 && !this.started) {
@@ -38,23 +33,6 @@ function TicTacToeController(viewModel, gameService, board, game, socket)
         }
     }
 
-    function onNewCommand(gameAction) {
-        if (gameAction.Type != 1)
-            return;
-        
-        var x = parseInt(gameAction.CommandData.x);
-        var y = parseInt(gameAction.CommandData.y);
-        var color = gameAction.CommandData.color;
-
-        if (!controller.game.isValid(x, y, color))
-            return;
-
-        controller.game.move(x, y, color);
-        controller.board.drawMove(x, y, color);
-        controller.updateGameStatus();
-    }
-
-/*
     function onGameStatus(game) {
         try {
             for (var n in game.GameActions) {
@@ -79,7 +57,6 @@ function TicTacToeController(viewModel, gameService, board, game, socket)
             controller.setTimer();
         }
     }
-*/
 };
 
 TicTacToeController.prototype.start = function () {
@@ -127,19 +104,18 @@ TicTacToeController.prototype.onMove = function (x, y) {
 
     this.updateGameStatus();
 
-    var action = { Type: 1, CommandData: { x: x, y: y, color: color} };
+    var action = { type: 1, commandData: { x: x, y: y, color: color} };
     var gameId = this.viewModel.gameId();
 
-    this.socket.emit('command', action);
-    //    this.gameService.sendGameAction(gameId, action);
+    this.gameService.sendGameAction(gameId, action);
 };
 
 TicTacToeController.prototype.refresh = function () {
     var controller = this;
 
-/*    if (this.viewModel.gameId() != null)
+    if (this.viewModel.gameId() != null)
         this.gameService.getGameStatus(this.viewModel.gameId(), function (req, status, error) { controller.setTimer(); });
-    else */ if (this.viewModel.gameQueueId() != null)
+    else if (this.viewModel.gameQueueId() != null)
         this.gameService.getGameQueueStatus(this.viewModel.gameQueueId(), function (req, status, error) { controller.setTimer(); });
     else
         this.setLongTimer();

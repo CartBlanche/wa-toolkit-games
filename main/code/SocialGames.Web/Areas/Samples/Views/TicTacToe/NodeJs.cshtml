@@ -6,12 +6,12 @@
 
 <script src="@Url.AreaContent("Scripts/socket.io.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/game/GameService.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/GameServiceNodeJs.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/TicTacToeBoard.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/TicTacToeGame.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/TicTacToeViewModel.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeNodeJsController.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/TicTacToeController.js")" type="text/javascript"></script>
 <h2>
     Tic Tac Toe</h2>
 
@@ -92,8 +92,10 @@
     var blobURL = "@this.ViewBag.BlobUrl";
     var nodeJsURL = "@this.ViewBag.NodeJsUrl";
 
+    var socket = io.connect(nodeJsURL);
+
     var si = new ServerInterface();
-    var gs = new GameService(apiURL, blobURL, si);
+    var gs = new GameService(apiURL, blobURL, si, socket);
     var us = new UserService(apiURL, blobURL, si);
 
     var controller;
@@ -102,9 +104,8 @@
         var canvas = document.getElementById("board");
         var board = new TicTacToeBoard(canvas);
         var game = new TicTacToeGame();
-        var socket = io.connect(nodeJsURL);
 
-        var controller = new TicTacToeController(viewModel, gs, board, game, socket);
+        var controller = new TicTacToeController(viewModel, gs, board, game);
 
         controller.setGameQueueId(gameQueueId);
 

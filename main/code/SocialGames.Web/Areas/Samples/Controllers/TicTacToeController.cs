@@ -14,7 +14,7 @@
             return View();
         }
 
-        public ActionResult IndexEx()
+        public ActionResult IndexOld()
         {
             this.SetConfigurationData();
             return View();
@@ -32,12 +32,6 @@
         }
 
         public ActionResult NodeJs()
-        {
-            this.SetConfigurationData();
-            return View();
-        }
-
-        public ActionResult NodeJsEx()
         {
             this.SetConfigurationData();
             return View();

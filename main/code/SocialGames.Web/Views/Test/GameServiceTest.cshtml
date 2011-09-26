@@ -17,12 +17,6 @@
 <div id="qunit-fixture">test markup, will be hidden</div>
 
 <script type="text/javascript">
-
-    function sggamesqueuesCallback(data) {
-        ok(true);
-        start();
-    }
-
     $(function () {
         var apiURL = "@this.ViewBag.ApiUrl";
         var blobURL = "@this.ViewBag.BlobUrl";
@@ -55,7 +49,7 @@
             expect(1);
 
             function getQueue(queueId) {
-                gs.getGameQueueStatus(queueId, success);
+                gs.getGameQueue(queueId, success);
             };
 
             gs.createGameQueue(getQueue);

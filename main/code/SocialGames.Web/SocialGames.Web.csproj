@@ -241,7 +241,6 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\knockout-1.2.1.debug.js" />
     <Content Include="Scripts\knockout-1.2.1.js" />
@@ -265,7 +264,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Samples\Models\" />
     <Folder Include="Areas\Samples\Views\Shared\" />
-    <Folder Include="data\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SocialGames.Common\SocialGames.Common.csproj">

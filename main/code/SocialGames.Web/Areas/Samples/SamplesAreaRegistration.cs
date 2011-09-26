@@ -1,7 +1,7 @@
-﻿using System.Web.Mvc;
-
-namespace Microsoft.Samples.SocialGames.Web.Areas.Samples
+﻿namespace Microsoft.Samples.SocialGames.Web.Areas.Samples
 {
+    using System.Web.Mvc;
+
     public class SamplesAreaRegistration : AreaRegistration
     {
         public override string AreaName
@@ -17,8 +17,7 @@ namespace Microsoft.Samples.SocialGames.Web.Areas.Samples
             context.MapRoute(
                 "Samples_default",
                 "Samples/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                new { action = "Index", id = UrlParameter.Optional });
         }
     }
 }

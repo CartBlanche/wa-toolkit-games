@@ -18,8 +18,8 @@
 
 <script type="text/javascript">
     $(function () {
-        var apiURL = "http://127.0.0.1:81/";
-        var blobURL = "http://127.0.0.1:10000/devstoreaccount1/";
+        var apiURL = "@this.ViewBag.ApiUrl";
+        var blobURL = "@this.ViewBag.BlobUrl";
 
         var si = new ServerInterface();
         var gs = new GameService(apiURL, blobURL, si);

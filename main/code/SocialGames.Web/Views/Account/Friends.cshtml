@@ -3,4 +3,75 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
+
+
 <h2>Your Friends</h2>
+
+<fieldset>
+    <legend>Friends</legend>
+    <div data-bind='template: { name: "FriendList", foreach: friends() }' />
+</fieldset>
+
+<script id="FriendList" type="text/html">
+       ${$data} <br> 
+</script>
+
+<script type="text/javascript">
+    var userId = "@this.ViewBag.CurrentUserId";
+    var blobEndpoint = "@this.ViewBag.BlobEndpoint";
+    var si = new ServerInterface();
+    var user = new UserService(userId, blobEndpoint, si);
+
+    function getFriends() {
+        user.getFriendsPost(function (friends) {
+            window.viewModel.refreshFriends(friends);
+        }, function (req, status, error) {
+            var errorMessage;
+            if (req.responseText == undefined) {
+                errorMessage = "POST Error:\nreq:" + req + "\nstatus:" + status + "\nerror:" + error;
+            }
+            else {
+                errorMessage = "POST Error:\nreq:" + req.responseText + "\nstatus:" + status + "\nerror:" + error;
+            }
+            alert(errorMessage);
+        });
+    }
+</script>
+<script type="text/javascript">
+    function ViewModel() {
+        this.user = ko.observable(userId);
+        this.notifications = ko.observableArray();
+        this.friends = ko.observableArray();
+    }
+
+    ViewModel.prototype.addNotification = function (notification) {
+        var existing = this.notifications();
+        var n = existing.length;
+
+        for (var i = 0; i < n; i++)
+            if (notification.Id == existing[i].Id)
+                return;
+
+        this.notifications.push(notification);
+
+        if (this.notifications().length > 10)
+            this.notifications.shift();
+    }
+
+    ViewModel.prototype.refreshFriends = function (friends) {
+        //    this.friends().length = 0;
+
+        for (n in friends)
+            this.friends.push(friends[n]);
+    }
+
+    jQuery(document).ready(function () {
+        window.viewModel = new ViewModel();
+
+        ko.applyBindings(window.viewModel);
+        user.getFriendsPost(
+            function (friends) { window.viewModel.refreshFriends(friends); },
+            function () { alert('Error Get Friends'); });
+    });
+</script>

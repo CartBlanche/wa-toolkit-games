@@ -164,7 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Samples\Controllers\ConnectFourController.cs" />
+    <Compile Include="Areas\Samples\Controllers\FourInARowController.cs" />
     <Compile Include="Areas\Samples\Controllers\ClientTestController.cs" />
     <Compile Include="Areas\Samples\Controllers\TicTacToeController.cs" />
     <Compile Include="Areas\Samples\Extensions\UrlHelperExtensions.cs" />
@@ -180,11 +180,11 @@
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
-    <Content Include="Areas\Samples\Scripts\game\ConnectFourBoard.js" />
-    <Content Include="Areas\Samples\Scripts\game\ConnectFourControllerOld.js" />
-    <Content Include="Areas\Samples\Scripts\game\ConnectFourController.js" />
-    <Content Include="Areas\Samples\Scripts\game\ConnectFourGame.js" />
-    <Content Include="Areas\Samples\Scripts\game\ConnectFourViewModel.js" />
+    <Content Include="Areas\Samples\Scripts\game\FourInARowBoard.js" />
+    <Content Include="Areas\Samples\Scripts\game\FourInARowControllerOld.js" />
+    <Content Include="Areas\Samples\Scripts\game\FourInARowController.js" />
+    <Content Include="Areas\Samples\Scripts\game\FourInARowGame.js" />
+    <Content Include="Areas\Samples\Scripts\game\FourInARowViewModel.js" />
     <Content Include="Scripts\game\GameServiceOld.js" />
     <Content Include="Scripts\game\GameService.js" />
     <Content Include="Scripts\game\GameServiceNodeJs.js" />
@@ -274,22 +274,22 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ConnectFour\IndexOld.cshtml" />
+    <Content Include="Areas\Samples\Views\FourInARow\IndexOld.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ConnectFour\Login.cshtml" />
+    <Content Include="Areas\Samples\Views\FourInARow\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ConnectFour\OldBrowser.cshtml" />
+    <Content Include="Areas\Samples\Views\FourInARow\OldBrowser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Samples\Views\ClientTest\TicTacToeBoardTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ClientTest\ConnectFourBoardTest.cshtml" />
+    <Content Include="Areas\Samples\Views\ClientTest\FourInARowBoardTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ClientTest\ConnectFourGameTest.cshtml" />
+    <Content Include="Areas\Samples\Views\ClientTest\FourInARowGameTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Test\GameServiceTest.cshtml" />
@@ -340,10 +340,10 @@
     <Content Include="Areas\Samples\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ConnectFour\Index.cshtml" />
+    <Content Include="Areas\Samples\Views\FourInARow\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\ConnectFour\NodeJs.cshtml" />
+    <Content Include="Areas\Samples\Views\FourInARow\NodeJs.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

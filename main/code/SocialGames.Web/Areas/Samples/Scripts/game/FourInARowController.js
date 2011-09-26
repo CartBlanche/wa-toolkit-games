@@ -1,5 +1,5 @@
 ﻿
-function ConnectFourController(viewModel, gameService, board, game) {
+function FourInARowController(viewModel, gameService, board, game) {
     this.viewModel = viewModel;
     this.gameService = gameService;
     this.board = board;
@@ -11,7 +11,7 @@ function ConnectFourController(viewModel, gameService, board, game) {
     this.board.onMove = function (x, y) { controller.onMove(x, y); };
 };
 
-ConnectFourController.prototype.start = function () {
+FourInARowController.prototype.start = function () {
     var controller = this;
 
     if (this.viewModel.gameQueueId() != null) {
@@ -38,7 +38,7 @@ ConnectFourController.prototype.start = function () {
     }
 };
 
-ConnectFourController.prototype.processGameQueue = function (gameQueue) {
+FourInARowController.prototype.processGameQueue = function (gameQueue) {
     this.viewModel.players(gameQueue.Users);
     this.viewModel.noPlayers(gameQueue.Users.length);
 
@@ -52,7 +52,7 @@ ConnectFourController.prototype.processGameQueue = function (gameQueue) {
     }
 };
 
-ConnectFourController.prototype.processAction = function (gameAction) {
+FourInARowController.prototype.processAction = function (gameAction) {
     if (gameAction.Type != 1)
         return;
 
@@ -71,7 +71,7 @@ ConnectFourController.prototype.processAction = function (gameAction) {
     this.updateGameStatus();
 };
 
-ConnectFourController.prototype.updateGameStatus = function () {
+FourInARowController.prototype.updateGameStatus = function () {
     if (this.game.isTie()) {
         this.viewModel.isTie(true);
         this.viewModel.currentColor(C4Color.Empty);
@@ -84,7 +84,7 @@ ConnectFourController.prototype.updateGameStatus = function () {
         this.viewModel.currentColor(this.game.nextColor(this.viewModel.currentColor()));
 };
 
-ConnectFourController.prototype.onMove = function (x) {
+FourInARowController.prototype.onMove = function (x) {
     if (this.viewModel.playerColor() != this.viewModel.currentColor())
         return;
 
@@ -104,7 +104,7 @@ ConnectFourController.prototype.onMove = function (x) {
     this.gameService.sendGameAction(gameId, action);
 };
 
-ConnectFourController.prototype.setGameQueueId = function (gameQueueId) {
+FourInARowController.prototype.setGameQueueId = function (gameQueueId) {
     this.viewModel.gameQueueId(gameQueueId);
 };
 

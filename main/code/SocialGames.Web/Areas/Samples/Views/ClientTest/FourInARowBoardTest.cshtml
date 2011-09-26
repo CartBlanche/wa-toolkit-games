@@ -4,18 +4,18 @@
     ViewBag.Title = "CanvasTest";
 }
 
-<script src="@Url.AreaContent("Scripts/game/ConnectFourBoard.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/ConnectFourGame.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/FourInARowBoard.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/FourInARowGame.js")" type="text/javascript"></script>
 
-<h2>ConnectFourBoard Test</h2>
+<h2>FourInARowBoard Test</h2>
 
 <canvas id="board" width="600" height="600">
 </canvas>
 
 <script type="text/javascript">
     var canvas = document.getElementById("board");
-    var board = new ConnectFourBoard(canvas, 6, 6);
-    var game = new ConnectFourGame(6, 6);
+    var board = new FourInARowBoard(canvas, 6, 6);
+    var game = new FourInARowGame(6, 6);
 
     board.onMove = function (x) {
         if (!game.isValid(x, currentColor))

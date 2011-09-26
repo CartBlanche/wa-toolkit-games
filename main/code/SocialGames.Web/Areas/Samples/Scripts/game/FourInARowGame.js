@@ -1,7 +1,7 @@
 ﻿
 C4Color = { Empty: 0, Cross: 1, Circle: 2 };
 
-function ConnectFourGame(width, height) {
+function FourInARowGame(width, height) {
     this.width = width;
     this.height = height;
 
@@ -18,7 +18,7 @@ function ConnectFourGame(width, height) {
     }
 }
 
-ConnectFourGame.prototype.move = function (x, color) {
+FourInARowGame.prototype.move = function (x, color) {
     for (var y = 0; y < this.height; y++)
         if (this.board[x][y] != C4Color.Empty)
             break;
@@ -28,23 +28,23 @@ ConnectFourGame.prototype.move = function (x, color) {
     return y - 1;
 };
 
-ConnectFourGame.prototype.forceMove = function (x, y, color) {
+FourInARowGame.prototype.forceMove = function (x, y, color) {
     this.board[x][y] = color;
 };
 
-ConnectFourGame.prototype.isEmpty = function (x, y) {
+FourInARowGame.prototype.isEmpty = function (x, y) {
     return this.board[x][y] == C4Color.Empty;
 };
 
-ConnectFourGame.prototype.getColor = function (x, y) {
+FourInARowGame.prototype.getColor = function (x, y) {
     return this.board[x][y];
 };
 
-ConnectFourGame.prototype.isValid = function (x, color) {
+FourInARowGame.prototype.isValid = function (x, color) {
     return this.isEmpty(x, 0);
 };
 
-ConnectFourGame.prototype.nextColor = function (color) {
+FourInARowGame.prototype.nextColor = function (color) {
     if (color == C4Color.Cross)
         return C4Color.Circle;
     if (color == C4Color.Circle)
@@ -52,7 +52,7 @@ ConnectFourGame.prototype.nextColor = function (color) {
     return C4Color.Empty;
 };
 
-ConnectFourGame.prototype.isTie = function () {
+FourInARowGame.prototype.isTie = function () {
     if (this.hasWinner())
         return false;
 
@@ -64,11 +64,11 @@ ConnectFourGame.prototype.isTie = function () {
     return true;
 };
 
-ConnectFourGame.prototype.hasWinner = function () {
+FourInARowGame.prototype.hasWinner = function () {
     return this.getWinner() != C4Color.Empty;
 };
 
-ConnectFourGame.prototype.getWinner = function () {
+FourInARowGame.prototype.getWinner = function () {
     var winner;
     var x;
     var y;

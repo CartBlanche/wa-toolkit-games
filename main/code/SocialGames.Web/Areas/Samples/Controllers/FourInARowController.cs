@@ -6,7 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
 
-    public class ConnectFourController : Controller
+    public class FourInARowController : Controller
     {
         public ActionResult Index()
         {

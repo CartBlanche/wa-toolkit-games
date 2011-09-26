@@ -1,5 +1,5 @@
 ﻿
-function ConnectFourController(viewModel, gameService, board, game)
+function FourInARowController(viewModel, gameService, board, game)
 {
     this.viewModel = viewModel;
     this.gameService = gameService;
@@ -61,7 +61,7 @@ function ConnectFourController(viewModel, gameService, board, game)
     }
 };
 
-ConnectFourController.prototype.start = function () {
+FourInARowController.prototype.start = function () {
     if (this.viewModel.gameQueueId() != null) {
         this.viewModel.playerColor(C4Color.Cross);
         this.gameService.joinGameQueue(gameQueueId, function (data) { });
@@ -79,7 +79,7 @@ ConnectFourController.prototype.start = function () {
     this.refresh();
 };
 
-ConnectFourController.prototype.updateGameStatus = function () {
+FourInARowController.prototype.updateGameStatus = function () {
     if (this.game.isTie()) {
         this.viewModel.isTie(true);
         this.viewModel.currentColor(C4Color.Empty);
@@ -92,7 +92,7 @@ ConnectFourController.prototype.updateGameStatus = function () {
         this.viewModel.currentColor(this.game.nextColor(this.viewModel.currentColor()));
 };
 
-ConnectFourController.prototype.onMove = function (x) {
+FourInARowController.prototype.onMove = function (x) {
     if (this.viewModel.playerColor() != this.viewModel.currentColor())
         return;
 
@@ -112,7 +112,7 @@ ConnectFourController.prototype.onMove = function (x) {
     this.gameService.sendGameAction(gameId, action);
 };
 
-ConnectFourController.prototype.refresh = function () {
+FourInARowController.prototype.refresh = function () {
     var controller = this;
 
     if (this.viewModel.gameId() != null)
@@ -123,17 +123,17 @@ ConnectFourController.prototype.refresh = function () {
         this.setLongTimer();
 };
 
-ConnectFourController.prototype.setTimer = function () {
+FourInARowController.prototype.setTimer = function () {
     var controller = this;
     setTimeout(function () { controller.refresh(); }, 300);
 };
 
-ConnectFourController.prototype.setLongTimer = function () {
+FourInARowController.prototype.setLongTimer = function () {
     var controller = this;
     setTimeout(function () { controller.refresh(); }, 1000);
 };
 
-ConnectFourController.prototype.setGameQueueId = function (gameQueueId) {
+FourInARowController.prototype.setGameQueueId = function (gameQueueId) {
     this.viewModel.gameQueueId(gameQueueId);
 };
 

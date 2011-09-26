@@ -9,19 +9,22 @@
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.Repositories;
+    using Microsoft.Samples.SocialGames.GamePlay.Services;
 
     public class AccountController : Controller
     {
         private readonly IUserRepository userRepository;
+        private IUserProvider userProvider;
 
         public AccountController()
-            : this(new UserRepository())
+            : this(new UserRepository(), new HttpContextUserProvider())
         {
         }
 
-        public AccountController(IUserRepository userRepository)
+        public AccountController(IUserRepository userRepository, IUserProvider userProvider)
         {
             this.userRepository = userRepository;
+            this.userProvider = userProvider;
         }
 
         [HttpPost]
@@ -60,6 +63,17 @@
             return Redirect("/Client/WarRoom");
         }
 
+        public ActionResult Friends()
+        {
+            this.SetConfigurationData();
+            return View();
+        }
+
+        public ActionResult Profile()
+        {
+            return View();
+        }
+
         private string GetContextFromRequest()
         {
             Uri requestBaseUrl = WSFederationMessage.GetBaseUrl(this.Request.Url);
@@ -83,6 +97,13 @@
             }
 
             return claimsIdentity.Claims.FirstOrDefault(c => c.ClaimType.Equals(claimType, StringComparison.OrdinalIgnoreCase)).Value;
+        }
+
+        private void SetConfigurationData()
+        {
+            this.ViewBag.BlobUrl = System.Configuration.ConfigurationManager.AppSettings["BlobUrl"];
+            this.ViewBag.ApiUrl = System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
+            this.ViewBag.NodeJsUrl = System.Configuration.ConfigurationManager.AppSettings["NodeJsUrl"];
         }
     }
 }

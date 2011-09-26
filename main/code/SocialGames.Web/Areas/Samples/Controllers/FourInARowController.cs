@@ -6,7 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
 
-    public class ConnectFourController : Controller
+    public class FourInARowController : Controller
     {
         public ActionResult Index()
         {
@@ -14,13 +14,13 @@
             return View();
         }
 
-        public ActionResult IndexEx()
+        public ActionResult IndexOld()
         {
             this.SetConfigurationData();
             return View();
         }
 
-        public ActionResult NodeJsEx()
+        public ActionResult NodeJs()
         {
             this.SetConfigurationData();
             return View();

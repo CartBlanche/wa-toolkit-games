@@ -26,7 +26,7 @@
             return View();
         }
 
-        public ActionResult GameServiceExTest()
+        public ActionResult GameServiceOldTest()
         {
             this.SetConfigurationData();
             return View();

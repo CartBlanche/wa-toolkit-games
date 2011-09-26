@@ -1,5 +1,5 @@
 ﻿
-function ConnectFourBoard(canvas, width, height) {
+function FourInARowBoard(canvas, width, height) {
     var board = this;
     this.canvas = canvas;
     this.width = width;
@@ -26,7 +26,7 @@ function ConnectFourBoard(canvas, width, height) {
     this.draw();
 };
 
-ConnectFourBoard.prototype.getPosition = function (e) {
+FourInARowBoard.prototype.getPosition = function (e) {
     if (e.offsetX != undefined && e.offsetY != undefined) {
         return { x: e.offsetX, y: e.offsetY };
     }
@@ -51,7 +51,7 @@ ConnectFourBoard.prototype.getPosition = function (e) {
     return { x: x, y: y };
 };
 
-ConnectFourBoard.prototype.draw = function () {
+FourInARowBoard.prototype.draw = function () {
     var width = this.canvas.width;
     var height = this.canvas.height;
     var context = this.canvas.getContext("2d");
@@ -71,14 +71,14 @@ ConnectFourBoard.prototype.draw = function () {
     context.closePath();
 };
 
-ConnectFourBoard.prototype.drawMove = function (x, y, color) {
+FourInARowBoard.prototype.drawMove = function (x, y, color) {
     if (color == C4Color.Cross)
         this.drawX(x, y);
     if (color == C4Color.Circle)
         this.drawO(x, y);
 };
 
-ConnectFourBoard.prototype.drawX = function (x, y) {
+FourInARowBoard.prototype.drawX = function (x, y) {
     var width = this.canvas.width;
     var height = this.canvas.height;
     var context = this.canvas.getContext("2d");
@@ -106,7 +106,7 @@ ConnectFourBoard.prototype.drawX = function (x, y) {
     context.closePath();
 };
 
-ConnectFourBoard.prototype.drawO = function (x, y) {
+FourInARowBoard.prototype.drawO = function (x, y) {
     var width = this.canvas.width;
     var height = this.canvas.height;
     var context = this.canvas.getContext("2d");

@@ -1,5 +1,5 @@
 ﻿
-function TicTacToeController(viewModel, gameService, board, game) {
+function FourInARowController(viewModel, gameService, board, game) {
     this.viewModel = viewModel;
     this.gameService = gameService;
     this.board = board;
@@ -11,11 +11,11 @@ function TicTacToeController(viewModel, gameService, board, game) {
     this.board.onMove = function (x, y) { controller.onMove(x, y); };
 };
 
-TicTacToeController.prototype.start = function () {
+FourInARowController.prototype.start = function () {
     var controller = this;
 
     if (this.viewModel.gameQueueId() != null) {
-        this.viewModel.playerColor(TTTColor.Cross);
+        this.viewModel.playerColor(C4Color.Cross);
         this.gameService.joinGameQueue(gameQueueId, function (data) { });
         controller.gameService.process(
                 gameQueueId,
@@ -24,7 +24,7 @@ TicTacToeController.prototype.start = function () {
                 );
     }
     else {
-        this.viewModel.playerColor(TTTColor.Circle);
+        this.viewModel.playerColor(C4Color.Circle);
         this.gameService.createGameQueue(function (data) {
             controller.viewModel.isOwner(true);
             controller.setGameQueueId(data);
@@ -38,7 +38,7 @@ TicTacToeController.prototype.start = function () {
     }
 };
 
-TicTacToeController.prototype.processGameQueue = function (gameQueue) {
+FourInARowController.prototype.processGameQueue = function (gameQueue) {
     this.viewModel.players(gameQueue.Users);
     this.viewModel.noPlayers(gameQueue.Users.length);
 
@@ -52,7 +52,7 @@ TicTacToeController.prototype.processGameQueue = function (gameQueue) {
     }
 };
 
-TicTacToeController.prototype.processAction = function (gameAction) {
+FourInARowController.prototype.processAction = function (gameAction) {
     if (gameAction.Type != 1)
         return;
 
@@ -60,38 +60,40 @@ TicTacToeController.prototype.processAction = function (gameAction) {
     var y = parseInt(gameAction.CommandData.y);
     var color = gameAction.CommandData.color;
 
-    if (!this.game.isValid(x, y, color))
+    if (!this.game.isValid(x, color))
+        return;
+    if (!this.game.isEmpty(x, y))
         return;
 
-    this.game.move(x, y, color);
+    y = this.game.move(x, color);
     this.board.drawMove(x, y, color);
 
     this.updateGameStatus();
 };
 
-TicTacToeController.prototype.updateGameStatus = function () {
+FourInARowController.prototype.updateGameStatus = function () {
     if (this.game.isTie()) {
         this.viewModel.isTie(true);
-        this.viewModel.currentColor(TTTColor.Empty);
+        this.viewModel.currentColor(C4Color.Empty);
     }
     else if (this.game.hasWinner()) {
         this.viewModel.winnerColor(this.game.getWinner());
-        this.viewModel.currentColor(TTTColor.Empty);
+        this.viewModel.currentColor(C4Color.Empty);
     }
     else
         this.viewModel.currentColor(this.game.nextColor(this.viewModel.currentColor()));
 };
 
-TicTacToeController.prototype.onMove = function (x, y) {
+FourInARowController.prototype.onMove = function (x) {
     if (this.viewModel.playerColor() != this.viewModel.currentColor())
         return;
 
     var color = this.viewModel.playerColor();
 
-    if (!this.game.isValid(x, y, color))
+    if (!this.game.isValid(x, color))
         return;
 
-    this.game.move(x, y, color);
+    var y = this.game.move(x, color);
     this.board.drawMove(x, y, color);
 
     this.updateGameStatus();
@@ -102,7 +104,7 @@ TicTacToeController.prototype.onMove = function (x, y) {
     this.gameService.sendGameAction(gameId, action);
 };
 
-TicTacToeController.prototype.setGameQueueId = function (gameQueueId) {
+FourInARowController.prototype.setGameQueueId = function (gameQueueId) {
     this.viewModel.gameQueueId(gameQueueId);
 };
 

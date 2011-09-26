@@ -1,5 +1,5 @@
 ﻿
-function ConnectFourViewModel() {
+function FourInARowViewModel() {
     this.playerName = ko.observable("user");
     this.isOwner = ko.observable(false);
     this.players = ko.observableArray();

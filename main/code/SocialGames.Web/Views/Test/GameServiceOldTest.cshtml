@@ -5,7 +5,7 @@
 <link href="@Url.Content("~/Content/qunit.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/qunit.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/game/GameServiceEx.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/GameServiceOld.js")" type="text/javascript"></script>
 
 
 <h1 id="qunit-header">GameService Tests</h1>
@@ -17,6 +17,12 @@
 <div id="qunit-fixture">test markup, will be hidden</div>
 
 <script type="text/javascript">
+
+    function sggamesqueuesCallback(data) {
+        ok(true);
+        start();
+    }
+
     $(function () {
         var apiURL = "@this.ViewBag.ApiUrl";
         var blobURL = "@this.ViewBag.BlobUrl";
@@ -49,7 +55,7 @@
             expect(1);
 
             function getQueue(queueId) {
-                gs.getGameQueue(queueId, success);
+                gs.getGameQueueStatus(queueId, success);
             };
 
             gs.createGameQueue(getQueue);

@@ -24,12 +24,12 @@
             return View();
         }
 
-        public ActionResult ConnectFourGameTest()
+        public ActionResult FourInARowGameTest()
         {
             return View();
         }
 
-        public ActionResult ConnectFourBoardTest()
+        public ActionResult FourInARowBoardTest()
         {
             return View();
         }

@@ -1,19 +1,18 @@
 ﻿@using Microsoft.Samples.SocialGames.Web.Areas.Samples.Extensions;
 
 @{
-    ViewBag.Title = "TicTacToe";
+    ViewBag.Title = "Four in a Row";
 }
 
-<script src="@Url.AreaContent("Scripts/socket.io.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/game/GameServiceNodeJsEx.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/GameService.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeBoard.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeGame.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeViewModel.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeControllerEx.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/FourInARowBoard.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/FourInARowGame.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/FourInARowViewModel.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/FourInARowController.js")" type="text/javascript"></script>
 <h2>
-    Tic Tac Toe</h2>
+    Four in a Row</h2>
 
 <script type="text/javascript">
         //First check for canvas, show an "Upgrade your browser" screen if they don't have it.
@@ -52,10 +51,9 @@
     <div style="display: none" data-bind="visible: gameId() != null">
         <fieldset>
             <legend>Game</legend>
-            <div>Game Id <span data-bind="text: gameId()"></span></div>
             <div>
-                You are <span data-bind="visible: playerColor() == TTTColor.Cross">Xs</span> <span
-                    data-bind="visible: playerColor() == TTTColor.Circle">Os</span>
+                You are <span data-bind="visible: playerColor() == C4Color.Cross">Xs</span> <span
+                    data-bind="visible: playerColor() == C4Color.Circle">Os</span>
             </div>
             <div data-bind="visible: playerColor() == currentColor()">
                 Your turn!</div>
@@ -65,9 +63,9 @@
                 Tie!!</div>
             <div data-bind="visible: playerColor() == winnerColor()">
                 You won!!</div>
-            <div data-bind="visible: playerColor() != winnerColor() && winnerColor() != TTTColor.Empty">
+            <div data-bind="visible: playerColor() != winnerColor() && winnerColor() != C4Color.Empty">
                 You lose!!</div>
-            <canvas id="board" width="300" height="300"></canvas>
+            <canvas id="board" width="600" height="600"></canvas>
         </fieldset>
     </div>
 </div>
@@ -90,22 +88,19 @@
 
     var apiURL = "@this.ViewBag.ApiUrl";
     var blobURL = "@this.ViewBag.BlobUrl";
-    var nodeJsURL = "@this.ViewBag.NodeJsUrl";
-
-    var socket = io.connect(nodeJsURL);
 
     var si = new ServerInterface();
-    var gs = new GameService(apiURL, blobURL, si, socket);
+    var gs = new GameService(apiURL, blobURL, si);
     var us = new UserService(apiURL, blobURL, si);
 
     var controller;
 
     function start() {
         var canvas = document.getElementById("board");
-        var board = new TicTacToeBoard(canvas);
-        var game = new TicTacToeGame();
+        var board = new FourInARowBoard(canvas, 6, 6);
+        var game = new FourInARowGame(6, 6);
 
-        var controller = new TicTacToeController(viewModel, gs, board, game);
+        var controller = new FourInARowController(viewModel, gs, board, game);
 
         controller.setGameQueueId(gameQueueId);
 
@@ -113,10 +108,8 @@
     }
 
     $(function () {
-        viewModel = new TicTacToeViewModel();
+        viewModel = new FourInARowViewModel();
         ko.applyBindings(viewModel);
-
-        $.flXHRproxy.registerOptions(apiURL, { xmlResponseText: false, loadPolicyURL: apiURL + "crossdomain.xml" });
 
         us.verify(
             function () { start(); },

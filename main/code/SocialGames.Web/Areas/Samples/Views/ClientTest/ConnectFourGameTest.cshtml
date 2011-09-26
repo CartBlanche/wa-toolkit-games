@@ -67,6 +67,62 @@
 
             equal(game.getWinner(), C4Color.Cross);
         });
+
+        test("Four in a Row: Horizontal", function () {
+            for (var x = 0; x <= 2; x++) {
+                for (var y = 0; y < 6; y++) {
+                    var game = new ConnectFourGame(6, 6);
+
+                    for (var k = 0; k < 4; k++) {
+                        game.forceMove(x + k, y, C4Color.Cross);
+                    }
+
+                    equal(game.getWinner(), C4Color.Cross);
+                }
+            }
+        });
+
+        test("Four in a Row: Vertical", function () {
+            for (var y = 0; y <= 2; y++) {
+                for (var x = 0; x < 6; x++) {
+                    var game = new ConnectFourGame(6, 6);
+
+                    for (var k = 0; k < 4; k++) {
+                        game.forceMove(x, y + k, C4Color.Cross);
+                    }
+
+                    equal(game.getWinner(), C4Color.Cross);
+                }
+            }
+        });
+
+        test("Four in a Row: Top Left To Bottom Right", function () {
+            for (var xoffset = 0; xoffset <= 2; xoffset++) {
+                for (var yoffset = 0; yoffset <= 2; yoffset++) {
+                    var game = new ConnectFourGame(6, 6);
+
+                    for (var x = 0; x < 4; x++) {
+                        game.forceMove(x + xoffset, x + yoffset, C4Color.Cross);
+                    }
+
+                    equal(game.getWinner(), C4Color.Cross);
+                }
+            }
+        });
+
+        test("Four in a Row: Bottom Left To Top Right Winners", function () {
+            for (var xoffset = 0; xoffset <= 2; xoffset++) {
+                for (var yoffset = 0; yoffset <= 2; yoffset++) {
+                    var game = new ConnectFourGame(6, 6);
+
+                    for (var x = 0; x < 4; x++) {
+                        game.forceMove(x + xoffset, 5 - (x + yoffset), C4Color.Cross);
+                    }
+
+                    equal(game.getWinner(), C4Color.Cross);
+                }
+            }
+        });
     });
 </script>
 

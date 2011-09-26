@@ -28,6 +28,10 @@ ConnectFourGame.prototype.move = function (x, color) {
     return y - 1;
 };
 
+ConnectFourGame.prototype.forceMove = function (x, y, color) {
+    this.board[x][y] = color;
+};
+
 ConnectFourGame.prototype.isEmpty = function (x, y) {
     return this.board[x][y] == C4Color.Empty;
 };
@@ -69,7 +73,8 @@ ConnectFourGame.prototype.getWinner = function () {
     var x;
     var y;
 
-    for (x = 0; x < this.width - 4; x++) {
+    // Horizontal 
+    for (x = 0; x <= this.width - 4; x++) {
         for (y = 0; y < this.height; y++) {
             winner = inRow(this, x, y, 1, 0);
             if (winner != C4Color.Empty)
@@ -77,25 +82,28 @@ ConnectFourGame.prototype.getWinner = function () {
         }
     }
 
-    for (x = 0; x < this.width - 4; x++) {
-        for (y = 0; y < this.height - 4; y++) {
-            winner = inRow(this, x, y, 1, 1);
-            if (winner != C4Color.Empty)
-                return winner;
-        }
-    }
-
+    // Vertical
     for (x = 0; x < this.width; x++) {
-        for (y = 0; y < this.height - 4; y++) {
+        for (y = 0; y <= this.height - 4; y++) {
             winner = inRow(this, x, y, 0, 1);
             if (winner != C4Color.Empty)
                 return winner;
         }
     }
 
-    for (x = 4; x < this.width; x++) {
-        for (y = 4; y < this.height; y++) {
-            winner = inRow(this, x, y, -1, -1);
+    // Diagonal Top Left to Bottom Right
+    for (x = 0; x <= this.width - 4; x++) {
+        for (y = 0; y <= this.height - 4; y++) {
+            winner = inRow(this, x, y, 1, 1);
+            if (winner != C4Color.Empty)
+                return winner;
+        }
+    }
+
+    // Diagonal Bottom Left to Up Right
+    for (x = 3; x < this.width; x++) {
+        for (y = 0; y <= this.height - 4; y++) {
+            winner = inRow(this, x, y, -1, 1);
             if (winner != C4Color.Empty)
                 return winner;
         }

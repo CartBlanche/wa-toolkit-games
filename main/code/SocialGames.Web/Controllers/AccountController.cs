@@ -60,6 +60,16 @@
             return Redirect("/Client/WarRoom");
         }
 
+        public ActionResult Friends()
+        {
+            return View();
+        }
+
+        public ActionResult Profile()
+        {
+            return View();
+        }
+
         private string GetContextFromRequest()
         {
             Uri requestBaseUrl = WSFederationMessage.GetBaseUrl(this.Request.Url);

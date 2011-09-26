@@ -30,12 +30,9 @@
 
                 var stats = new UserStats()
                 {
-                    UserId = "testuser",
-                    Accuracy = 50,
-                    Kills = 1,
-                    Rank = 3,
-                    TerrainDeformation = 15,
+                    UserId = "testuser",                    
                     Victories = 5,
+                    Defeats = 1
                 };
 
                 repository.Save(stats);
@@ -44,15 +41,11 @@
 
                 Assert.AreEqual(result.UserId, stats.UserId);
                 Assert.AreEqual(result.Victories, stats.Victories);
-                Assert.AreEqual(result.Kills, stats.Kills);
-                Assert.AreEqual(result.Rank, stats.Rank);
-                Assert.AreEqual(result.TerrainDeformation, stats.TerrainDeformation);
-                Assert.AreEqual(result.XP, stats.XP);
+                Assert.AreEqual(result.Defeats, stats.Defeats);
             }
         }
 
         [TestMethod]
-        [Ignore]
         public void GenerateLeaderboard()
         {
             using (var ts = new TransactionScope())
@@ -63,7 +56,7 @@
                 var count = 5;
                 var leaderboard = repository.GenerateLeaderboard(count);
 
-                Assert.AreEqual(6, leaderboard.Count());
+                Assert.AreEqual(2, leaderboard.Count());
 
                 int idBoard = 0;
                 foreach (var board in leaderboard)
@@ -81,7 +74,6 @@
         }
 
         [TestMethod]
-        [Ignore]
         public void GenerateLeaderboardFocused()
         {
             using (var ts = new TransactionScope())
@@ -93,13 +85,13 @@
                 var userFocus = "testuser_50";
                 var leaderboard = repository.GenerateLeaderboard(userFocus, count);
 
-                Assert.AreEqual(6, leaderboard.Count());
+                Assert.AreEqual(2, leaderboard.Count());
 
                 int idBoard = 0;
                 foreach (var board in leaderboard)
                 {
                     Assert.AreEqual(++idBoard, board.Id);
-                    Assert.AreEqual((count * 2) + 1, board.Scores.Count());
+                    Assert.AreEqual((Math.Floor(count / 2.0) * 2) + 1, board.Scores.Count());
                 }
             }
         }
@@ -115,12 +107,8 @@
                 var stats = new UserStats()
                 {
                     UserId = "testuser_" + i.ToString(),
-                    Accuracy = rnd.Next(100),
-                    Kills = rnd.Next(1000),
-                    Rank = rnd.Next(1000),
-                    TerrainDeformation = rnd.Next(70),
                     Victories = rnd.Next(1000),
-                    XP = rnd.Next(100),
+                    Defeats = rnd.Next(1000),
                 };
 
                 repository.Save(stats);

@@ -7,7 +7,8 @@
 
     public static class GameActionType
     {
-        // TODO the only needed now, by StatisticsCommand. 
-        public const int EndGame = 4;
+        public const int Victory = 0;
+
+        public const int Defeat = 1;
     }
 }

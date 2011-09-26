@@ -183,7 +183,7 @@
                 var serializer = new JavaScriptSerializer();
                 var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsString());
 
-                Assert.AreEqual(6, boards.Count());
+                Assert.AreEqual(2, boards.Count());
 
                 foreach (var board in boards)
                 {
@@ -209,11 +209,11 @@
                 var serializer = new JavaScriptSerializer();
                 var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsString());
 
-                Assert.AreEqual(6, boards.Count());
+                Assert.AreEqual(2, boards.Count());
 
                 foreach (var board in boards)
                 {
-                    Assert.AreEqual(5, board.Scores.Count());
+                    Assert.AreEqual(3, board.Scores.Count());
                     Assert.IsNotNull(board.Scores.FirstOrDefault(s => s.UserId == userId));
                 }
             }
@@ -228,12 +228,8 @@
                 var stats = new UserStats()
                 {
                     UserId = "testuser_" + i.ToString(),
-                    Accuracy = rnd.Next(100),
-                    Kills = rnd.Next(1000),
-                    Rank = rnd.Next(1000),
-                    TerrainDeformation = rnd.Next(70),
                     Victories = rnd.Next(1000),
-                    XP = rnd.Next(100),
+                    Defeats = rnd.Next(1000)
                 };
 
                 repository.Save(stats);

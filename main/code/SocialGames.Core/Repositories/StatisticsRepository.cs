@@ -55,12 +55,8 @@
 
                 if (old != null)
                 {
-                    old.Accuracy = stats.Accuracy;
-                    old.Kills = stats.Kills;
-                    old.Rank = stats.Rank;
-                    old.TerrainDeformation = stats.TerrainDeformation;
                     old.Victories = stats.Victories;
-                    old.XP = stats.XP;
+                    old.Defeats = stats.Defeats;
                 }
                 else
                 {
@@ -79,7 +75,7 @@
         public IEnumerable<Board> GenerateLeaderboard(string focusUserId, int focusCount)
         {
             var boards = new List<Board>();
-            var boardNames = new string[] { "Kills", "Victories", "Accuracy", "XP", "Rank", "TerrainDeformation" };
+            var boardNames = new string[] { "Victories", "Defeats" };
             int id = 0;
 
             using (var db = new StatisticsContext(this.NameOrConnectionString))

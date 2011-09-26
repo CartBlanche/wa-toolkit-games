@@ -22,49 +22,15 @@
         }
 
         [TestMethod]
-        public void SendPlayerDeadCommand()
+        public void SendVictoryCommand()
         {
             string userId = Guid.NewGuid().ToString();
 
             GameAction gameAction = new GameAction()
             {
                 UserId = userId,
-                Type = 1,
-                Id = Guid.NewGuid(),
-                CommandData = new Dictionary<string, object>()
-                { 
-                    { "accuracy", 1 },
-                    { "kills", 1 },
-                    { "terrainDeformation", 1 },
-                    { "xp", 1 },
-                }
-            };
-
-            this.command.Do(gameAction);
-
-            var result = this.repository.Retrieve(userId);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Accuracy);
-            Assert.AreEqual(1, result.TerrainDeformation);
-            Assert.AreEqual(1, result.Kills);
-            Assert.AreEqual(1, result.XP);            
-        }
-
-        [TestMethod]
-        public void SendEndGameCommand()
-        {
-            string userId = Guid.NewGuid().ToString();
-
-            GameAction gameAction = new GameAction()
-            {
-                UserId = userId,
-                Type = GameActionType.EndGame,
-                Id = Guid.NewGuid(),
-                CommandData = new Dictionary<string, object>()
-                { 
-                    { "xp", 1 },            
-                }
+                Type = GameActionType.Victory,
+                Id = Guid.NewGuid()
             };
 
             this.command.Do(gameAction);
@@ -73,29 +39,19 @@
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Victories);
-            Assert.AreEqual(1, result.XP);
+            Assert.AreEqual(0, result.Defeats);
         }
 
         [TestMethod]
-        public void CalculateAverage()
+        public void SendDefeatCommand()
         {
             string userId = Guid.NewGuid().ToString();
-
-            this.repository.Save(new UserStats
-            {
-                UserId = userId,
-                Kills = 100,
-            });
 
             GameAction gameAction = new GameAction()
             {
                 UserId = userId,
-                Type = GameActionType.EndGame,
-                Id = Guid.NewGuid(),
-                CommandData = new Dictionary<string, object>()
-                { 
-                    { "kills", 200 },            
-                }
+                Type = GameActionType.Defeat,
+                Id = Guid.NewGuid()
             };
 
             this.command.Do(gameAction);
@@ -103,7 +59,8 @@
             var result = this.repository.Retrieve(userId);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(150, result.Kills);            
+            Assert.AreEqual(0, result.Victories);
+            Assert.AreEqual(1, result.Defeats);
         }
     }
 }

@@ -9,21 +9,9 @@
         public string UserId { get; set; }
 
         [DataMember]
-        public float XP { get; set; }
-
-        [DataMember]
-        public float Rank { get; set; }
-
-        [DataMember]
-        public float Kills { get; set; }
-
-        [DataMember]
         public float Victories { get; set; }
 
         [DataMember]
-        public float Accuracy { get; set; }
-
-        [DataMember]
-        public float TerrainDeformation { get; set; }
+        public float Defeats { get; set; }
     }
 }

@@ -15,6 +15,7 @@
             return new ScheduleCondition(TimeSpan.FromMilliseconds(milliseconds)).TickFunc;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Called from long running processes")]
         private class ScheduleCondition
         {
             private TimeSpan interval;

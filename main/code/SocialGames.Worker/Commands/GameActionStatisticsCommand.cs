@@ -23,22 +23,29 @@
                 statistics = new UserStats
                 {
                     UserId = gameAction.UserId,
+                    GameCount = 0,
                     Victories = 0,
                     Defeats = 0
                 };
-            }                      
-
-            if (gameAction.Type == GameActionType.Victory)
-            {
-                statistics.Victories += 1;
             }
 
-            if (gameAction.Type == GameActionType.Defeat)
-            {
-                statistics.Defeats += 1;
-            }
-
+            statistics.GameCount += GetValue(gameAction.CommandData, "GameCount");
+            statistics.Defeats += GetValue(gameAction.CommandData, "Defeats");
+            statistics.Victories += GetValue(gameAction.CommandData, "Victories");            
+            
             this.statisticsRepository.Save(statistics);            
+        }
+
+        private static int GetValue(IDictionary<string, object> commandData, string key)
+        {
+            var value = 0;
+
+            if (commandData.ContainsKey(key))
+            {
+                int.TryParse(commandData[key].ToString(), out value);
+            }
+
+            return value;
         }
    }
 }

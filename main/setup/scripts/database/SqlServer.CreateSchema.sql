@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[UserStats](
 	[UserId] [nvarchar](128) NOT NULL,
+	[GameCount] [real] NOT NULL,
 	[Victories] [real] NOT NULL,
 	[Defeats] [real] NOT NULL,
 PRIMARY KEY CLUSTERED 
@@ -9,8 +10,9 @@ PRIMARY KEY CLUSTERED
 )
 GO
 
+CREATE INDEX IX_UserStats_GameCount ON UserStats( [GameCount] );
 CREATE INDEX IX_UserStats_Victories ON UserStats( [Victories] );
-CREATE INDEX IX_UserStats_Defeats ON UserStats( [Defeats] );
+CREATE INDEX IX_UserStats_Defeats ON UserStats( [Defeats] DESC );
 GO
 
 CREATE PROCEDURE GenerateBoard
@@ -27,6 +29,8 @@ BEGIN
 			SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY Victories          DESC) AS Id, * FROM UserStats) T WHERE T.Id <= @count ORDER BY T.Id
 		ELSE IF @boardName = 'Defeats'
 			SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY Defeats           ASC) AS Id, * FROM UserStats) T WHERE T.Id <= @count ORDER BY T.Id
+		ELSE IF @boardName = 'GameCount'
+			SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY GameCount         ASC) AS Id, * FROM UserStats) T WHERE T.Id <= @count ORDER BY T.Id
 	END
 	ELSE
 	BEGIN
@@ -49,6 +53,14 @@ BEGIN
 			SET @bottomPos = @userPos + Floor(@count/2)
 			
 			SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY Defeats ASC) AS Id, * FROM UserStats) T WHERE T.Id BETWEEN @topPos AND @bottomPos ORDER BY T.Id
+		END
+		ELSE IF @boardName = 'GameCount'
+		BEGIN
+			SELECT @userPos = T.Id FROM (SELECT ROW_NUMBER() OVER(ORDER BY GameCount ASC) AS Id, UserId FROM UserStats) T WHERE T.UserId = @focusUserId ORDER BY T.Id
+			SET @topPos = @userPos - Floor(@count/2)
+			SET @bottomPos = @userPos + Floor(@count/2)
+			
+			SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY GameCount ASC) AS Id, * FROM UserStats) T WHERE T.Id BETWEEN @topPos AND @bottomPos ORDER BY T.Id
 		END
 	END
 END;

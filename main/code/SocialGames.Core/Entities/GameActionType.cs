@@ -7,8 +7,6 @@
 
     public static class GameActionType
     {
-        public const int Victory = 0;
-
-        public const int Defeat = 1;
+        // Define Game Action Types Gere
     }
 }

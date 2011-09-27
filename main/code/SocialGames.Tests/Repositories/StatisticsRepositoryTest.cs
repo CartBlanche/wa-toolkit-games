@@ -30,7 +30,8 @@
 
                 var stats = new UserStats()
                 {
-                    UserId = "testuser",                    
+                    UserId = "testuser",
+                    GameCount = 10,
                     Victories = 5,
                     Defeats = 1
                 };
@@ -40,6 +41,7 @@
                 var result = repository.Retrieve(stats.UserId);
 
                 Assert.AreEqual(result.UserId, stats.UserId);
+                Assert.AreEqual(result.GameCount, stats.GameCount);
                 Assert.AreEqual(result.Victories, stats.Victories);
                 Assert.AreEqual(result.Defeats, stats.Defeats);
             }

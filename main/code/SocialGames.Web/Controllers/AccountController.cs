@@ -11,6 +11,7 @@
     using Microsoft.Samples.SocialGames.GamePlay.Services;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Web.Controllers;
+    using Microsoft.Samples.SocialGames.Web.Security;
 
     public class AccountController : BaseController
     {
@@ -69,17 +70,14 @@
             return Redirect("~/");
         }
 
+        [CustomAuthorize]
         public ActionResult Friends()
         {
+            this.ViewBag.CurrentUserId = this.userProvider.UserId;
             return View();
         }
 
         public ActionResult Profile()
-        {
-            return View();
-        }
-
-        public ActionResult Leaderboard()
         {
             return View();
         }

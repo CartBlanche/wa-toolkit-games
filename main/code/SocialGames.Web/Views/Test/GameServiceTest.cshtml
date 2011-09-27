@@ -84,7 +84,7 @@
             var success = function (result) { ok(true); start(); };
             stop(10000);
             expect(1);
-            var action = { type: 1, commandData: { Victories: 1, Defeats: 0, GameCount: 1 }};
+            var action = { type: 1, commandData: { Victories: 0, Defeats: 0, GameCount: 0 }};
 
             gs.postStatisticsEvent(action, success);
         });

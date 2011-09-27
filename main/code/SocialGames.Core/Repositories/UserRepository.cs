@@ -161,9 +161,13 @@
                 var profile = this.GetUser(friend);
                 var info = new UserInfo() { Id = friend };
                 if (profile == null || string.IsNullOrEmpty(profile.DisplayName))
+                {
                     info.DisplayName = friend;
+                }
                 else
+                {
                     info.DisplayName = profile.DisplayName;
+                }
 
                 list.Add(info);
             }

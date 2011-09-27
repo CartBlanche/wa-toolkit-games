@@ -71,11 +71,15 @@
 
         public ActionResult Friends()
         {
-            this.SetConfigurationData();
             return View();
         }
 
         public ActionResult Profile()
+        {
+            return View();
+        }
+
+        public ActionResult Leaderboard()
         {
             return View();
         }
@@ -103,13 +107,6 @@
             }
 
             return claimsIdentity.Claims.FirstOrDefault(c => c.ClaimType.Equals(claimType, StringComparison.OrdinalIgnoreCase)).Value;
-        }
-
-        private void SetConfigurationData()
-        {
-            this.ViewBag.BlobUrl = System.Configuration.ConfigurationManager.AppSettings["BlobUrl"];
-            this.ViewBag.ApiUrl = System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
-            this.ViewBag.NodeJsUrl = System.Configuration.ConfigurationManager.AppSettings["NodeJsUrl"];
         }
     }
 }

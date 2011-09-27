@@ -75,6 +75,24 @@
                 us.getFriendsInfo(success);
             });
         });
+
+        test("Get Leaderboard", function () {
+            var success = function (result) { ok(true); start(); };
+            stop(10000);
+            expect(1);
+
+            us.getLeaderboard(10, success);
+        });
+
+        test("Get Leaderboard (with user focus)", function () {
+            var success = function (result) { ok(true); start(); };
+            stop(10000);
+            expect(1);
+
+            us.verify(function (userId) {
+                us.getLeaderboardWithFocus(5, userId, success);
+            });
+        });
     });
 </script>
 

@@ -142,6 +142,7 @@
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\NotificationStatus.cs" />
     <Compile Include="Entities\Score.cs" />
+    <Compile Include="Entities\UserInfo.cs" />
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Entities\UserSession.cs" />
     <Compile Include="Entities\UserStats.cs" />

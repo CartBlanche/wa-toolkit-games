@@ -23,7 +23,10 @@
         HttpResponseMessage LeaderboardWithFocus(string focusUserId, int focusCount);
 
         [WebInvoke(Method = "POST", UriTemplate = "friends")]
-        HttpResponseMessage GetFriendsPost();
+        HttpResponseMessage GetFriends();
+
+        [WebInvoke(Method = "POST", UriTemplate = "friendsinfo")]
+        HttpResponseMessage GetFriendsInfo();
 
         [WebInvoke(Method = "POST", UriTemplate = "friend/add/{friendId}")]
         HttpResponseMessage AddFriend(string friendId);

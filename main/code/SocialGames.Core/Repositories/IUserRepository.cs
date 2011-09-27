@@ -18,6 +18,8 @@
 
         List<UserID> GetFriends(UserID userId);
 
+        List<UserInfo> GetFriendsInfo(UserID userId);
+
         void AddFriend(UserID userId, UserID friendUserId);
     }
 }

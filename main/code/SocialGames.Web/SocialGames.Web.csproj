@@ -195,14 +195,10 @@
     <Content Include="Areas\Samples\Scripts\game\TicTacToeGame.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeViewModel.js" />
     <Content Include="Scripts\game\UserService.js" />
-    <Content Include="Areas\Samples\Scripts\jquery-1.6.2-vsdoc.js" />
-    <Content Include="Areas\Samples\Scripts\jquery-1.6.2.js" />
-    <Content Include="Areas\Samples\Scripts\jquery-1.6.2.min.js" />
     <Content Include="Areas\Samples\Scripts\jQuery.tmpl.js" />
     <Content Include="Areas\Samples\Scripts\jQuery.tmpl.min.js" />
     <Content Include="Areas\Samples\Scripts\knockout-1.2.1.debug.js" />
     <Content Include="Areas\Samples\Scripts\knockout-1.2.1.js" />
-    <Content Include="Areas\Samples\Scripts\qunit.js" />
     <Content Include="Areas\Samples\Scripts\socket.io.js" />
     <Content Include="Content\azurelogo.png" />
     <Content Include="Content\qunit.css" />
@@ -221,7 +217,6 @@
     <Content Include="Areas\Samples\Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Areas\Samples\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Areas\Samples\Content\themes\base\jquery-ui.css" />
-    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Compile Include="Security\WSFederationRequestValidator.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\EventService.cs" />
@@ -238,13 +233,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\knockout-1.2.1.debug.js" />
-    <Content Include="Scripts\knockout-1.2.1.js" />
-    <Content Include="Scripts\qunit.js" />
+    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
-    <Content Include="Scripts\jquery.tmpl.js" />
-    <Content Include="Scripts\jquery.tmpl.min.js" />
+    <Content Include="Scripts\qunit.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -118,6 +118,15 @@
             {
                 this.gameRepository.AddUserToGameQueue(CurrentUserId, gameQueueId);
 
+                var queue = this.gameRepository.GetGameQueue(gameQueueId);
+                var currentUserId = this.CurrentUserId;
+
+                foreach (var user in queue.Users)
+                {
+                    this.userRepository.AddFriend(currentUserId, user.UserId);
+                    this.userRepository.AddFriend(user.UserId, currentUserId);
+                }
+
                 return SuccessResponse;
             }
             catch (Exception ex)

@@ -226,8 +226,6 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\IEventService.cs" />
-    <Compile Include="Services\HttpContextOrGuestUserProvider.cs" />
-    <Compile Include="Services\ITestService.cs" />
     <Compile Include="Services\HttpContextUserProvider.cs" />
     <Compile Include="Services\IAuthService.cs" />
     <Compile Include="Services\GameService.cs" />
@@ -235,7 +233,6 @@
     <Compile Include="Services\IUserProvider.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
-    <Compile Include="Services\TestService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

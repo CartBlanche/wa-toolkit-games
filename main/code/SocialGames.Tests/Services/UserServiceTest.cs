@@ -24,6 +24,7 @@
         private int suffix;
         private IAzureBlobContainer<UserProfile> userContainer;
         private IAzureBlobContainer<UserSession> userSessionContainer;
+        private IAzureBlobContainer<Friends> friendContainer;
 
         [TestInitialize]
         public void Setup()
@@ -51,6 +52,11 @@
             if (this.userSessionContainer != null)
             {
                 this.userSessionContainer.DeleteContainer();
+            }
+
+            if (this.friendContainer != null)
+            {
+                this.friendContainer.DeleteContainer();
             }
         }
 
@@ -249,11 +255,13 @@
             var account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
             this.userContainer = new AzureBlobContainer<UserProfile>(account, ConfigurationConstants.UsersContainerName + "test" + this.suffix, true);
             this.userSessionContainer = new AzureBlobContainer<UserSession>(account, ConfigurationConstants.UserSessionsContainerName + "test" + this.suffix, true);
+            this.friendContainer = new AzureBlobContainer<Friends>(account, ConfigurationConstants.FriendsContainerName + "test" + this.suffix, true);
 
             this.userContainer.EnsureExist();
             this.userSessionContainer.EnsureExist(true);
+            this.friendContainer.EnsureExist(true);
 
-            return new UserRepository(this.userContainer, this.userSessionContainer);
+            return new UserRepository(this.userContainer, this.userSessionContainer, this.friendContainer);
         }
 
         private StatisticsRepository CreateStatisticsRepository()

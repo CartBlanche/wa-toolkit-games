@@ -140,49 +140,49 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void UserRepositoryConstructorWithNullAccountAndContainer()
         {
-            new UserRepository(null, "userContainer", "userSessionContainer");
+            new UserRepository(null, "userContainer", "userSessionContainer", "friendContainer");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void UserRepositoryConstructorWithNullUserContainerName()
         {
-            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, null, "userSessionContainer");
+            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, null, "userSessionContainer", "friendContainer");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void UserRepositoryConstructorWithNullUserSessionContainerName()
         {
-            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, "userContainer", null);
+            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, "userContainer", null, "friendContainer");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void UserRepositoryConstructorWithEmptyUserContainerName()
         {
-            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, string.Empty, "userSessionContainer");
+            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, string.Empty, "userSessionContainer", "friendContainer");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void UserRepositoryConstructorWithEmptyUserSessionContainerName()
         {
-            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, "userContainer", string.Empty);
+            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, "userContainer", string.Empty, "friendContainer");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void UserRepositoryConstructorWithNullUserContainer()
         {
-            new UserRepository(null, new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount));
+            new UserRepository(null, new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount), null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void UserRepositoryConstructorWithNullUserSessionContainer()
         {
-            new UserRepository(new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount), null);
+            new UserRepository(new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount), null, null);
         }
 
         [TestMethod]

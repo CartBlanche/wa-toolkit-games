@@ -27,6 +27,7 @@
         private IAzureBlobContainer<GameQueue> gameQueueContainer;
         private IAzureBlobContainer<UserProfile> userContainer;
         private IAzureBlobContainer<UserSession> userSessionContainer;
+        private IAzureBlobContainer<Friends> friendContainer;
         private IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue;
         private IAzureQueue<LeaveGameMessage> leaveGameMessageQueue;
 
@@ -66,6 +67,11 @@
             if (this.userSessionContainer != null)
             {
                 this.userSessionContainer.DeleteContainer();
+            }
+
+            if (this.friendContainer != null)
+            {
+                this.friendContainer.DeleteContainer();
             }
 
             if (this.skirmishGameMessageQueue != null)
@@ -429,11 +435,13 @@
             var account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
             this.userContainer = new AzureBlobContainer<UserProfile>(account, ConfigurationConstants.UsersContainerName + "test" + this.suffix, true);
             this.userSessionContainer = new AzureBlobContainer<UserSession>(account, ConfigurationConstants.UserSessionsContainerName + "test" + this.suffix, true);
+            this.friendContainer = new AzureBlobContainer<Friends>(account, ConfigurationConstants.FriendsContainerName + "test" + this.suffix, true);
 
             this.userContainer.EnsureExist(true);
             this.userSessionContainer.EnsureExist(true);
+            this.friendContainer.EnsureExist(true);
 
-            return new UserRepository(this.userContainer, this.userSessionContainer);
+            return new UserRepository(this.userContainer, this.userSessionContainer, this.friendContainer);
         }
 
         private Game CreateNewGame(IGameRepository gameRepository, params string[] userIds)

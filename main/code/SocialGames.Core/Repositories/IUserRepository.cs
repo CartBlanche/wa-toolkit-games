@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.Samples.SocialGames.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using Microsoft.Samples.SocialGames.Entities;
     using GameID = System.Guid;
     using UserID = System.String;
@@ -14,5 +15,10 @@
         void AddOrUpdateUserSession(UserSession userSession);
 
         string GetUserReference(UserID userId, TimeSpan expiryTime);
+
+        List<UserID> GetFriends(UserID userId);
+
+        void AddFriend(UserID userId, UserID friendUserId);
     }
 }
+

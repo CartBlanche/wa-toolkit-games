@@ -11,6 +11,7 @@
     using Microsoft.Samples.SocialGames.GamePlay.Services;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Web.Controllers;
+    using Microsoft.Samples.SocialGames.Web.Security;
 
     public class AccountController : BaseController
     {
@@ -69,9 +70,10 @@
             return Redirect("~/");
         }
 
+        [CustomAuthorize]
         public ActionResult Friends()
         {
-            this.SetConfigurationData();
+            this.ViewBag.CurrentUserId = this.userProvider.UserId;
             return View();
         }
 
@@ -103,13 +105,6 @@
             }
 
             return claimsIdentity.Claims.FirstOrDefault(c => c.ClaimType.Equals(claimType, StringComparison.OrdinalIgnoreCase)).Value;
-        }
-
-        private void SetConfigurationData()
-        {
-            this.ViewBag.BlobUrl = System.Configuration.ConfigurationManager.AppSettings["BlobUrl"];
-            this.ViewBag.ApiUrl = System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
-            this.ViewBag.NodeJsUrl = System.Configuration.ConfigurationManager.AppSettings["NodeJsUrl"];
         }
     }
 }

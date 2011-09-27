@@ -307,6 +307,12 @@
             Assert.AreEqual(2, gameQueue.Users.Count);
             Assert.AreEqual(userID, gameQueue.Users[0].UserId);
             Assert.AreEqual(newUserID, gameQueue.Users[1].UserId);
+
+            var friends1 = userRepository.GetFriends(userID);
+            var friends2 = userRepository.GetFriends(newUserID);
+
+            Assert.IsTrue(friends1.Any(f => f == newUserID));
+            Assert.IsTrue(friends2.Any(f => f == userID));
         }
 
         [TestMethod]

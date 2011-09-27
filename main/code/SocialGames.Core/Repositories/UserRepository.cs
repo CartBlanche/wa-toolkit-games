@@ -119,6 +119,11 @@
                 return;
             }
 
+            if (userId == friendUserId)
+            {
+                return;
+            }
+
             friends.Users.Add(friendUserId);
 
             this.friendsContainer.Save(userId, friends);

@@ -7,29 +7,22 @@
     {
         public static Func<bool> Every(TimeSpan interval)
         {
-            using (var scheduleCondition = new ScheduleCondition(interval))
-            {
-                return scheduleCondition.TickFunc;
-            }            
+            return new ScheduleCondition(interval).TickFunc;
         }
 
         public static Func<bool> Every(int milliseconds)
         {
-            using (var scheduleCondition = new ScheduleCondition(TimeSpan.FromMilliseconds(milliseconds)))
-            {
-                return scheduleCondition.TickFunc;
-            }            
+            return new ScheduleCondition(TimeSpan.FromMilliseconds(milliseconds)).TickFunc;
         }
 
-        private class ScheduleCondition : IDisposable
+        private class ScheduleCondition
         {
             private TimeSpan interval;
             private System.Timers.Timer timer;
-            private AutoResetEvent signal;
+            private AutoResetEvent signal = new AutoResetEvent(false);
 
             public ScheduleCondition(TimeSpan interval)
             {
-                this.signal = new AutoResetEvent(false);
                 this.interval = interval;
                 this.timer = new System.Timers.Timer(this.interval.TotalMilliseconds);
                 this.timer.Elapsed += (sender, arg) => { signal.Set(); };
@@ -46,12 +39,6 @@
                         return true;
                     };
                 }
-            }
-
-            public void Dispose()
-            {
-                this.signal.Dispose();
-                this.timer.Dispose();
             }
         }
     } 

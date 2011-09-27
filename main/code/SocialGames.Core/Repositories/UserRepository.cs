@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.Samples.SocialGames.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
@@ -10,23 +11,24 @@
     {
         private readonly IAzureBlobContainer<UserProfile> userContainer;
         private readonly IAzureBlobContainer<UserSession> userSessionContainer;
+        private readonly IAzureBlobContainer<Friends> friendsContainer;
 
         public UserRepository()
             : this(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"))
-        { 
-        }
-
-        public UserRepository(CloudStorageAccount account)
-            : this(account, ConfigurationConstants.UsersContainerName, ConfigurationConstants.UserSessionsContainerName)
-        { 
-        }
-
-        public UserRepository(CloudStorageAccount account, string usersContainerName, string userSessionContainerName)
-            : this(new AzureBlobContainer<UserProfile>(account, usersContainerName, true), new AzureBlobContainer<UserSession>(account, userSessionContainerName, true))
         {
         }
 
-        public UserRepository(IAzureBlobContainer<UserProfile> userContainer, IAzureBlobContainer<UserSession> userSessionContainer)
+        public UserRepository(CloudStorageAccount account)
+            : this(account, ConfigurationConstants.UsersContainerName, ConfigurationConstants.UserSessionsContainerName, ConfigurationConstants.FriendsContainerName)
+        {
+        }
+
+        public UserRepository(CloudStorageAccount account, string usersContainerName, string userSessionContainerName, string friendsContainerName)
+            : this(new AzureBlobContainer<UserProfile>(account, usersContainerName, true), new AzureBlobContainer<UserSession>(account, userSessionContainerName, true), new AzureBlobContainer<Friends>(account, friendsContainerName, true))
+        {
+        }
+
+        public UserRepository(IAzureBlobContainer<UserProfile> userContainer, IAzureBlobContainer<UserSession> userSessionContainer, IAzureBlobContainer<Friends> friendsContainer)
         {
             if (userContainer == null)
             {
@@ -38,11 +40,19 @@
                 throw new ArgumentNullException("userSessionContainer");
             }
 
+            if (friendsContainer == null)
+            {
+                throw new ArgumentNullException("friendsContainer");
+            }
+
             this.userContainer = userContainer;
             this.userContainer.EnsureExist(true);
 
             this.userSessionContainer = userSessionContainer;
             this.userSessionContainer.EnsureExist(true);
+
+            this.friendsContainer = friendsContainer;
+            this.friendsContainer.EnsureExist(true);
         }
 
         public void AddOrUpdateUser(UserProfile user)
@@ -83,6 +93,52 @@
         public string GetUserReference(string userId, TimeSpan expiryTime)
         {
             return this.userContainer.GetSharedAccessSignature(userId.ToString(), DateTime.UtcNow.Add(expiryTime));
+        }
+
+        public void AddFriend(string userId, string friendUserId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentException("User Id cannot be empty nor null");
+            }
+
+            if (string.IsNullOrEmpty(friendUserId))
+            {
+                throw new ArgumentException("FriendUser Id cannot be empty nor null");
+            }
+
+            Friends friends = this.friendsContainer.Get(userId);
+
+            if (friends == null)
+            {
+                friends = new Friends() { Id = userId };
+            }
+
+            if (friends.Users.Contains(friendUserId))
+            {
+                return;
+            }
+
+            friends.Users.Add(friendUserId);
+
+            this.friendsContainer.Save(userId, friends);
+        }
+
+        public List<string> GetFriends(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentException("User Id cannot be empty nor null");
+            }
+
+            Friends friends = this.friendsContainer.Get(userId);
+
+            if (friends == null)
+            {
+                return new List<string>();
+            }
+
+            return friends.Users;
         }
     }
 }

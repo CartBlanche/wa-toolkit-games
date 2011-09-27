@@ -7,6 +7,7 @@
     {
         public const string GuestUserid = "guest";
         public const string UsersContainerName = "sgusers";
+        public const string FriendsContainerName = "sgfriends";
         public const string UserSessionsContainerName = "sgsessions";
         public const string GamesContainerName = "sggames";
         public const string GameActionNotificationsQueue = "sgactionnotifications";

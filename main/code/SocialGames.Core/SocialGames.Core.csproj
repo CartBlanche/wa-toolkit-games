@@ -133,6 +133,7 @@
     <Compile Include="Entities\Board.cs" />
     <Compile Include="Entities\Enums.cs" />
     <Compile Include="Entities\Error.cs" />
+    <Compile Include="Entities\Friends.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\GameAction.cs" />
     <Compile Include="Entities\GameActionType.cs" />

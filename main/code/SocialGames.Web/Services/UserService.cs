@@ -13,6 +13,7 @@
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.GamePlay.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
+    using Microsoft.Samples.SocialGames.Web.Security;
 
     public class UserService : ServiceBase, IUserService
     {
@@ -98,6 +99,28 @@
             {
                 return BadRequest("Could not retrieve statistics from the database. " + ex.Message);
             }
+        }
+
+        [CustomAuthorize]
+        public HttpResponseMessage GetFriends()
+        {
+            var friends = this.userRepository.GetFriends(this.CurrentUserId).ToArray();
+
+            return HttpResponse<string[]>(friends, contentType: "application/json");
+        }
+
+        [CustomAuthorize]
+        public HttpResponseMessage GetFriendsPost()
+        {
+            return this.GetFriends();
+        }
+
+        [CustomAuthorize]
+        public HttpResponseMessage AddFriend(string friendId)
+        {
+            this.userRepository.AddFriend(this.CurrentUserId, friendId);
+
+            return SuccessResponse;
         }
 
         private void UpdateUserName(ref Board[] boards)

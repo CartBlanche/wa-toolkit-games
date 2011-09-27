@@ -5,43 +5,13 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using Microsoft.Samples.SocialGames.Web.Controllers;
 
-    public class FourInARowController : Controller
+    public class FourInARowController : BaseController
     {
         public ActionResult Index()
         {
-            this.SetConfigurationData();
             return View();
-        }
-
-        public ActionResult IndexOld()
-        {
-            this.SetConfigurationData();
-            return View();
-        }
-
-        public ActionResult NodeJs()
-        {
-            this.SetConfigurationData();
-            return View();
-        }
-
-        public ActionResult Login()
-        {
-            this.SetConfigurationData();
-            return View();
-        }
-
-        public ActionResult OldBrowser()
-        {
-            return View();
-        }
-
-        private void SetConfigurationData()
-        {
-            this.ViewBag.BlobUrl = System.Configuration.ConfigurationManager.AppSettings["BlobUrl"];
-            this.ViewBag.ApiUrl = System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
-            this.ViewBag.NodeJsUrl = System.Configuration.ConfigurationManager.AppSettings["NodeJsUrl"];
         }
     }
 }

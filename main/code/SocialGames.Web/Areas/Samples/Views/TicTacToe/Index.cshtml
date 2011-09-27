@@ -97,7 +97,7 @@
     function start() {
 
         // check for canvas, show an "Upgrade your browser" screen if they don't have it.
-        var canvas = document.createElement('canvas');
+        var canvas = document.getElementById('board');
         if (canvas.getContext == null || canvas.getContext('2d') == null) {
             $("#game").toggle();
             $("#notSupported").toggle();

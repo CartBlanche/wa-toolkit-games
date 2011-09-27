@@ -264,15 +264,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\FourInARow\IndexOld.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\FourInARow\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\FourInARow\OldBrowser.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Samples\Views\ClientTest\TicTacToeBoardTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -322,9 +313,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Samples\Views\FourInARow\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\FourInARow\NodeJs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Friends.cshtml" />

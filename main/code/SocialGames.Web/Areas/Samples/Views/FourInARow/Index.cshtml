@@ -14,18 +14,10 @@
 <script src="@Url.AreaContent("Scripts/game/FourInARowGame.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/FourInARowViewModel.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/FourInARowController.js")" type="text/javascript"></script>
-<h2>
-    Four in a Row</h2>
 
-<script type="text/javascript">
-        //First check for canvas, show an "Upgrade your browser" screen if they don't have it.
-        var canvas = document.createElement('canvas');
-        if (canvas.getContext == null || canvas.getContext('2d') == null) {
-            window.location.assign('@Url.Action("OldBrowser")');
-        }
-</script>
+<h2>Four in a Row</h2>
 
-<div id="main">
+<div id="game">
     <div style="display: none" data-bind="visible: gameQueueId() != null">
         <fieldset>
             <legend>Player</legend>
@@ -72,6 +64,11 @@
         </fieldset>
     </div>
 </div>
+<div id="notSupported" style="display:none">
+    <h3>Sorry, your browser is too old. It does not support HTML5 canvas.</h3>
+    <p>You can download <a href="http://www.microsoft.com/download/en/default.aspx">IE9</a></p>
+</div>
+
 <script type="text/javascript">
     var viewModel;
     var gameQueueId = getQueryVariable("id");
@@ -99,7 +96,15 @@
     var controller;
 
     function start() {
-        var canvas = document.getElementById("board");
+        // check for canvas, show an "Upgrade your browser" screen if they don't have it.
+        var canvas = document.getElementById('board');
+        if (canvas.getContext == null || canvas.getContext('2d') == null) {
+            $("#game").toggle();
+            $("#notSupported").toggle();
+
+            return;
+        }
+        
         var board = new FourInARowBoard(canvas, 6, 6);
         var game = new FourInARowGame(6, 6);
 
@@ -117,7 +122,8 @@
         us.verify(
             function () { start(); },
             function () {
-                var newlocation = '@Url.Action("Login")?ReturnUrl=' + encodeURIComponent(window.location.href);
+                var newlocation = '@Url.Action("LogOn", "Account", new { Area = "", ReturnUrl = "replace-in-js" })';
+                newlocation = newlocation.replace("replace-in-js", encodeURIComponent(window.location.href));
                 window.location.assign(newlocation);
             }
         );

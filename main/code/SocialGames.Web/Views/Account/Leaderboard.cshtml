@@ -2,12 +2,16 @@
     ViewBag.Title = "TicTacToe Leaderboard";
 }
 
+<script src="@Url.Content("~/Scripts/jquery.tmpl.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/knockout-1.2.1.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
 
 <h2>Tic Tac Toe Leaderboard</h2>
 
 <div>
-
+    <br />
     <p class="status">
         Loading...
     </p>
@@ -32,23 +36,14 @@
                     <th class="style1">
                         Player
                     </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "Rank" }'>
-                        Rank
-                    </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "XP" }'>
-                        XP
-                    </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "Kills" }'>
-                        Kills
+                    <th class="style1" data-bind='css: { highlight: Name == "GameCount" }'>
+                        Game Count
                     </th>
                     <th class="style1" data-bind='css: { highlight: Name == "Victories" }'>
                         Victories
                     </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "Accuracy" }'>
-                        Accuracy
-                    </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "TerrainDeformation" }'>
-                        Terrain Deformation
+                    <th class="style1" data-bind='css: { highlight: Name == "Defeats" }'>
+                        Defeats
                     </th>
                 </tr>
             </thead>
@@ -67,23 +62,14 @@
                     <th class="style1">
                         Player
                     </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "Rank" }'>
-                        Rank
-                    </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "XP" }'>
-                        XP
-                    </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "Kills" }'>
-                        Kills
+                    <th class="style1" data-bind='css: { highlight: Name == "GameCount" }'>
+                        Game Count
                     </th>
                     <th class="style1" data-bind='css: { highlight: Name == "Victories" }'>
                         Victories
                     </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "Accuracy" }'>
-                        Accuracy
-                    </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "TerrainDeformation" }'>
-                        Terrain Deformation
+                    <th class="style1" data-bind='css: { highlight: Name == "Defeats" }'>
+                        Defeats
                     </th>
                 </tr>
             </thead>
@@ -94,28 +80,26 @@
     
     <script id="score" type="text/html">
         <tr>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserName == UserId }, text: Id'></td>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserName == UserId }, text: UserId'></td>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserName == UserId }, text: Rank'></td>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserName == UserId }, text: XP'></td>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserName == UserId }, text: Kills'></td>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserName == UserId }, text: Victories'></td>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserName == UserId }, text: Accuracy'></td>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserName == UserId }, text: TerrainDeformation'></td>
+            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: Id'></td>
+            <td class="left-aligned" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: UserName'></td>
+            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: GameCount'></td>
+            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: Victories'></td>
+            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: Defeats'></td>
         </tr>
     </script>
 </div>
 
 <script type="text/javascript">
-    function LeaderboardClient() {
-        this.serverInterface = new ServerInterface(this);
-    }
+    var apiURL = "@this.ViewBag.ApiUrl";
+    var blobURL = "@this.ViewBag.BlobUrl";
+
+    var si = new ServerInterface();
+    var user = new UserService(apiURL, blobURL, si);
 
     function ViewModel() 
     {
         this.isScoresEmpty = ko.observable(false);
         this.currentUserId = "@this.ViewBag.CurrentUserId";
-        this.currentUserName = "@this.ViewBag.CurrentUserName";
         this.userScores = ko.observableArray([]);
         this.topScores = ko.observableArray([]);
         this.showUserScores = ko.observable(false);
@@ -135,18 +119,16 @@
 
     $(function()
     {
-        window.client = new LeaderboardClient();
         window.viewModel = new ViewModel();
 
-        window.client.serverInterface.sendAjaxJsonGet("/user/leaderboard/2?user=" + encodeURIComponent(window.viewModel.currentUserId), null, userScoresCallback, errorCallback);
-        window.client.serverInterface.sendAjaxJsonGet("/user/leaderboard/10", null, topScoresCallback, errorCallback);
+        user.getLeaderboardWithFocus(2, encodeURIComponent(viewModel.currentUserId), userScoresCallback, errorCallback);
+        user.getLeaderboard(10, topScoresCallback, errorCallback);
 
         ko.applyBindings(viewModel);
     });
 
     function errorCallback(er) {
         alert("The leaderboard is not available right now, please try later.");
-        window.location.replace("/Client/WarRoom");
     }
 
     function showBoard(id) {
@@ -163,7 +145,7 @@
             for (var i = 0; i < window.viewModel.topScores().length; i++) {
                 if (window.viewModel.topScores()[i].Id == id) {
                     for (var j = 0; j < window.viewModel.topScores()[i].Scores.length; j++) {
-                        if (window.viewModel.topScores()[i].Scores[j].UserId == window.viewModel.currentUserName) {
+                        if (window.viewModel.topScores()[i].Scores[j].UserId == window.viewModel.currentUserId) {
                             found = true;
                         }
                     }

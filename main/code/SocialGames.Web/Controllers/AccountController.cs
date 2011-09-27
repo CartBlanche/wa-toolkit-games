@@ -82,6 +82,13 @@
             return View();
         }
 
+        [CustomAuthorize]
+        public ActionResult Leaderboard()
+        {
+            this.ViewBag.CurrentUserId = this.userProvider.UserId;
+            return View();
+        }
+
         private string GetContextFromRequest()
         {
             Uri requestBaseUrl = WSFederationMessage.GetBaseUrl(this.Request.Url);

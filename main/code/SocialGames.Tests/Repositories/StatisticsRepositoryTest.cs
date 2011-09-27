@@ -111,6 +111,7 @@
                     UserId = "testuser_" + i.ToString(),
                     Victories = rnd.Next(1000),
                     Defeats = rnd.Next(1000),
+                    GameCount = rnd.Next(1000)
                 };
 
                 repository.Save(stats);

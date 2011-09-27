@@ -189,7 +189,7 @@
                 var serializer = new JavaScriptSerializer();
                 var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsString());
 
-                Assert.AreEqual(2, boards.Count());
+                Assert.AreEqual(3, boards.Count());
 
                 foreach (var board in boards)
                 {
@@ -215,7 +215,7 @@
                 var serializer = new JavaScriptSerializer();
                 var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsString());
 
-                Assert.AreEqual(2, boards.Count());
+                Assert.AreEqual(3, boards.Count());
 
                 foreach (var board in boards)
                 {

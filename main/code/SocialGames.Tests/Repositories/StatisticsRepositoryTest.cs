@@ -58,7 +58,7 @@
                 var count = 5;
                 var leaderboard = repository.GenerateLeaderboard(count);
 
-                Assert.AreEqual(2, leaderboard.Count());
+                Assert.AreEqual(3, leaderboard.Count());
 
                 int idBoard = 0;
                 foreach (var board in leaderboard)
@@ -87,7 +87,7 @@
                 var userFocus = "testuser_50";
                 var leaderboard = repository.GenerateLeaderboard(userFocus, count);
 
-                Assert.AreEqual(2, leaderboard.Count());
+                Assert.AreEqual(3, leaderboard.Count());
 
                 int idBoard = 0;
                 foreach (var board in leaderboard)

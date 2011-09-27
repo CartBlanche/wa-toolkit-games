@@ -79,7 +79,7 @@
     </script>
     
     <script id="score" type="text/html">
-        <tr>
+        <tr class="style1" data-bind='css: { d1: Id % 2 == 0, d1: Id % 2 == 1 }'>
             <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: Id'></td>
             <td class="left-aligned" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: UserName'></td>
             <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: GameCount'></td>

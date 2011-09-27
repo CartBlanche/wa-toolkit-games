@@ -488,3 +488,9 @@ div#title
 {
     width: 200px;
 }
+
+.highlight 
+{
+    font-weight: bold !important;
+    font-style: italic !important;
+}

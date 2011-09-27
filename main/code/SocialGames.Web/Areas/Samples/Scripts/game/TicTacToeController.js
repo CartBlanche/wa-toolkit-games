@@ -71,11 +71,28 @@ TicTacToeController.prototype.processAction = function (gameAction) {
 
 TicTacToeController.prototype.updateGameStatus = function () {
     if (this.game.isTie()) {
+        var action = { type: 1, commandData: { Victories: 0, Defeats: 0, GameCount: 1} };
+        this.gameService.postStatisticsEvent(action);
+
         this.viewModel.isTie(true);
         this.viewModel.currentColor(TTTColor.Empty);
     }
     else if (this.game.hasWinner()) {
-        this.viewModel.winnerColor(this.game.getWinner());
+        var winner = this.game.getWinner();
+
+        var victories = 0;
+        var defeats = 0;
+        if (this.viewModel.playerColor() == winner) {
+            victories = 1;
+        }
+        else {
+            defeats = 1;
+        }
+
+        var action = { type: 1, commandData: { Victories: victories, Defeats: defeats, GameCount: 1} };
+        this.gameService.postStatisticsEvent(action);
+
+        this.viewModel.winnerColor(winner);
         this.viewModel.currentColor(TTTColor.Empty);
     }
     else

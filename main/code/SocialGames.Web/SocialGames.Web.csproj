@@ -170,6 +170,7 @@
     <Compile Include="Areas\Samples\Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Areas\Samples\SamplesAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Extensions\JsonValueExtensions.cs" />
@@ -299,19 +300,10 @@
     <Content Include="Views\Test\UserServiceTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\IndexOld.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Samples\Views\TicTacToe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\NodeJs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\OldBrowser.cshtml" />
+    <Content Include="Views\Account\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Samples\Views\_ViewStart.cshtml" />

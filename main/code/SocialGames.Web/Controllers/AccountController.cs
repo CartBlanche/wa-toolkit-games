@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Controllers
+﻿namespace Microsoft.Samples.SocialGames.Web.Controllers
 {
     using System;
     using System.Linq;
@@ -10,8 +10,9 @@
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.GamePlay.Services;
     using Microsoft.Samples.SocialGames.Repositories;
+    using Microsoft.Samples.SocialGames.Web.Controllers;
 
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IUserRepository userRepository;
         private IUserProvider userProvider;
@@ -27,6 +28,11 @@
             this.userProvider = userProvider;
         }
 
+        public ActionResult LogOn(string returnUrl)
+        {
+            return View();
+        }
+       
         [HttpPost]
         public ActionResult LogOn()
         {
@@ -60,7 +66,7 @@
                 }
             }
 
-            return Redirect("/Client/WarRoom");
+            return Redirect("~/");
         }
 
         public ActionResult Friends()

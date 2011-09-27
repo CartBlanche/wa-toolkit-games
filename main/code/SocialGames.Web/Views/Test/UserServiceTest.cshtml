@@ -45,6 +45,36 @@
             us.verify(function(userId) {
                 us.getUser(userId, success)});
         });
+
+        test("Add Friend", function () {
+            var success = function (result) { ok(true); start(); };
+            stop(10000);
+            expect(1);
+
+            us.verify(function (userId) {
+                us.addFriend("newFriend", success);
+            });
+        });
+
+        test("Get Friends", function () {
+            var success = function (result) { ok(true); start(); };
+            stop(10000);
+            expect(1);
+
+            us.verify(function (userId) {
+                us.getFriends(success);
+            });
+        });
+
+        test("Get Friends Info", function () {
+            var success = function (result) { ok(true); start(); };
+            stop(10000);
+            expect(1);
+
+            us.verify(function (userId) {
+                us.getFriendsInfo(success);
+            });
+        });
     });
 </script>
 

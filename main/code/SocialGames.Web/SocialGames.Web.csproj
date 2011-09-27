@@ -218,6 +218,7 @@
     <Content Include="Areas\Samples\Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Areas\Samples\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Areas\Samples\Content\themes\base\jquery-ui.css" />
+    <Compile Include="Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Security\WSFederationRequestValidator.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\EventService.cs" />

@@ -225,6 +225,48 @@
             }
         }
 
+        [TestMethod]
+        public void GetNoFriendsForNewUser()
+        {
+            var userId = "newUser";
+            var userRepository = this.CreateUserRepository();
+            var statisticsProvider = this.CreateStatisticsRepository();
+
+            var userService = this.CreateUserService(userRepository, statisticsProvider, userId);
+
+            var response = userService.GetFriends();
+            var serializer = new JavaScriptSerializer();
+            var friends = serializer.Deserialize<string[]>(response.Content.ReadAsString());
+
+            Assert.IsNotNull(friends);
+            Assert.AreEqual(0, friends.Count());
+        }
+
+        [TestMethod]
+        public void GetFriends()
+        {
+            var userId = "newUser";
+            var friendId1 = "friend1";
+            var friendId2 = "friend2";
+
+            var userRepository = this.CreateUserRepository();
+            var statisticsProvider = this.CreateStatisticsRepository();
+
+            userRepository.AddFriend(userId, friendId1);
+            userRepository.AddFriend(userId, friendId2);
+
+            var userService = this.CreateUserService(userRepository, statisticsProvider, userId);
+
+            var response = userService.GetFriends();
+            var serializer = new JavaScriptSerializer();
+            var friends = serializer.Deserialize<string[]>(response.Content.ReadAsString());
+
+            Assert.IsNotNull(friends);
+            Assert.AreEqual(2, friends.Count());
+            Assert.IsTrue(friends.Contains(friendId1));
+            Assert.IsTrue(friends.Contains(friendId2));
+        }
+
         private void BulkInsertTestData(IStatisticsRepository repository)
         {
             var rnd = new Random();

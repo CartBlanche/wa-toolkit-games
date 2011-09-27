@@ -140,5 +140,35 @@
 
             return friends.Users;
         }
+
+        public List<UserInfo> GetFriendsInfo(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentException("User Id cannot be empty nor null");
+            }
+
+            Friends friends = this.friendsContainer.Get(userId);
+            List<UserInfo> list = new List<UserInfo>();
+
+            if (friends == null)
+            {
+                return list;
+            }
+
+            foreach (string friend in friends.Users)
+            {
+                var profile = this.GetUser(friend);
+                var info = new UserInfo() { Id = friend };
+                if (profile == null || string.IsNullOrEmpty(profile.DisplayName))
+                    info.DisplayName = friend;
+                else
+                    info.DisplayName = profile.DisplayName;
+
+                list.Add(info);
+            }
+
+            return list;
+        }
     }
 }

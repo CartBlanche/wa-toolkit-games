@@ -267,6 +267,63 @@
             Assert.IsTrue(friends.Contains(friendId2));
         }
 
+        [TestMethod]
+        public void GetFriendsInfo()
+        {
+            var userId = "newUser";
+            var friendId1 = "friend1";
+            var friendId2 = "friend2";
+
+            var userRepository = this.CreateUserRepository();
+            var statisticsProvider = this.CreateStatisticsRepository();
+
+            userRepository.AddFriend(userId, friendId1);
+            userRepository.AddFriend(userId, friendId2);
+
+            var userService = this.CreateUserService(userRepository, statisticsProvider, userId);
+
+            var response = userService.GetFriendsInfo();
+            var serializer = new JavaScriptSerializer();
+            var friends = serializer.Deserialize<UserInfo[]>(response.Content.ReadAsString());
+
+            Assert.IsNotNull(friends);
+            Assert.AreEqual(2, friends.Count());
+            Assert.IsTrue(friends.Any(f => f.Id == friendId1));
+            Assert.IsTrue(friends.Any(f => f.Id == friendId2));
+            Assert.IsTrue(friends.Any(f => f.DisplayName == friendId1));
+            Assert.IsTrue(friends.Any(f => f.DisplayName == friendId2));
+        }
+
+        [TestMethod]
+        public void GetFriendsInfoWithDisplayName()
+        {
+            var userId = "newUser";
+            var friendId1 = "friend1";
+            var friendId2 = "friend2";
+            var friendName1 = "Friend One";
+            var friendName2 = "Friend Two";
+
+            var userRepository = this.CreateUserRepository();
+            var statisticsProvider = this.CreateStatisticsRepository();
+
+            userRepository.AddOrUpdateUser(new UserProfile() { Id = friendId1, DisplayName = friendName1 });
+            userRepository.AddOrUpdateUser(new UserProfile() { Id = friendId2, DisplayName = friendName2 });
+
+            userRepository.AddFriend(userId, friendId1);
+            userRepository.AddFriend(userId, friendId2);
+
+            var userService = this.CreateUserService(userRepository, statisticsProvider, userId);
+
+            var response = userService.GetFriendsInfo();
+            var serializer = new JavaScriptSerializer();
+            var friends = serializer.Deserialize<UserInfo[]>(response.Content.ReadAsString());
+
+            Assert.IsNotNull(friends);
+            Assert.AreEqual(2, friends.Count());
+            Assert.IsTrue(friends.Any(f => f.Id == friendId1 && f.DisplayName == friendName1));
+            Assert.IsTrue(friends.Any(f => f.Id == friendId2 && f.DisplayName == friendName2));
+        }
+
         private void BulkInsertTestData(IStatisticsRepository repository)
         {
             var rnd = new Random();

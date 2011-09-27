@@ -110,9 +110,11 @@
         }
 
         [CustomAuthorize]
-        public HttpResponseMessage GetFriendsPost()
+        public HttpResponseMessage GetFriendsInfo()
         {
-            return this.GetFriends();
+            var friends = this.userRepository.GetFriendsInfo(this.CurrentUserId).ToArray();
+
+            return HttpResponse<UserInfo[]>(friends, contentType: "application/json");
         }
 
         [CustomAuthorize]

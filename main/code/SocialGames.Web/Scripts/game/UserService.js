@@ -24,3 +24,11 @@ UserService.prototype.getFriendsInfo = function (success, error) {
 UserService.prototype.addFriend = function (friendId, success, error) {
     this.serverInterface.sendAjaxJsonPost("/user/friend/add/" + friendId, null, success, error);
 }
+
+UserService.prototype.getLeaderboard = function (count, success, error) {
+    this.serverInterface.sendAjaxGet("/user/leaderboard/" + count, success, error);
+}
+
+UserService.prototype.getLeaderboardWithFocus = function (focusCount, focusUserId, success, error) {
+    this.serverInterface.sendAjaxGet("/user/leaderboard/" + focusCount + "?user=" + focusUserId, success, error);
+}

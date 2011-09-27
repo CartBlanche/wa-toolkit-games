@@ -21,4 +21,3 @@
         void AddFriend(UserID userId, UserID friendUserId);
     }
 }
-

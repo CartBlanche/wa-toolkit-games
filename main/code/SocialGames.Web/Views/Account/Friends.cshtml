@@ -10,6 +10,9 @@
 
 <h2>Your Friends</h2>
 
+<p>Use this URL to invite other users: <span data-bind="text: inviteURL()" />
+</p>
+
 <fieldset>
     <div data-bind='template: { name: "FriendList", foreach: friends() }' />
 </fieldset>
@@ -43,6 +46,7 @@
     function ViewModel() {
         this.user = ko.observable(userId);
         this.friends = ko.observableArray();
+        this.inviteURL = ko.observable(document.location.href + "/" + userId);
     }
 
     ViewModel.prototype.refreshFriends = function (friends) {

@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.Samples.SocialGames.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using Microsoft.Samples.SocialGames.Entities;
 
     public interface IGameRepository
@@ -22,5 +23,7 @@
         Game StartGame(Guid gameQueueId);
 
         string GetGameReference(Guid gameId, TimeSpan expiryTime);
+
+        void Invite(string userId, Guid gameQueueId, string message, string url, List<string> users);
     }
 }

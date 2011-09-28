@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.Samples.SocialGames.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.Storage;
@@ -14,6 +15,7 @@
         private readonly IAzureBlobContainer<Game> gameContainer;
         private readonly IAzureBlobContainer<GameQueue> gameQueueContainer;
         private readonly IAzureBlobContainer<UserProfile> userContainer;
+        private readonly IAzureQueue<InviteMessage> inviteQueue;
 
         public GameRepository()
             : this(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"))
@@ -21,16 +23,16 @@
         }
 
         public GameRepository(CloudStorageAccount account)
-            : this(account, ConfigurationConstants.GamesContainerName, ConfigurationConstants.GamesQueuesContainerName, ConfigurationConstants.UsersContainerName)
+            : this(account, ConfigurationConstants.GamesContainerName, ConfigurationConstants.GamesQueuesContainerName, ConfigurationConstants.UsersContainerName, ConfigurationConstants.InvitesQueue, ConfigurationConstants.SkirmishGameQueue, ConfigurationConstants.LeaveGameQueue)
         {
         }
 
-        public GameRepository(CloudStorageAccount account, string gamesContainerName, string gamesQueueContainerName, string usersContainerName)
-            : this(new AzureBlobContainer<Game>(account, gamesContainerName, true), new AzureBlobContainer<GameQueue>(account, gamesQueueContainerName, true), new AzureQueue<SkirmishGameQueueMessage>(account), new AzureQueue<LeaveGameMessage>(account), new AzureBlobContainer<UserProfile>(account, usersContainerName, true))
+        public GameRepository(CloudStorageAccount account, string gamesContainerName, string gamesQueueContainerName, string usersContainerName, string inviteQueueName, string skirmishGameQueueName, string leaveGameQueueName)
+            : this(new AzureBlobContainer<Game>(account, gamesContainerName, true), new AzureBlobContainer<GameQueue>(account, gamesQueueContainerName, true), new AzureQueue<SkirmishGameQueueMessage>(account, skirmishGameQueueName), new AzureQueue<LeaveGameMessage>(account, leaveGameQueueName), new AzureBlobContainer<UserProfile>(account, usersContainerName, true), new AzureQueue<InviteMessage>(account, inviteQueueName))
         {
         }
 
-        public GameRepository(IAzureBlobContainer<Game> gameContainer, IAzureBlobContainer<GameQueue> gameQueueContainer, IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue, IAzureQueue<LeaveGameMessage> leaveGameMessageQueue, IAzureBlobContainer<UserProfile> userContainer)
+        public GameRepository(IAzureBlobContainer<Game> gameContainer, IAzureBlobContainer<GameQueue> gameQueueContainer, IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue, IAzureQueue<LeaveGameMessage> leaveGameMessageQueue, IAzureBlobContainer<UserProfile> userContainer, IAzureQueue<InviteMessage> inviteQueue)
         {
             if (gameContainer == null)
             {
@@ -57,6 +59,11 @@
                 throw new ArgumentNullException("userContainer");
             }
 
+            if (inviteQueue == null)
+            {
+                throw new ArgumentNullException("inviteQueue");
+            }
+
             this.skirmishGameQueue = skirmishGameMessageQueue;
             this.leaveGameQueue = leaveGameMessageQueue;
 
@@ -68,6 +75,9 @@
 
             this.userContainer = userContainer;
             this.userContainer.EnsureExist(true);
+
+            this.inviteQueue = inviteQueue;
+            this.inviteQueue.EnsureExist();
         }
 
         public void AddUserToGameQueue(string userId, GameType gameType)
@@ -217,6 +227,26 @@
             this.gameQueueContainer.Save(gameQueueId.ToString(), queue);
 
             return game;
+        }
+
+        public void Invite(string userId, Guid gameQueueId, string msg, string url, List<string> users)
+        {
+            DateTime timestamp = DateTime.UtcNow;
+
+            foreach (var user in users)
+            {
+                InviteMessage message = new InviteMessage()
+                {
+                    UserId = userId,
+                    GameQueueId = gameQueueId,
+                    InvitedUserId = user,
+                    Message = msg,
+                    Url = url,
+                    Timestamp = timestamp
+                };
+
+                this.inviteQueue.AddMessage(message);
+            }
         }
     }
 }

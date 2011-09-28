@@ -10,16 +10,19 @@
             return View();
         }
 
+        [Authorize]
         public ActionResult ServerInterfaceTest()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult GameServiceTest()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult UserServiceTest()
         {
             return View();

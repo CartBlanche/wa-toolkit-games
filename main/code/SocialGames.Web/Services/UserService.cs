@@ -131,6 +131,11 @@
             {
                 foreach (var score in board.Scores)
                 {
+                    if (string.IsNullOrEmpty(score.UserId))
+                    {
+                        continue;
+                    }
+
                     var profile = this.userRepository.GetUser(score.UserId);
 
                     if (profile != null && !string.IsNullOrEmpty(profile.DisplayName))

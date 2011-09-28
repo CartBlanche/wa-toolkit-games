@@ -38,6 +38,11 @@
         [Authorize]
         public HttpResponseMessage PostEvent(string topic, HttpRequestMessage request)
         {
+            if (string.IsNullOrWhiteSpace(this.CurrentUserId))
+            {
+                return BadRequest("The user is not authenticated");
+            }
+
             var formContent = GetFormContent(request);
 
             // Command Type

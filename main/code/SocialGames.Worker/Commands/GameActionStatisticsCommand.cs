@@ -17,21 +17,26 @@
 
         public override void Do(GameAction gameAction)
         {
+            if (string.IsNullOrWhiteSpace(gameAction.UserId))
+            {
+                return;
+            }
+
             UserStats statistics = this.statisticsRepository.Retrieve(gameAction.UserId);
             if (statistics == null)
             {
                 statistics = new UserStats
                 {
-                    UserId = gameAction.UserId,
-                    GameCount = 0,
+                    UserId = gameAction.UserId,                    
                     Victories = 0,
-                    Defeats = 0
+                    Defeats = 0,
+                    GameCount = 0
                 };
             }
-
-            statistics.GameCount += GetValue(gameAction.CommandData, "GameCount");
+            
             statistics.Defeats += GetValue(gameAction.CommandData, "Defeats");
-            statistics.Victories += GetValue(gameAction.CommandData, "Victories");            
+            statistics.Victories += GetValue(gameAction.CommandData, "Victories");
+            statistics.GameCount += GetValue(gameAction.CommandData, "GameCount");
             
             this.statisticsRepository.Save(statistics);            
         }

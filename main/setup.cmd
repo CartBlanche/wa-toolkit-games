@@ -16,13 +16,13 @@ IF /I "%SuccessfullyFinished%"=="Y" (
    PAUSE
    ECHO.
    ECHO.
-   SET /P Install="Setup will now configure the connection strings for the sample. Do you want to continue? (Y/N): "
+   SET /P Install="Setup will now create a database for the sample. Do you want to continue? (Y/N): "
    
    IF /I "!Install!"=="Y"  (
      cscript Setup\Scripts\tasks\runAs.vbs Setup\Scripts\tasks\SetupDB.cmd	
    ) ELSE (
       ECHO.
-      ECHO The Social Gaming Toolkit conection strings will not be configured.
+      ECHO The Social Gaming Toolkit database will not be installed.
    )
    
 ) ELSE (

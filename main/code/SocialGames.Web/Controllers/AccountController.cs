@@ -89,6 +89,7 @@
         [Authorize]
         public ActionResult Profile()
         {
+            this.ViewBag.CurrentUserId = this.userProvider.UserId;
             return View();
         }
 

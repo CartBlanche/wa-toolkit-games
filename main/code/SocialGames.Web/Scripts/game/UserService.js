@@ -22,6 +22,10 @@ UserService.prototype.getFriends = function (success, error) {
     this.serverInterface.sendAjaxJsonPost("/user/friends", null, success, error);
 }
 
+UserService.prototype.updateProfile = function (profile, success, error) {
+    this.serverInterface.sendAjaxJsonPost("/user/profile", profile, success, error);
+}
+
 UserService.prototype.getFriendsInfo = function (success, error) {
     this.serverInterface.sendAjaxJsonPost("/user/friendsinfo", null, success, error);
 }

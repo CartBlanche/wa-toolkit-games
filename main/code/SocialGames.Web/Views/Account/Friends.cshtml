@@ -99,6 +99,6 @@
             function (friends) { window.viewModel.refreshFriends(friends); },
             function () { alert('Error Get Friends'); });
 
-        user.getNotifications(userId);
+        user.getNotifications(userId, function () { });
     });
 </script>

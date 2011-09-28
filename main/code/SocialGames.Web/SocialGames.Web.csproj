@@ -185,7 +185,6 @@
     <Content Include="Areas\Samples\Scripts\game\FourInARowController.js" />
     <Content Include="Areas\Samples\Scripts\game\FourInARowGame.js" />
     <Content Include="Areas\Samples\Scripts\game\FourInARowViewModel.js" />
-    <Content Include="Scripts\game\GameServiceOld.js" />
     <Content Include="Scripts\game\GameService.js" />
     <Content Include="Scripts\game\GameServiceNodeJs.js" />
     <Content Include="Scripts\game\ServerInterface.js" />
@@ -274,9 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Test\GameServiceTest.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Test\GameServiceOldTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Test\Index.cshtml" />

@@ -9,6 +9,7 @@
 
     public class TicTacToeController : BaseController
     {
+        [Authorize]
         public ActionResult Index()
         {
             return View();

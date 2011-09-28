@@ -87,8 +87,8 @@ GameService.prototype.setTimer = function () {
     setTimeout(function () { service.refresh(); }, 300);
 };
 
-GameService.prototype.inviteUser = function (gameQueueId, user, success, error) {
-    this.serverInterface.sendAjaxJsonPost('/game/invite/' + gameQueueId, { users: [user] }, success, error);
+GameService.prototype.inviteUser = function (gameQueueId, user, message, url, success, error) {
+    this.serverInterface.sendAjaxJsonPost('/game/invite/' + gameQueueId, { users: [user], message: message, url: url }, success, error);
 };
 
 GameService.prototype.process = function (gameQueueId, queueCallback, actionCallback)

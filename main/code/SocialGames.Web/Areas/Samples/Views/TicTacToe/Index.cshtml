@@ -104,7 +104,7 @@
     function inviteFriend() {
         var userId = $("#friends").val();
         var userName = $("#friends :selected").text();
-        gs.inviteUser(viewModel.gameQueueId(), userId, function () { alert(userName + " invited") });
+        gs.inviteUser(viewModel.gameQueueId(), userId, "Invitation for TicTacToe", viewModel.inviteURL(), function () { alert(userName + " invited") });
     }
 
     function start() {

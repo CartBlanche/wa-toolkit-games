@@ -30,7 +30,7 @@
         private IAzureBlobContainer<Friends> friendContainer;
         private IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue;
         private IAzureQueue<LeaveGameMessage> leaveGameMessageQueue;
-        private IAzureQueue<InviteMessage> inviteQueue;
+        private IAzureQueue<InviteMessage> inviteMessageQueue;
 
         [TestInitialize]
         public void Setup()
@@ -85,9 +85,9 @@
                 this.leaveGameMessageQueue.DeleteQueue();
             }
 
-            if (this.inviteQueue != null)
+            if (this.inviteMessageQueue != null)
             {
-                this.inviteQueue.DeleteQueue();
+                this.inviteMessageQueue.DeleteQueue();
             }
         }
 
@@ -423,6 +423,52 @@
 
         #endregion
 
+        #region /game/invite/
+
+        [TestMethod]
+        public void Invite()
+        {
+            string userId = "jhonny";
+            string userId1 = "mary";
+            string userId2 = "julie";
+            Guid gameQueueId = Guid.NewGuid();
+
+            var userRepository = this.CreateUserRepository();
+            var gameRepository = this.CreateGameRepository();
+
+            GameService gameService = this.CreateGameService(gameRepository, userRepository, userId);
+
+            var parametersTemplate = "users[]={0}&users[]={1}&message=Invite&url=http://127.0.0.1/";
+            var parameters = string.Format(CultureInfo.InvariantCulture, parametersTemplate, userId1, userId2);
+
+            var request = new HttpRequestMessage { Content = new StringContent(parameters) };
+
+            var result = gameService.Invite(gameQueueId, request);
+            Assert.IsTrue(result.IsSuccessStatusCode);
+
+            var message = this.inviteMessageQueue.GetMessage(new TimeSpan(0, 0, 30));
+            Assert.AreEqual(message.GameQueueId, gameQueueId);
+            Assert.AreNotEqual(message.Id, Guid.Empty);
+            Assert.AreEqual(message.UserId, userId);
+            Assert.AreEqual("Invite", message.Message);
+            Assert.AreEqual("http://127.0.0.1/", message.Url);
+            Assert.IsTrue(message.InvitedUserId == userId1 || message.InvitedUserId == userId2);
+
+            var message2 = this.inviteMessageQueue.GetMessage(new TimeSpan(0, 0, 30));
+            Assert.AreEqual(message2.GameQueueId, gameQueueId);
+            Assert.AreNotEqual(message2.Id, Guid.Empty);
+            Assert.AreEqual(message2.UserId, userId);
+            Assert.AreEqual("Invite", message2.Message);
+            Assert.AreEqual("http://127.0.0.1/", message2.Url);
+            Assert.IsTrue(message2.InvitedUserId == userId1 || message2.InvitedUserId == userId2);
+
+            Assert.AreEqual(message.Timestamp, message2.Timestamp);
+
+            Assert.AreNotEqual(message.InvitedUserId, message2.InvitedUserId);
+        }
+
+        #endregion
+
         private GameService CreateGameService(IGameRepository gameRepository, IUserRepository userRepository, string userId)
         {
             return new GameService(gameRepository, userRepository, new StringUserProvider(userId));
@@ -435,12 +481,12 @@
             this.gameQueueContainer = new AzureBlobContainer<GameQueue>(account, ConfigurationConstants.GamesQueuesContainerName + "test" + this.suffix, true);
             this.skirmishGameMessageQueue = new AzureQueue<SkirmishGameQueueMessage>(account, ConfigurationConstants.SkirmishGameQueue + this.suffix);
             this.leaveGameMessageQueue = new AzureQueue<LeaveGameMessage>(account, ConfigurationConstants.LeaveGameQueue + "test" + this.suffix);
-            this.inviteQueue = new AzureQueue<InviteMessage>(account, ConfigurationConstants.InvitesQueue + "test" + this.suffix);
+            this.inviteMessageQueue = new AzureQueue<InviteMessage>(account, ConfigurationConstants.InvitesQueue + "test" + this.suffix);
 
             this.gameContainer.EnsureExist(true);
             this.gameQueueContainer.EnsureExist(true);
 
-            return new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteQueue);
+            return new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteMessageQueue);
         }
 
         private UserRepository CreateUserRepository()

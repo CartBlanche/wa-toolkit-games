@@ -75,7 +75,7 @@
         public IEnumerable<Board> GenerateLeaderboard(string focusUserId, int focusCount)
         {
             var boards = new List<Board>();
-            var boardNames = new string[] { "GameCount", "Victories", "Defeats" };
+            var boardNames = new string[] { "Victories", "Defeats", "GameCount" };
             int id = 0;
 
             using (var db = new StatisticsContext(this.NameOrConnectionString))

@@ -8,10 +8,10 @@
 <script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
 
-<h2>Tic Tac Toe Leaderboard</h2>
+<h2>Leaderboard</h2>
 
 <div>
-    <br />
+    <p>The leaderboard shows the scores of the Tic Tac Toe game sample.</p>
     <p class="status">
         Loading...
     </p>
@@ -36,14 +36,14 @@
                     <th class="style1">
                         Player
                     </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "GameCount" }'>
-                        Game Count
-                    </th>
                     <th class="style1" data-bind='css: { highlight: Name == "Victories" }'>
                         Victories
                     </th>
                     <th class="style1" data-bind='css: { highlight: Name == "Defeats" }'>
                         Defeats
+                    </th>
+                    <th class="style1" data-bind='css: { highlight: Name == "GameCount" }'>
+                        Game Count
                     </th>
                 </tr>
             </thead>
@@ -62,14 +62,14 @@
                     <th class="style1">
                         Player
                     </th>
-                    <th class="style1" data-bind='css: { highlight: Name == "GameCount" }'>
-                        Game Count
-                    </th>
                     <th class="style1" data-bind='css: { highlight: Name == "Victories" }'>
                         Victories
                     </th>
                     <th class="style1" data-bind='css: { highlight: Name == "Defeats" }'>
                         Defeats
+                    </th>
+                    <th class="style1" data-bind='css: { highlight: Name == "GameCount" }'>
+                        Game Count
                     </th>
                 </tr>
             </thead>
@@ -81,10 +81,10 @@
     <script id="score" type="text/html">
         <tr class="style1" data-bind='css: { d1: Id % 2 == 0, d1: Id % 2 == 1 }'>
             <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: Id'></td>
-            <td class="left-aligned" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: UserName'></td>
-            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: GameCount'></td>
+            <td class="left-aligned" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: UserName'></td>            
             <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: Victories'></td>
             <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: Defeats'></td>
+            <td class="style1" data-bind='css: { highlight: window.viewModel.currentUserId == UserId }, text: GameCount'></td>
         </tr>
     </script>
 </div>

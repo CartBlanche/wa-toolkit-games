@@ -95,6 +95,22 @@
                 .OnError(logException)
                 .Start();
 
+            // Process for Invite messages
+            Task.TriggeredBy(Message.OfType<InviteMessage>(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"), ConfigurationConstants.InvitesQueue))
+                .SetupContext((message, context) =>
+                {
+                    context.Add("userId", message.UserId);
+                    context.Add("invitedUserId", message.InvitedUserId);
+                    context.Add("gameQueueId", message.GameQueueId);
+                    context.Add("timestamp", message.Timestamp);
+                    context.Add("message", message.Message);
+                    context.Add("url", message.Url);
+                })
+                .Do(
+                    new InviteCommand())
+                .OnError(logException)
+                .Start();
+
             // Timeout for game queue
             Task.TriggeredBy(Schedule.Every(5 * 1000))
                 .Do(

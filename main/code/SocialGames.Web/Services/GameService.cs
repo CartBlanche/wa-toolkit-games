@@ -210,8 +210,10 @@
             var users = formContent.users != null ?
                     ((JsonArray)formContent.users).ToObjectArray().Select(o => o.ToString()).ToList() :
                     null;
+            string message = formContent.message != null ? formContent.message.Value : null;
+            string url = formContent.url != null ? formContent.url.Value : null;
 
-            this.gameRepository.Invite(this.CurrentUserId, gameQueueId, formContent.message, formContent.url, users);
+            this.gameRepository.Invite(this.CurrentUserId, gameQueueId, message, url, users);
 
             return SuccessResponse;
         }

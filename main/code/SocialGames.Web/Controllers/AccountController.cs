@@ -11,7 +11,6 @@
     using Microsoft.Samples.SocialGames.GamePlay.Services;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Web.Controllers;
-    using Microsoft.Samples.SocialGames.Web.Security;
 
     public class AccountController : BaseController
     {
@@ -70,19 +69,32 @@
             return Redirect("~/");
         }
 
-        [CustomAuthorize]
+        [Authorize]
         public ActionResult Friends()
         {
             this.ViewBag.CurrentUserId = this.userProvider.UserId;
             return View();
         }
 
+        [Authorize]
         public ActionResult Profile()
         {
             return View();
         }
 
-        [CustomAuthorize]
+        [Authorize]
+        public ActionResult Invite(string id)
+        {
+            string currentUserId = this.userProvider.UserId;
+            string inviteUserId = id;
+
+            this.userRepository.AddFriend(currentUserId, inviteUserId);
+            this.userRepository.AddFriend(inviteUserId, currentUserId);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
         public ActionResult Leaderboard()
         {
             this.ViewBag.CurrentUserId = this.userProvider.UserId;

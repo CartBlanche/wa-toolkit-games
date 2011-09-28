@@ -275,9 +275,6 @@
     <Content Include="Views\Test\GameServiceTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Test\GameServiceOldTest.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

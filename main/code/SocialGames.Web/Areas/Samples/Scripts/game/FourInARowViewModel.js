@@ -2,6 +2,7 @@
 function FourInARowViewModel() {
     this.playerName = ko.observable("user");
     this.isOwner = ko.observable(false);
+    this.friends = ko.observableArray();
     this.players = ko.observableArray();
 
     this.gameQueueId = ko.observable(null);

@@ -77,9 +77,22 @@
             return View();
         }
 
+        [CustomAuthorize]
         public ActionResult Profile()
         {
             return View();
+        }
+
+        [CustomAuthorize]
+        public ActionResult Invite(string id)
+        {
+            string currentUserId = this.userProvider.UserId;
+            string inviteUserId = id;
+
+            this.userRepository.AddFriend(currentUserId, inviteUserId);
+            this.userRepository.AddFriend(inviteUserId, currentUserId);
+
+            return RedirectToAction("Index", "Home");
         }
 
         private string GetContextFromRequest()

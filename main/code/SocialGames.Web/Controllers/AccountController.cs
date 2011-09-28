@@ -70,8 +70,18 @@
         }
 
         [Authorize]
-        public ActionResult Friends()
+        public ActionResult Friends(string id)
         {
+            if (!string.IsNullOrEmpty(id))
+            {
+                string currentUserId = this.userProvider.UserId;
+                string inviteUserId = id;
+
+                this.userRepository.AddFriend(currentUserId, inviteUserId);
+                this.userRepository.AddFriend(inviteUserId, currentUserId);
+                return RedirectToAction("Index", "Home");
+            }
+
             this.ViewBag.CurrentUserId = this.userProvider.UserId;
             return View();
         }
@@ -80,18 +90,6 @@
         public ActionResult Profile()
         {
             return View();
-        }
-
-        [Authorize]
-        public ActionResult Invite(string id)
-        {
-            string currentUserId = this.userProvider.UserId;
-            string inviteUserId = id;
-
-            this.userRepository.AddFriend(currentUserId, inviteUserId);
-            this.userRepository.AddFriend(inviteUserId, currentUserId);
-
-            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]

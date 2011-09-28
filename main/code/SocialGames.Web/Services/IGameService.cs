@@ -25,5 +25,8 @@
 
         [WebInvoke(Method = "POST", UriTemplate = "command/{gameId}")]
         HttpResponseMessage Command(Guid gameId, HttpRequestMessage request);
+
+        [WebInvoke(Method = "POST", UriTemplate = "invite/{gameQueueId}")]
+        HttpResponseMessage Invite(Guid gameQueueId, HttpRequestMessage request);
     }
 }

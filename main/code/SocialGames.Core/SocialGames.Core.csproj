@@ -159,6 +159,7 @@
     <Compile Include="Repositories\IGameActionStatisticsQueue.cs" />
     <Compile Include="Repositories\IGameRepository.cs" />
     <Compile Include="Repositories\IIdentityProviderRepository.cs" />
+    <Compile Include="Repositories\InviteMessage.cs" />
     <Compile Include="Repositories\IStatisticsRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\LeaveGameMessage.cs" />

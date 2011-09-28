@@ -19,6 +19,7 @@
         private static string gameContainerName = "gamestest";
         private static string gameQueueContainerName = "gamesqueuestest";
         private static string userContainerName = "userstest";
+        private static string inviteQueueName = "invitetest";
 
         private CloudStorageAccount cloudStorageAccount;
         private AzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue;
@@ -27,6 +28,7 @@
         private AzureBlobContainer<GameQueue> gameQueueContainer;
         private GameRepository gameRepository;
         private AzureBlobContainer<UserProfile> userContainer;
+        private AzureQueue<InviteMessage> inviteQueue;
 
         [ClassInitialize]
         public static void InitializeWindowsAzureStorageEmulator(TestContext context)
@@ -49,7 +51,8 @@
             this.gameContainer = new AzureBlobContainer<Game>(this.cloudStorageAccount, gameContainerName, true);
             this.gameQueueContainer = new AzureBlobContainer<GameQueue>(this.cloudStorageAccount, gameQueueContainerName, true);
             this.userContainer = new AzureBlobContainer<UserProfile>(this.cloudStorageAccount, userContainerName, true);
-            this.gameRepository = new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer);
+            this.inviteQueue = new AzureQueue<InviteMessage>(this.cloudStorageAccount, inviteQueueName);
+            this.gameRepository = new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteQueue);
         }
 
         [TestMethod]
@@ -215,22 +218,22 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void GameRepositoryConstructorWithNullGameContainerName()
         {
-            new GameRepository(this.cloudStorageAccount, null, gameQueueContainerName, userContainerName);
+            new GameRepository(this.cloudStorageAccount, null, gameQueueContainerName, userContainerName, inviteQueueName, skirmishGameMessageQueueName, leaveGameMessageQueueName);
         }
 
         [TestMethod]
         public void GameRepositoryConstructor()
         {
             IAzureBlobContainer<Game> gameContainer = new AzureBlobContainer<Game>(this.cloudStorageAccount);
-            IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue = new AzureQueue<SkirmishGameQueueMessage>(this.cloudStorageAccount);
-            IAzureQueue<LeaveGameMessage> leaveGameMessageQueue = new AzureQueue<LeaveGameMessage>(this.cloudStorageAccount);
-            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(null, null, null, null, null));
-            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(gameContainer, null, null, null, null));
-            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(null, null, skirmishGameMessageQueue, null, null));
-            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(null, null, null, leaveGameMessageQueue, null));
-            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(null, null, skirmishGameMessageQueue, leaveGameMessageQueue, null));
-            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(gameContainer, null, null, leaveGameMessageQueue, null));
-            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(gameContainer, null, skirmishGameMessageQueue, null, null));
+            IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue = new AzureQueue<SkirmishGameQueueMessage>(this.cloudStorageAccount, skirmishGameMessageQueueName);
+            IAzureQueue<LeaveGameMessage> leaveGameMessageQueue = new AzureQueue<LeaveGameMessage>(this.cloudStorageAccount, leaveGameMessageQueueName);
+            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(null, null, null, null, null, null));
+            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(gameContainer, null, null, null, null, null));
+            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(null, null, skirmishGameMessageQueue, null, null, null));
+            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(null, null, null, leaveGameMessageQueue, null, null));
+            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(null, null, skirmishGameMessageQueue, leaveGameMessageQueue, null, null));
+            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(gameContainer, null, null, leaveGameMessageQueue, null, null));
+            ExceptionAssert.ShouldThrow<ArgumentNullException>(() => new GameRepository(gameContainer, null, skirmishGameMessageQueue, null, null, null));
         }
 
         [TestMethod]
@@ -254,7 +257,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestGameRepositoryWithNullAccount()
         {
-            new GameRepository(null, "name1", "name2", "name3");
+            new GameRepository(null, "name1", "name2", "name3", "name4", "name5", "name6");
         }
 
         private Game JohnPeterAndBrianGame()

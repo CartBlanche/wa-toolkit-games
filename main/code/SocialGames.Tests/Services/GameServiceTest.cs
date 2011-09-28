@@ -30,6 +30,7 @@
         private IAzureBlobContainer<Friends> friendContainer;
         private IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue;
         private IAzureQueue<LeaveGameMessage> leaveGameMessageQueue;
+        private IAzureQueue<InviteMessage> inviteQueue;
 
         [TestInitialize]
         public void Setup()
@@ -82,6 +83,11 @@
             if (this.leaveGameMessageQueue != null)
             {
                 this.leaveGameMessageQueue.DeleteQueue();
+            }
+
+            if (this.inviteQueue != null)
+            {
+                this.inviteQueue.DeleteQueue();
             }
         }
 
@@ -427,13 +433,14 @@
             CloudStorageAccount account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
             this.gameContainer = new AzureBlobContainer<Game>(account, ConfigurationConstants.GamesContainerName + "test" + this.suffix, true);
             this.gameQueueContainer = new AzureBlobContainer<GameQueue>(account, ConfigurationConstants.GamesQueuesContainerName + "test" + this.suffix, true);
-            this.skirmishGameMessageQueue = new AzureQueue<SkirmishGameQueueMessage>(account, "skirmishgamequeuemessagetest" + this.suffix);
-            this.leaveGameMessageQueue = new AzureQueue<LeaveGameMessage>(account, "leavegamemessagetest" + this.suffix);
+            this.skirmishGameMessageQueue = new AzureQueue<SkirmishGameQueueMessage>(account, ConfigurationConstants.SkirmishGameQueue + this.suffix);
+            this.leaveGameMessageQueue = new AzureQueue<LeaveGameMessage>(account, ConfigurationConstants.LeaveGameQueue + "test" + this.suffix);
+            this.inviteQueue = new AzureQueue<InviteMessage>(account, ConfigurationConstants.InvitesQueue + "test" + this.suffix);
 
             this.gameContainer.EnsureExist(true);
             this.gameQueueContainer.EnsureExist(true);
 
-            return new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer);
+            return new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteQueue);
         }
 
         private UserRepository CreateUserRepository()

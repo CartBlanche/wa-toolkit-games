@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Net.Http;
     using System.Runtime.Serialization.Json;
+    using System.Web.Mvc;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.GamePlay.Extensions;
@@ -191,16 +192,6 @@
                     Timestamp = DateTime.UtcNow
                 };
 
-                // Cleanup game actions lists
-                for (int i = 0; i < game.GameActions.Count(); i++)
-                {
-                    if (game.GameActions[i].Timestamp < DateTime.UtcNow.AddSeconds(-10))
-                    {
-                        game.GameActions.RemoveAt(i);
-                        i--;
-                    }
-                }
-
                 game.GameActions.Add(gameAction);
                 this.gameRepository.AddOrUpdateGame(game);
 
@@ -210,6 +201,19 @@
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [Authorize]
+        public HttpResponseMessage Invite(Guid gameQueueId, HttpRequestMessage request)
+        {
+            var formContent = GetFormContent(request);
+            var users = formContent.users != null ?
+                    ((JsonArray)formContent.users).ToObjectArray().Select(o => o.ToString()).ToList() :
+                    null;
+
+            this.gameRepository.Invite(this.CurrentUserId, gameQueueId, formContent.message, formContent.url, users);
+
+            return SuccessResponse;
         }
 
         private string GetCommandDataValue(IDictionary<string, object> commandData, string commandDataKey)

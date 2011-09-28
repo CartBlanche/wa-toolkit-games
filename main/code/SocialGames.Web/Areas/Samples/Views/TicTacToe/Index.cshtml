@@ -27,7 +27,14 @@
                 <span>Use this URL to invite other players: <span data-bind="text: inviteURL()" />
                 </span>
                 <br />
+                <div data-bind="visible: friends() != null && friends().length > 0">
+                Your Friends
+                <select id="friends" data-bind="options: friends, optionsValue: 'Id', optionsText: 'DisplayName'">
+                </select>
+                    <a href="#" data-bind="click: inviteFriend">Invite Friend</a>
+                </div>
             </div>
+            <br />
             <div data-bind="visible: noPlayers() == 1 && isOwner()">
                 <span>Waiting for your opponent...</span>
             </div>
@@ -94,6 +101,12 @@
 
     var controller;
 
+    function inviteFriend() {
+        var userId = $("#friends").val();
+        var userName = $("#friends :selected").text();
+        gs.inviteUser(viewModel.gameQueueId(), userId, function () { alert(userName + " invited") });
+    }
+
     function start() {
 
         // check for canvas, show an "Upgrade your browser" screen if they don't have it.
@@ -113,6 +126,8 @@
         controller.setGameQueueId(gameQueueId);
 
         controller.start();
+
+        user.getFriendsInfo(function (friends) { viewModel.friends(friends); });
     }
 
     $(function () {

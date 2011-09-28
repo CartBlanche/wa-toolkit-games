@@ -9,6 +9,9 @@
         public string UserId { get; set; }
 
         [DataMember]
+        public float GameCount { get; set; }
+
+        [DataMember]
         public float Victories { get; set; }
 
         [DataMember]

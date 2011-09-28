@@ -27,8 +27,10 @@
         private IAzureBlobContainer<GameQueue> gameQueueContainer;
         private IAzureBlobContainer<UserProfile> userContainer;
         private IAzureBlobContainer<UserSession> userSessionContainer;
+        private IAzureBlobContainer<Friends> friendContainer;
         private IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue;
         private IAzureQueue<LeaveGameMessage> leaveGameMessageQueue;
+        private IAzureQueue<InviteMessage> inviteMessageQueue;
 
         [TestInitialize]
         public void Setup()
@@ -68,6 +70,11 @@
                 this.userSessionContainer.DeleteContainer();
             }
 
+            if (this.friendContainer != null)
+            {
+                this.friendContainer.DeleteContainer();
+            }
+
             if (this.skirmishGameMessageQueue != null)
             {
                 this.skirmishGameMessageQueue.DeleteQueue();
@@ -76,6 +83,11 @@
             if (this.leaveGameMessageQueue != null)
             {
                 this.leaveGameMessageQueue.DeleteQueue();
+            }
+
+            if (this.inviteMessageQueue != null)
+            {
+                this.inviteMessageQueue.DeleteQueue();
             }
         }
 
@@ -301,6 +313,12 @@
             Assert.AreEqual(2, gameQueue.Users.Count);
             Assert.AreEqual(userID, gameQueue.Users[0].UserId);
             Assert.AreEqual(newUserID, gameQueue.Users[1].UserId);
+
+            var friends1 = userRepository.GetFriends(userID);
+            var friends2 = userRepository.GetFriends(newUserID);
+
+            Assert.IsTrue(friends1.Any(f => f == newUserID));
+            Assert.IsTrue(friends2.Any(f => f == userID));
         }
 
         [TestMethod]
@@ -405,6 +423,52 @@
 
         #endregion
 
+        #region /game/invite/
+
+        [TestMethod]
+        public void Invite()
+        {
+            string userId = "jhonny";
+            string userId1 = "mary";
+            string userId2 = "julie";
+            Guid gameQueueId = Guid.NewGuid();
+
+            var userRepository = this.CreateUserRepository();
+            var gameRepository = this.CreateGameRepository();
+
+            GameService gameService = this.CreateGameService(gameRepository, userRepository, userId);
+
+            var parametersTemplate = "users[]={0}&users[]={1}&message=Invite&url=http://127.0.0.1/";
+            var parameters = string.Format(CultureInfo.InvariantCulture, parametersTemplate, userId1, userId2);
+
+            var request = new HttpRequestMessage { Content = new StringContent(parameters) };
+
+            var result = gameService.Invite(gameQueueId, request);
+            Assert.IsTrue(result.IsSuccessStatusCode);
+
+            var message = this.inviteMessageQueue.GetMessage(new TimeSpan(0, 0, 30));
+            Assert.AreEqual(message.GameQueueId, gameQueueId);
+            Assert.AreNotEqual(message.Id, Guid.Empty);
+            Assert.AreEqual(message.UserId, userId);
+            Assert.AreEqual("Invite", message.Message);
+            Assert.AreEqual("http://127.0.0.1/", message.Url);
+            Assert.IsTrue(message.InvitedUserId == userId1 || message.InvitedUserId == userId2);
+
+            var message2 = this.inviteMessageQueue.GetMessage(new TimeSpan(0, 0, 30));
+            Assert.AreEqual(message2.GameQueueId, gameQueueId);
+            Assert.AreNotEqual(message2.Id, Guid.Empty);
+            Assert.AreEqual(message2.UserId, userId);
+            Assert.AreEqual("Invite", message2.Message);
+            Assert.AreEqual("http://127.0.0.1/", message2.Url);
+            Assert.IsTrue(message2.InvitedUserId == userId1 || message2.InvitedUserId == userId2);
+
+            Assert.AreEqual(message.Timestamp, message2.Timestamp);
+
+            Assert.AreNotEqual(message.InvitedUserId, message2.InvitedUserId);
+        }
+
+        #endregion
+
         private GameService CreateGameService(IGameRepository gameRepository, IUserRepository userRepository, string userId)
         {
             return new GameService(gameRepository, userRepository, new StringUserProvider(userId));
@@ -415,13 +479,14 @@
             CloudStorageAccount account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
             this.gameContainer = new AzureBlobContainer<Game>(account, ConfigurationConstants.GamesContainerName + "test" + this.suffix, true);
             this.gameQueueContainer = new AzureBlobContainer<GameQueue>(account, ConfigurationConstants.GamesQueuesContainerName + "test" + this.suffix, true);
-            this.skirmishGameMessageQueue = new AzureQueue<SkirmishGameQueueMessage>(account, "skirmishgamequeuemessagetest" + this.suffix);
-            this.leaveGameMessageQueue = new AzureQueue<LeaveGameMessage>(account, "leavegamemessagetest" + this.suffix);
+            this.skirmishGameMessageQueue = new AzureQueue<SkirmishGameQueueMessage>(account, ConfigurationConstants.SkirmishGameQueue + this.suffix);
+            this.leaveGameMessageQueue = new AzureQueue<LeaveGameMessage>(account, ConfigurationConstants.LeaveGameQueue + "test" + this.suffix);
+            this.inviteMessageQueue = new AzureQueue<InviteMessage>(account, ConfigurationConstants.InvitesQueue + "test" + this.suffix);
 
             this.gameContainer.EnsureExist(true);
             this.gameQueueContainer.EnsureExist(true);
 
-            return new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer);
+            return new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteMessageQueue);
         }
 
         private UserRepository CreateUserRepository()
@@ -429,11 +494,13 @@
             var account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
             this.userContainer = new AzureBlobContainer<UserProfile>(account, ConfigurationConstants.UsersContainerName + "test" + this.suffix, true);
             this.userSessionContainer = new AzureBlobContainer<UserSession>(account, ConfigurationConstants.UserSessionsContainerName + "test" + this.suffix, true);
+            this.friendContainer = new AzureBlobContainer<Friends>(account, ConfigurationConstants.FriendsContainerName + "test" + this.suffix, true);
 
             this.userContainer.EnsureExist(true);
             this.userSessionContainer.EnsureExist(true);
+            this.friendContainer.EnsureExist(true);
 
-            return new UserRepository(this.userContainer, this.userSessionContainer);
+            return new UserRepository(this.userContainer, this.userSessionContainer, this.friendContainer);
         }
 
         private Game CreateNewGame(IGameRepository gameRepository, params string[] userIds)

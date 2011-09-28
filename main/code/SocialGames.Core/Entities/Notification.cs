@@ -12,7 +12,11 @@
 
         public string IconUrl { get; set; }
 
+        public string SenderId { get; set; }
+
         public string SenderName { get; set; }
+
+        public string Url { get; set; }
 
         public object Data { get; set; }
 

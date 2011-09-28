@@ -113,6 +113,7 @@
     <Compile Include="Commands\GameActionStatisticsCommand.cs" />
     <Compile Include="Commands\GameActionNotificationCommand.cs" />
     <Compile Include="Commands\GameQueueAutoStartCommand.cs" />
+    <Compile Include="Commands\InviteCommand.cs" />
     <Compile Include="Commands\LeaveGameCommand.cs" />
     <Compile Include="Commands\SkirmishGameQueueCommand.cs" />
     <Compile Include="WorkerRole.cs" />

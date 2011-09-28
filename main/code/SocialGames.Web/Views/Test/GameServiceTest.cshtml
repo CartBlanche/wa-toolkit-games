@@ -17,12 +17,20 @@
 <div id="qunit-fixture">test markup, will be hidden</div>
 
 <script type="text/javascript">
+    var nullGameId = "00000000-0000-0000-0000-000000000000";
+    
+    function testQueueCallback(data) {
+        ok(true);
+        start();
+    }
+
     $(function () {
         var apiURL = "@this.ViewBag.ApiUrl";
         var blobURL = "@this.ViewBag.BlobUrl";
 
         var si = new ServerInterface();
         var gs = new GameService(apiURL, blobURL, si);
+        gs.queueCallback = testQueueCallback;
 
         test("Create Game Queue", function () {
             var success = function (result) { ok(true); start(); };
@@ -49,7 +57,7 @@
             expect(1);
 
             function getQueue(queueId) {
-                gs.getGameQueue(queueId, success);
+                gs.getGameQueueStatus(queueId, success);
             };
 
             gs.createGameQueue(getQueue);
@@ -71,6 +79,15 @@
             };
 
             gs.createGameQueue(join);
+        });
+
+        test("Post Statistics Event", function () {
+            var success = function (result) { ok(true); start(); };
+            stop(10000);
+            expect(1);
+            var action = { type: 1, commandData: { Victories: 0, Defeats: 0, GameCount: 0} };
+
+            gs.postStatisticsEvent(action, success);
         });
     });
 </script>

@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Net.Http;
     using System.Runtime.Serialization.Json;
+    using System.Web.Mvc;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.GamePlay.Extensions;
@@ -118,6 +119,15 @@
             {
                 this.gameRepository.AddUserToGameQueue(CurrentUserId, gameQueueId);
 
+                var queue = this.gameRepository.GetGameQueue(gameQueueId);
+                var currentUserId = this.CurrentUserId;
+
+                foreach (var user in queue.Users)
+                {
+                    this.userRepository.AddFriend(currentUserId, user.UserId);
+                    this.userRepository.AddFriend(user.UserId, currentUserId);
+                }
+
                 return SuccessResponse;
             }
             catch (Exception ex)
@@ -182,16 +192,6 @@
                     Timestamp = DateTime.UtcNow
                 };
 
-                // Cleanup game actions lists
-                for (int i = 0; i < game.GameActions.Count(); i++)
-                {
-                    if (game.GameActions[i].Timestamp < DateTime.UtcNow.AddSeconds(-10))
-                    {
-                        game.GameActions.RemoveAt(i);
-                        i--;
-                    }
-                }
-
                 game.GameActions.Add(gameAction);
                 this.gameRepository.AddOrUpdateGame(game);
 
@@ -201,6 +201,21 @@
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [Authorize]
+        public HttpResponseMessage Invite(Guid gameQueueId, HttpRequestMessage request)
+        {
+            var formContent = GetFormContent(request);
+            var users = formContent.users != null ?
+                    ((JsonArray)formContent.users).ToObjectArray().Select(o => o.ToString()).ToList() :
+                    null;
+            string message = formContent.message != null ? formContent.message.Value : null;
+            string url = formContent.url != null ? formContent.url.Value : null;
+
+            this.gameRepository.Invite(this.CurrentUserId, gameQueueId, message, url, users);
+
+            return SuccessResponse;
         }
 
         private string GetCommandDataValue(IDictionary<string, object> commandData, string commandDataKey)

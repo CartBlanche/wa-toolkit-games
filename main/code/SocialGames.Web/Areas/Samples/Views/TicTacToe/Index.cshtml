@@ -4,6 +4,9 @@
     ViewBag.Title = "Tic Tac Toe";
 }
 
+<script src="@Url.AreaContent("Scripts/jQuery.tmpl.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/knockout-1.2.1.js")" type="text/javascript"></script>
+
 <script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/GameService.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
@@ -11,18 +14,9 @@
 <script src="@Url.AreaContent("Scripts/game/TicTacToeGame.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/TicTacToeViewModel.js")" type="text/javascript"></script>
 <script src="@Url.AreaContent("Scripts/game/TicTacToeController.js")" type="text/javascript"></script>
-<h2>
-    Tic Tac Toe</h2>
 
-<script type="text/javascript">
-        //First check for canvas, show an "Upgrade your browser" screen if they don't have it.
-        var canvas = document.createElement('canvas');
-        if (canvas.getContext == null || canvas.getContext('2d') == null) {
-            window.location.assign('@Url.Action("OldBrowser")');
-        }
-</script>
-
-<div id="main">
+<h2>Tic Tac Toe</h2>
+<div id="game">
     <div style="display: none" data-bind="visible: gameQueueId() != null">
         <fieldset>
             <legend>Player</legend>
@@ -33,7 +27,14 @@
                 <span>Use this URL to invite other players: <span data-bind="text: inviteURL()" />
                 </span>
                 <br />
+                <div data-bind="visible: friends() != null && friends().length > 0">
+                Your Friends
+                <select id="friends" data-bind="options: friends, optionsValue: 'Id', optionsText: 'DisplayName'">
+                </select>
+                    <a href="#" data-bind="click: inviteFriend">Invite Friend</a>
+                </div>
             </div>
+            <br />
             <div data-bind="visible: noPlayers() == 1 && isOwner()">
                 <span>Waiting for your opponent...</span>
             </div>
@@ -69,6 +70,11 @@
         </fieldset>
     </div>
 </div>
+<div id="notSupported" style="display:none">
+    <h3>Sorry, your browser is too old. It does not support HTML5 canvas.</h3>
+    <p>You can download <a href="http://www.microsoft.com/download/en/default.aspx">IE9</a></p>
+</div>
+
 <script type="text/javascript">
     var viewModel;
     var gameQueueId = getQueryVariable("id");
@@ -91,12 +97,27 @@
 
     var si = new ServerInterface();
     var gs = new GameService(apiURL, blobURL, si);
-    var us = new UserService(apiURL, blobURL, si);
+    var user = new UserService(apiURL, blobURL, si);
 
     var controller;
 
+    function inviteFriend() {
+        var userId = $("#friends").val();
+        var userName = $("#friends :selected").text();
+        gs.inviteUser(viewModel.gameQueueId(), userId, "Invitation for Tic Tac Toe", viewModel.inviteURL(), function () { alert(userName + " was invited") });
+    }
+
     function start() {
-        var canvas = document.getElementById("board");
+
+        // check for canvas, show an "Upgrade your browser" screen if they don't have it.
+        var canvas = document.getElementById('board');
+        if (canvas.getContext == null || canvas.getContext('2d') == null) {
+            $("#game").toggle();
+            $("#notSupported").toggle();
+
+            return;
+        }
+
         var board = new TicTacToeBoard(canvas);
         var game = new TicTacToeGame();
 
@@ -105,16 +126,19 @@
         controller.setGameQueueId(gameQueueId);
 
         controller.start();
+
+        user.getFriendsInfo(function (friends) { viewModel.friends(friends); });
     }
 
     $(function () {
         viewModel = new TicTacToeViewModel();
         ko.applyBindings(viewModel);
 
-        us.verify(
+        user.verify(
             function () { start(); },
             function () {
-                var newlocation = '@Url.Action("Login")?ReturnUrl=' + encodeURIComponent(window.location.href);
+                var newlocation = '@Url.Action("LogOn", "Account", new { Area = "", ReturnUrl = "replace-in-js" })';
+                newlocation = newlocation.replace("replace-in-js", encodeURIComponent(window.location.href));
                 window.location.assign(newlocation);
             }
         );

@@ -9,6 +9,7 @@
     using System.Net.Http.Headers;
     using System.Runtime.Serialization.Json;
     using System.Web;
+    using System.Web.Mvc;
     using Microsoft.ApplicationServer.Http;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.GamePlay.Extensions;
@@ -100,12 +101,41 @@
             }
         }
 
+        [Authorize]
+        public HttpResponseMessage GetFriends()
+        {
+            var friends = this.userRepository.GetFriends(this.CurrentUserId).ToArray();
+
+            return HttpResponse<string[]>(friends, contentType: "application/json");
+        }
+
+        [Authorize]
+        public HttpResponseMessage GetFriendsInfo()
+        {
+            var friends = this.userRepository.GetFriendsInfo(this.CurrentUserId).ToArray();
+
+            return HttpResponse<UserInfo[]>(friends, contentType: "application/json");
+        }
+
+        [Authorize]
+        public HttpResponseMessage AddFriend(string friendId)
+        {
+            this.userRepository.AddFriend(this.CurrentUserId, friendId);
+
+            return SuccessResponse;
+        }
+
         private void UpdateUserName(ref Board[] boards)
         {
             foreach (var board in boards)
             {
                 foreach (var score in board.Scores)
                 {
+                    if (string.IsNullOrEmpty(score.UserId))
+                    {
+                        continue;
+                    }
+
                     var profile = this.userRepository.GetUser(score.UserId);
 
                     if (profile != null && !string.IsNullOrEmpty(profile.DisplayName))

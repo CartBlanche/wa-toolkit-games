@@ -170,6 +170,7 @@
     <Compile Include="Areas\Samples\Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Areas\Samples\SamplesAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Extensions\JsonValueExtensions.cs" />
@@ -181,28 +182,21 @@
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
     <Content Include="Areas\Samples\Scripts\game\FourInARowBoard.js" />
-    <Content Include="Areas\Samples\Scripts\game\FourInARowControllerOld.js" />
     <Content Include="Areas\Samples\Scripts\game\FourInARowController.js" />
     <Content Include="Areas\Samples\Scripts\game\FourInARowGame.js" />
     <Content Include="Areas\Samples\Scripts\game\FourInARowViewModel.js" />
-    <Content Include="Scripts\game\GameServiceOld.js" />
     <Content Include="Scripts\game\GameService.js" />
     <Content Include="Scripts\game\GameServiceNodeJs.js" />
     <Content Include="Scripts\game\ServerInterface.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeBoard.js" />
-    <Content Include="Areas\Samples\Scripts\game\TicTacToeControllerOld.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeController.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeGame.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeViewModel.js" />
     <Content Include="Scripts\game\UserService.js" />
-    <Content Include="Areas\Samples\Scripts\jquery-1.6.2-vsdoc.js" />
-    <Content Include="Areas\Samples\Scripts\jquery-1.6.2.js" />
-    <Content Include="Areas\Samples\Scripts\jquery-1.6.2.min.js" />
     <Content Include="Areas\Samples\Scripts\jQuery.tmpl.js" />
     <Content Include="Areas\Samples\Scripts\jQuery.tmpl.min.js" />
     <Content Include="Areas\Samples\Scripts\knockout-1.2.1.debug.js" />
     <Content Include="Areas\Samples\Scripts\knockout-1.2.1.js" />
-    <Content Include="Areas\Samples\Scripts\qunit.js" />
     <Content Include="Areas\Samples\Scripts\socket.io.js" />
     <Content Include="Content\azurelogo.png" />
     <Content Include="Content\qunit.css" />
@@ -221,13 +215,10 @@
     <Content Include="Areas\Samples\Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Areas\Samples\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Areas\Samples\Content\themes\base\jquery-ui.css" />
-    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Compile Include="Security\WSFederationRequestValidator.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\IEventService.cs" />
-    <Compile Include="Services\HttpContextOrGuestUserProvider.cs" />
-    <Compile Include="Services\ITestService.cs" />
     <Compile Include="Services\HttpContextUserProvider.cs" />
     <Compile Include="Services\IAuthService.cs" />
     <Compile Include="Services\GameService.cs" />
@@ -235,19 +226,17 @@
     <Compile Include="Services\IUserProvider.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
-    <Compile Include="Services\TestService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\knockout-1.2.1.debug.js" />
-    <Content Include="Scripts\knockout-1.2.1.js" />
-    <Content Include="Scripts\qunit.js" />
+    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
-    <Content Include="Scripts\jquery.tmpl.js" />
-    <Content Include="Scripts\jquery.tmpl.min.js" />
+    <Content Include="Scripts\jQuery.tmpl.js" />
+    <Content Include="Scripts\knockout-1.2.1.js" />
+    <Content Include="Scripts\qunit.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -274,15 +263,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\FourInARow\IndexOld.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\FourInARow\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\FourInARow\OldBrowser.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Samples\Views\ClientTest\TicTacToeBoardTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -293,9 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Test\GameServiceTest.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Test\GameServiceOldTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Test\Index.cshtml" />
@@ -310,19 +287,10 @@
     <Content Include="Views\Test\UserServiceTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\IndexOld.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Samples\Views\TicTacToe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\NodeJs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Samples\Views\TicTacToe\OldBrowser.cshtml" />
+    <Content Include="Views\Account\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Samples\Views\_ViewStart.cshtml" />
@@ -343,13 +311,13 @@
     <Content Include="Areas\Samples\Views\FourInARow\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Samples\Views\FourInARow\NodeJs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Account\Friends.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Profile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Leaderboard.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

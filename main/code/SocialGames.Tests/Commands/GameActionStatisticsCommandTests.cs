@@ -22,15 +22,18 @@
         }
 
         [TestMethod]
-        public void SendVictoryCommand()
+        public void SendVictoriesMetric()
         {
             string userId = Guid.NewGuid().ToString();
+            var commandData = new Dictionary<string, object>();
+
+            commandData.Add("Victories", 1);
 
             GameAction gameAction = new GameAction()
             {
+                Id = Guid.NewGuid(),
                 UserId = userId,
-                Type = GameActionType.Victory,
-                Id = Guid.NewGuid()
+                CommandData = commandData                
             };
 
             this.command.Do(gameAction);
@@ -39,19 +42,21 @@
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Victories);
-            Assert.AreEqual(0, result.Defeats);
         }
 
         [TestMethod]
-        public void SendDefeatCommand()
+        public void SendDefeatsMetric()
         {
             string userId = Guid.NewGuid().ToString();
+            var commandData = new Dictionary<string, object>();
+
+            commandData.Add("Defeats", 1);
 
             GameAction gameAction = new GameAction()
             {
+                Id = Guid.NewGuid(),
                 UserId = userId,
-                Type = GameActionType.Defeat,
-                Id = Guid.NewGuid()
+                CommandData = commandData
             };
 
             this.command.Do(gameAction);
@@ -59,8 +64,30 @@
             var result = this.repository.Retrieve(userId);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(0, result.Victories);
             Assert.AreEqual(1, result.Defeats);
+        }
+
+        [TestMethod]
+        public void SendGameCountMetric()
+        {
+            string userId = Guid.NewGuid().ToString();
+            var commandData = new Dictionary<string, object>();
+
+            commandData.Add("GameCount", 1);
+
+            GameAction gameAction = new GameAction()
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                CommandData = commandData
+            };
+
+            this.command.Do(gameAction);
+
+            var result = this.repository.Retrieve(userId);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.GameCount);
         }
     }
 }

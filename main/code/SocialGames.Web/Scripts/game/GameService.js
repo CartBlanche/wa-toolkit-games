@@ -30,6 +30,10 @@ GameService.prototype.sendGameAction = function (gameId, action, success, error)
     this.serverInterface.sendAjaxPost(this.apiURL + "game/command/" + gameId, action, success, error);
 };
 
+GameService.prototype.postStatisticsEvent = function (action, success, error) {
+    this.serverInterface.sendAjaxPost(this.apiURL + "event/post/statistics", action, success, error);
+};
+
 GameService.prototype.getGameQueueStatus = function (queueId, error) {
     this.serverInterface.sendAjaxJsonpGet(this.blobURL + "sggamesqueues/" + queueId + "?callback=?", "sggamesqueuesCallback", error);
 };
@@ -81,6 +85,10 @@ GameService.prototype.setTimer = function () {
     var service = this;
 
     setTimeout(function () { service.refresh(); }, 300);
+};
+
+GameService.prototype.inviteUser = function (gameQueueId, user, message, url, success, error) {
+    this.serverInterface.sendAjaxJsonPost('/game/invite/' + gameQueueId, { users: [user], message: message, url: url }, success, error);
 };
 
 GameService.prototype.process = function (gameQueueId, queueCallback, actionCallback)

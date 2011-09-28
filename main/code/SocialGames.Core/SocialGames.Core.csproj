@@ -133,6 +133,7 @@
     <Compile Include="Entities\Board.cs" />
     <Compile Include="Entities\Enums.cs" />
     <Compile Include="Entities\Error.cs" />
+    <Compile Include="Entities\Friends.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\GameAction.cs" />
     <Compile Include="Entities\GameActionType.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\NotificationStatus.cs" />
     <Compile Include="Entities\Score.cs" />
+    <Compile Include="Entities\UserInfo.cs" />
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Entities\UserSession.cs" />
     <Compile Include="Entities\UserStats.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="Repositories\IGameActionStatisticsQueue.cs" />
     <Compile Include="Repositories\IGameRepository.cs" />
     <Compile Include="Repositories\IIdentityProviderRepository.cs" />
+    <Compile Include="Repositories\InviteMessage.cs" />
     <Compile Include="Repositories\IStatisticsRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\LeaveGameMessage.cs" />

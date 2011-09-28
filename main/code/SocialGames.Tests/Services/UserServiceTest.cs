@@ -24,6 +24,7 @@
         private int suffix;
         private IAzureBlobContainer<UserProfile> userContainer;
         private IAzureBlobContainer<UserSession> userSessionContainer;
+        private IAzureBlobContainer<Friends> friendContainer;
 
         [TestInitialize]
         public void Setup()
@@ -51,6 +52,11 @@
             if (this.userSessionContainer != null)
             {
                 this.userSessionContainer.DeleteContainer();
+            }
+
+            if (this.friendContainer != null)
+            {
+                this.friendContainer.DeleteContainer();
             }
         }
 
@@ -183,7 +189,7 @@
                 var serializer = new JavaScriptSerializer();
                 var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsString());
 
-                Assert.AreEqual(2, boards.Count());
+                Assert.AreEqual(3, boards.Count());
 
                 foreach (var board in boards)
                 {
@@ -209,7 +215,7 @@
                 var serializer = new JavaScriptSerializer();
                 var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsString());
 
-                Assert.AreEqual(2, boards.Count());
+                Assert.AreEqual(3, boards.Count());
 
                 foreach (var board in boards)
                 {
@@ -217,6 +223,105 @@
                     Assert.IsNotNull(board.Scores.FirstOrDefault(s => s.UserId == userId));
                 }
             }
+        }
+
+        [TestMethod]
+        public void GetNoFriendsForNewUser()
+        {
+            var userId = "newUser";
+            var userRepository = this.CreateUserRepository();
+            var statisticsProvider = this.CreateStatisticsRepository();
+
+            var userService = this.CreateUserService(userRepository, statisticsProvider, userId);
+
+            var response = userService.GetFriends();
+            var serializer = new JavaScriptSerializer();
+            var friends = serializer.Deserialize<string[]>(response.Content.ReadAsString());
+
+            Assert.IsNotNull(friends);
+            Assert.AreEqual(0, friends.Count());
+        }
+
+        [TestMethod]
+        public void GetFriends()
+        {
+            var userId = "newUser";
+            var friendId1 = "friend1";
+            var friendId2 = "friend2";
+
+            var userRepository = this.CreateUserRepository();
+            var statisticsProvider = this.CreateStatisticsRepository();
+
+            userRepository.AddFriend(userId, friendId1);
+            userRepository.AddFriend(userId, friendId2);
+
+            var userService = this.CreateUserService(userRepository, statisticsProvider, userId);
+
+            var response = userService.GetFriends();
+            var serializer = new JavaScriptSerializer();
+            var friends = serializer.Deserialize<string[]>(response.Content.ReadAsString());
+
+            Assert.IsNotNull(friends);
+            Assert.AreEqual(2, friends.Count());
+            Assert.IsTrue(friends.Contains(friendId1));
+            Assert.IsTrue(friends.Contains(friendId2));
+        }
+
+        [TestMethod]
+        public void GetFriendsInfo()
+        {
+            var userId = "newUser";
+            var friendId1 = "friend1";
+            var friendId2 = "friend2";
+
+            var userRepository = this.CreateUserRepository();
+            var statisticsProvider = this.CreateStatisticsRepository();
+
+            userRepository.AddFriend(userId, friendId1);
+            userRepository.AddFriend(userId, friendId2);
+
+            var userService = this.CreateUserService(userRepository, statisticsProvider, userId);
+
+            var response = userService.GetFriendsInfo();
+            var serializer = new JavaScriptSerializer();
+            var friends = serializer.Deserialize<UserInfo[]>(response.Content.ReadAsString());
+
+            Assert.IsNotNull(friends);
+            Assert.AreEqual(2, friends.Count());
+            Assert.IsTrue(friends.Any(f => f.Id == friendId1));
+            Assert.IsTrue(friends.Any(f => f.Id == friendId2));
+            Assert.IsTrue(friends.Any(f => f.DisplayName == friendId1));
+            Assert.IsTrue(friends.Any(f => f.DisplayName == friendId2));
+        }
+
+        [TestMethod]
+        public void GetFriendsInfoWithDisplayName()
+        {
+            var userId = "newUser";
+            var friendId1 = "friend1";
+            var friendId2 = "friend2";
+            var friendName1 = "Friend One";
+            var friendName2 = "Friend Two";
+
+            var userRepository = this.CreateUserRepository();
+            var statisticsProvider = this.CreateStatisticsRepository();
+
+            userRepository.AddOrUpdateUser(new UserProfile() { Id = friendId1, DisplayName = friendName1 });
+            userRepository.AddOrUpdateUser(new UserProfile() { Id = friendId2, DisplayName = friendName2 });
+
+            userRepository.AddFriend(userId, friendId1);
+            userRepository.AddFriend(userId, friendId2);
+
+            var userService = this.CreateUserService(userRepository, statisticsProvider, userId);
+
+            var response = userService.GetFriendsInfo();
+            var serializer = new JavaScriptSerializer();
+            var friends = serializer.Deserialize<UserInfo[]>(response.Content.ReadAsString());
+
+            Assert.IsNotNull(friends);
+            Assert.AreEqual(2, friends.Count());
+            Assert.IsTrue(friends.Any(f => f.Id == friendId1 && f.DisplayName == friendName1));
+            Assert.IsTrue(friends.Any(f => f.Id == friendId2 && f.DisplayName == friendName2));
         }
 
         private void BulkInsertTestData(IStatisticsRepository repository)
@@ -249,11 +354,13 @@
             var account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
             this.userContainer = new AzureBlobContainer<UserProfile>(account, ConfigurationConstants.UsersContainerName + "test" + this.suffix, true);
             this.userSessionContainer = new AzureBlobContainer<UserSession>(account, ConfigurationConstants.UserSessionsContainerName + "test" + this.suffix, true);
+            this.friendContainer = new AzureBlobContainer<Friends>(account, ConfigurationConstants.FriendsContainerName + "test" + this.suffix, true);
 
             this.userContainer.EnsureExist();
             this.userSessionContainer.EnsureExist(true);
+            this.friendContainer.EnsureExist(true);
 
-            return new UserRepository(this.userContainer, this.userSessionContainer);
+            return new UserRepository(this.userContainer, this.userSessionContainer, this.friendContainer);
         }
 
         private StatisticsRepository CreateStatisticsRepository()

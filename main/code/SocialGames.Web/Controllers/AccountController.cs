@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Controllers
+﻿namespace Microsoft.Samples.SocialGames.Web.Controllers
 {
     using System;
     using System.Linq;
@@ -10,8 +10,9 @@
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.GamePlay.Services;
     using Microsoft.Samples.SocialGames.Repositories;
+    using Microsoft.Samples.SocialGames.Web.Controllers;
 
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IUserRepository userRepository;
         private IUserProvider userProvider;
@@ -27,6 +28,11 @@
             this.userProvider = userProvider;
         }
 
+        public ActionResult LogOn(string returnUrl)
+        {
+            return View();
+        }
+       
         [HttpPost]
         public ActionResult LogOn()
         {
@@ -60,17 +66,37 @@
                 }
             }
 
-            return Redirect("/Client/WarRoom");
+            return Redirect("~/");
         }
 
-        public ActionResult Friends()
+        [Authorize]
+        public ActionResult Friends(string id)
         {
-            this.SetConfigurationData();
+            if (!string.IsNullOrEmpty(id))
+            {
+                string currentUserId = this.userProvider.UserId;
+                string inviteUserId = id;
+
+                this.userRepository.AddFriend(currentUserId, inviteUserId);
+                this.userRepository.AddFriend(inviteUserId, currentUserId);
+                return RedirectToAction("Index", "Home");
+            }
+
+            this.ViewBag.CurrentUserId = this.userProvider.UserId;
             return View();
         }
 
+        [Authorize]
         public ActionResult Profile()
         {
+            this.ViewBag.CurrentUserId = this.userProvider.UserId;
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Leaderboard()
+        {
+            this.ViewBag.CurrentUserId = this.userProvider.UserId;
             return View();
         }
 
@@ -97,13 +123,6 @@
             }
 
             return claimsIdentity.Claims.FirstOrDefault(c => c.ClaimType.Equals(claimType, StringComparison.OrdinalIgnoreCase)).Value;
-        }
-
-        private void SetConfigurationData()
-        {
-            this.ViewBag.BlobUrl = System.Configuration.ConfigurationManager.AppSettings["BlobUrl"];
-            this.ViewBag.ApiUrl = System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
-            this.ViewBag.NodeJsUrl = System.Configuration.ConfigurationManager.AppSettings["NodeJsUrl"];
         }
     }
 }

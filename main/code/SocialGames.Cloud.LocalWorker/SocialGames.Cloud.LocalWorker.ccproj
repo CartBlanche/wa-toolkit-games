@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>1.5.0</ProductVersion>
-    <ProjectGuid>{7290833d-c698-45db-9db0-aa519017382b}</ProjectGuid>
+    <ProjectGuid>{c91e7076-d981-4e5c-a380-053a1b4c51db}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SocialGames.Cloud.Local</RootNamespace>
@@ -36,13 +36,6 @@
     <ServiceConfiguration Include="ServiceConfiguration.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SocialGames.Web\SocialGames.Web.csproj">
-      <Name>SocialGames.Web</Name>
-      <Project>{ac2b07b3-8e93-4cb3-82cb-2129c3ab9ae2}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>SocialGames.Web</RoleName>
-    </ProjectReference>
     <ProjectReference Include="..\SocialGames.Worker\SocialGames.Worker.csproj">
       <Name>SocialGames.Worker</Name>
       <Project>{687afa5d-e5d7-4672-ad04-20ad35403e18}</Project>

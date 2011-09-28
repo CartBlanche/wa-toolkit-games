@@ -7,10 +7,14 @@
     {
         public const string GuestUserid = "guest";
         public const string UsersContainerName = "sgusers";
+        public const string FriendsContainerName = "sgfriends";
         public const string UserSessionsContainerName = "sgsessions";
         public const string GamesContainerName = "sggames";
         public const string GameActionNotificationsQueue = "sgactionnotifications";
         public const string GameActionStatisticsQueue = "sgactionstatitics";
+        public const string InvitesQueue = "sginvites";
+        public const string SkirmishGameQueue = "sgskirmishgamequeue";
+        public const string LeaveGameQueue = "sgleavegamequeue";
         public const string GamesQueuesContainerName = "sggamesqueues";
         public const string InventoryContainerName = "sginventory";
         public const string InventoryItemsBlobName = "sgitems";
@@ -19,7 +23,7 @@
         public const string IdentityProviderClaimType = "http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider";
         public const string FacebookAccessTokenClaimType = "http://www.facebook.com/claims/AccessToken";
 
-        public const int MaxNumberOfPlayersPerGame = 5;
+        public const int MaxNumberOfPlayersPerGame = 2;
 
         public const int NotificationTimeInterval = 60; // in seconds
 

@@ -10,16 +10,10 @@
 
         public string UserName { get; set; }
 
-        public float XP { get; set; }
-
-        public float Rank { get; set; }
-
-        public float Kills { get; set; }
+        public float GameCount { get; set; }
 
         public float Victories { get; set; }
 
-        public float Accuracy { get; set; }
-
-        public float TerrainDeformation { get; set; }
+        public float Defeats { get; set; }
     }
 }

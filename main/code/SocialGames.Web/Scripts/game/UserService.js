@@ -13,6 +13,11 @@ UserService.prototype.getUser = function (userId, error) {
     this.serverInterface.sendAjaxJsonpGet(this.blobURL + "sgusers/" + userId + "?callback=?", "sgusersCallback", error);
 };
 
+UserService.prototype.getNotifications = function (userId, error) {
+    this.serverInterface.sendAjaxJsonpGet(this.blobURL + "sgnotifications/" + userId + "?callback=?",
+            "sgnotificationsCallback", error);
+};
+
 UserService.prototype.getFriends = function (success, error) {
     this.serverInterface.sendAjaxJsonPost("/user/friends", null, success, error);
 }
@@ -32,3 +37,4 @@ UserService.prototype.getLeaderboard = function (count, success, error) {
 UserService.prototype.getLeaderboardWithFocus = function (focusCount, focusUserId, success, error) {
     this.serverInterface.sendAjaxGet("/user/leaderboard/" + focusCount + "?user=" + focusUserId, success, error);
 }
+

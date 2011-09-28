@@ -13,6 +13,8 @@
 <p>Use this URL to invite other users: <span data-bind="text: inviteURL()" />
 </p>
 
+<h3>Friends</h3>
+
 <fieldset>
     <div data-bind='template: { name: "FriendList", foreach: friends() }' />
 </fieldset>
@@ -21,11 +23,31 @@
        ${$data.DisplayName} <br> 
 </script>
 
+<h3>Invitations</h3>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>From</th>
+<th>Action</th>
+</tr>
+</thead>
+    <tbody data-bind='template: { name: "NotificationList", foreach: notifications() }' />
+</table>
+
+<script id="NotificationList" type="text/html">
+<tr>
+       <td>${$data.Message} </td> 
+       <td>${$data.SenderName} </td>
+       <td><a href="${$data.Url}">Go</a> </td> 
+</tr>
+</script>
+
 <script type="text/javascript">
     var userId = "@this.ViewBag.CurrentUserId";
-    var blobEndpoint = "@this.ViewBag.BlobEndpoint";
+    var BlobUrl = "@this.ViewBag.BlobUrl";
     var si = new ServerInterface();
-    var user = new UserService(userId, blobEndpoint, si);
+    var user = new UserService(userId, BlobUrl, si);
 
     function getFriends() {
         user.getFriendsInfo(function (friends) {
@@ -46,7 +68,20 @@
     function ViewModel() {
         this.user = ko.observable(userId);
         this.friends = ko.observableArray();
+        this.notifications = ko.observableArray();
         this.inviteURL = ko.observable(document.location.href + "/" + userId);
+    }
+
+    function sgnotificationsCallback(data) {
+        for (var n in data.Notifications) {
+            var notification = data.Notifications[n];
+
+            if (notification.SenderName == null || notification.SenderName == "")
+                notification.SenderName = notification.SenderId;
+
+            if (notification.Type == "Invite")
+                viewModel.notifications.push(notification);
+        }
     }
 
     ViewModel.prototype.refreshFriends = function (friends) {
@@ -63,5 +98,7 @@
         user.getFriendsInfo(
             function (friends) { window.viewModel.refreshFriends(friends); },
             function () { alert('Error Get Friends'); });
+
+        user.getNotifications(userId);
     });
 </script>

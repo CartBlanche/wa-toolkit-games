@@ -39,6 +39,12 @@ TicTacToeController.prototype.start = function () {
 };
 
 TicTacToeController.prototype.processGameQueue = function (gameQueue) {
+    for (var n in gameQueue.Users) {
+        var user = gameQueue.Users[n];
+        if (user.UserName == null || user.UserName == "")
+            user.UserName = user.UserId;
+    }
+
     this.viewModel.players(gameQueue.Users);
     this.viewModel.noPlayers(gameQueue.Users.length);
 

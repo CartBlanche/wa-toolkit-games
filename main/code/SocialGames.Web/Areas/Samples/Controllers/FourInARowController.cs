@@ -9,6 +9,7 @@
 
     public class FourInARowController : BaseController
     {
+        [Authorize]
         public ActionResult Index()
         {
             return View();

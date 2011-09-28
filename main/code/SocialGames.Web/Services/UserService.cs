@@ -9,11 +9,11 @@
     using System.Net.Http.Headers;
     using System.Runtime.Serialization.Json;
     using System.Web;
+    using System.Web.Mvc;
     using Microsoft.ApplicationServer.Http;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.GamePlay.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
-    using Microsoft.Samples.SocialGames.Web.Security;
 
     public class UserService : ServiceBase, IUserService
     {
@@ -101,7 +101,7 @@
             }
         }
 
-        [CustomAuthorize]
+        [Authorize]
         public HttpResponseMessage GetFriends()
         {
             var friends = this.userRepository.GetFriends(this.CurrentUserId).ToArray();
@@ -109,7 +109,7 @@
             return HttpResponse<string[]>(friends, contentType: "application/json");
         }
 
-        [CustomAuthorize]
+        [Authorize]
         public HttpResponseMessage GetFriendsInfo()
         {
             var friends = this.userRepository.GetFriendsInfo(this.CurrentUserId).ToArray();
@@ -117,7 +117,7 @@
             return HttpResponse<UserInfo[]>(friends, contentType: "application/json");
         }
 
-        [CustomAuthorize]
+        [Authorize]
         public HttpResponseMessage AddFriend(string friendId)
         {
             this.userRepository.AddFriend(this.CurrentUserId, friendId);

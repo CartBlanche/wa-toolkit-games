@@ -19,8 +19,8 @@ PAUSE
 ECHO.
 ECHO.
 
-%powerShellDir%\powershell.exe -NonInteractive -Command "Set-ExecutionPolicy unrestricted"
-%powerShellDir%\powershell.exe -NonInteractive -command "%~dp0SetupDB"
+%powerShellDir%\powershell.exe -NonInteractive -NoProfile -Command "Set-ExecutionPolicy unrestricted"
+%powerShellDir%\powershell.exe -NonInteractive -NoProfile -command "%~dp0SetupDB"
 
 if errorlevel 1 (
    echo -------------------------------------------------------------------------------

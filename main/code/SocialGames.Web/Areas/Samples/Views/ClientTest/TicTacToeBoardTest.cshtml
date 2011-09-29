@@ -23,6 +23,11 @@
         game.move(x, y, currentColor);
         board.drawMove(x, y, currentColor);
         currentColor = nextColor(currentColor);
+
+        if (game.hasWinner()) {
+            alert(game.getWinner() + " won!");
+            board.onMove = null;
+        }
     };
 
     var currentColor = TTTColor.Cross;

@@ -17,6 +17,7 @@
 #qunit-testrunner-toolbar, #qunit-userAgent, #qunit-testresult, #qunit-tests li { font-size: small; }
 #qunit-tests { font-size: smaller; }
 
+#qunit-header label { color: White; }
 
 /** Resets */
 

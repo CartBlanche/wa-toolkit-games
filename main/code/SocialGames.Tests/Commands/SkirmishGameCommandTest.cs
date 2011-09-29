@@ -151,7 +151,7 @@
                           .Returns(testGameQueue)
                           .Verifiable();
 
-            gameRepository.Setup(m => m.AddOrUpdateGameQueue(It.Is<GameQueue>(g => g.Id == testGameQueue.Id && g.Status == QueueStatus.Waiting && g.Users.Count == 2 && g.Users.First().UserId == testUserId1 && g.Users.Last().UserId == testUserId2)))
+            gameRepository.Setup(m => m.AddOrUpdateGameQueue(It.Is<GameQueue>(g => g.Id == testGameQueue.Id && g.Status == QueueStatus.Ready && g.Users.Count == 2 && g.Users.First().UserId == testUserId1 && g.Users.Last().UserId == testUserId2)))
                           .Verifiable();
 
             var userRepository = new Mock<IUserRepository>();

@@ -5,13 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>1.5.0</ProductVersion>
-    <ProjectGuid>{bb5339af-3e1c-4d0f-9cb7-58bd13c37047}</ProjectGuid>
+    <ProjectGuid>{b665774f-fca2-448b-88d7-673bdf694eaf}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SocialGames.Cloud.Local</RootNamespace>
-    <AssemblyName>SocialGames.Cloud.Local</AssemblyName>
+    <RootNamespace>WindowsAzureProject1</RootNamespace>
+    <AssemblyName>WindowsAzureProject1</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
-    <Name>SocialGames.Cloud</Name>
+    <Name>WindowsAzureProject1</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +33,8 @@
   <!-- Items for the project -->
   <ItemGroup>
     <ServiceDefinition Include="ServiceDefinition.csdef" />
-    <ServiceConfiguration Include="ServiceConfiguration.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.Local.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SocialGames.Web\SocialGames.Web.csproj">
@@ -42,6 +43,7 @@
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <RoleName>SocialGames.Web</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
     <ProjectReference Include="..\SocialGames.Worker\SocialGames.Worker.csproj">
       <Name>SocialGames.Worker</Name>
@@ -49,11 +51,12 @@
       <Private>True</Private>
       <RoleType>Worker</RoleType>
       <RoleName>SocialGames.Worker</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
     <CloudExtensionsDir Condition=" '$(CloudExtensionsDir)' == '' ">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Windows Azure Tools\1.5\</CloudExtensionsDir>
   </PropertyGroup>
   <Import Project="$(CloudExtensionsDir)Microsoft.WindowsAzure.targets" />

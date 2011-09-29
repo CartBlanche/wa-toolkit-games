@@ -57,6 +57,7 @@
                 {
                     old.Victories = stats.Victories;
                     old.Defeats = stats.Defeats;
+                    old.GameCount = stats.GameCount;
                 }
                 else
                 {

@@ -186,7 +186,6 @@
     <Content Include="Areas\Samples\Scripts\game\FourInARowGame.js" />
     <Content Include="Areas\Samples\Scripts\game\FourInARowViewModel.js" />
     <Content Include="Scripts\game\GameService.js" />
-    <Content Include="Scripts\game\GameServiceNodeJs.js" />
     <Content Include="Scripts\game\ServerInterface.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeBoard.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeController.js" />

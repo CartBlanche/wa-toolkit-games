@@ -42,7 +42,7 @@ $storageAccountKey = $xml.Configuration.WindowsAzureStorage.AccountKey;
 
 $sqlServerScriptPath = "..\database\SqlServer.Setup.cmd";
 $sqlAzureScriptPath = "..\database\SqlAzure.Setup.cmd";
-$localServiceConfigurationPath = "..\..\..\code\SocialGames.Cloud.Local\ServiceConfiguration.cscfg";
+$localServiceConfigurationPath = "..\..\..\code\SocialGames.Cloud\ServiceConfiguration.Local.cscfg";
 $webConfigurationPath = "..\..\..\code\SocialGames.Web\Web.config";
 
 # ------------------

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceDefinition name="SocialGames.Cloud.Local" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WebRole name="SocialGames.Web">
+<ServiceDefinition name="SocialGames.Cloud" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="SocialGames.Web" vmsize="Small">
     <ConfigurationSettings>
       <Setting name="DataConnectionString" />
     </ConfigurationSettings>
@@ -18,7 +18,7 @@
       <Import moduleName="Diagnostics" />
     </Imports>
   </WebRole>
-  <WorkerRole name="SocialGames.Worker">
+  <WorkerRole name="SocialGames.Worker" vmsize="Small">
     <ConfigurationSettings>
       <Setting name="DataConnectionString" />
       <Setting name="StatisticsConnectionString" />

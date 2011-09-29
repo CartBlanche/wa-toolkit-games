@@ -65,9 +65,6 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin">
-      <HintPath>..\packages\AjaxMin.4.19.4141.18463\lib\AjaxMin.dll</HintPath>
-    </Reference>
     <Reference Include="EntityDataModel">
       <HintPath>..\packages\WebApi.OData.0.5.0\lib\40-Full\EntityDataModel.dll</HintPath>
     </Reference>
@@ -186,7 +183,6 @@
     <Content Include="Areas\Samples\Scripts\game\FourInARowGame.js" />
     <Content Include="Areas\Samples\Scripts\game\FourInARowViewModel.js" />
     <Content Include="Scripts\game\GameService.js" />
-    <Content Include="Scripts\game\GameServiceNodeJs.js" />
     <Content Include="Scripts\game\ServerInterface.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeBoard.js" />
     <Content Include="Areas\Samples\Scripts\game\TicTacToeController.js" />

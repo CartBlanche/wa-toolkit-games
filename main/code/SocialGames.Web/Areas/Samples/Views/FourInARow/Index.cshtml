@@ -108,7 +108,14 @@
         gs.inviteUser(viewModel.gameQueueId(), userId, "Invitation for Four in a Row", viewModel.inviteURL(), function () { alert(userName + " was invited") });
     }
 
-    function start() {
+    function sgusersCallback(user) {
+        if (user.DisplayName != null && user.DisplayName != "")
+            viewModel.playerName(user.DisplayName);
+        else
+            viewModel.playerName(user.Id);
+    }
+
+    function start(userId) {
         // check for canvas, show an "Upgrade your browser" screen if they don't have it.
         var canvas = document.getElementById('board');
         if (canvas.getContext == null || canvas.getContext('2d') == null) {
@@ -128,6 +135,7 @@
         controller.start();
 
         us.getFriendsInfo(function (friends) { viewModel.friends(friends); });
+        us.getUser(userId, function () { });
     }
 
     $(function () {
@@ -135,7 +143,7 @@
         ko.applyBindings(viewModel);
 
         us.verify(
-            function () { start(); },
+            function (userId) { start(userId); },
             function () {
                 var newlocation = '@Url.Action("LogOn", "Account", new { Area = "", ReturnUrl = "replace-in-js" })';
                 newlocation = newlocation.replace("replace-in-js", encodeURIComponent(window.location.href));

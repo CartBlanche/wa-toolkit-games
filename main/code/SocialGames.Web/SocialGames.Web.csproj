@@ -115,6 +115,7 @@
     <Reference Include="System.Data.OData">
       <HintPath>..\packages\WebApi.OData.0.5.0\lib\40-Full\System.Data.OData.dll</HintPath>
     </Reference>
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
@@ -223,7 +224,6 @@
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -314,6 +314,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Leaderboard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Startup\SetupWifRuntime.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Startup\Windows6.1-KB974405-x64.msu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

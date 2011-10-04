@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="SocialGames.Cloud" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*">
   <Role name="SocialGames.Web">
-    <Instances count="2" />
+    <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEFCtkD3GyDWWTWKJUXFC898wDQYJKoZIhvcNAQEBBQAEggEAa/67XTR15ya3ZweHwd5UgKmz4qATKiN+kIJGbxn9SnHbpokPMJX8QT+Bwo3PrO47KDjEdgB20Ur5/NoZy+yFo/46XpgDa10DvfIv9hMoyIY98p1HYeam8/tsUSuid4FBivS+yc24hxyqAAgCUyg2bXf1p1+L/ZhGkwpNjljGQZILJnZMP4K6EN2cIVl1T8DEn/BCVtaRoCJ6Nl7B2tl8GWpWACCBEy9ZyANwZoq2s7SANI2ptByg9+XIGZw31ZPLDvQ5Y2ly+oKN0CovMzC8GT1U66RgD2M4dzadCwiYukHMkho08nWCB0DnZWTEwQs4RquGvA2AWhke8U+JiB66KTAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECOr3v0rkDBrcgBB7w9QhAAOv+mzN4C6PnC63" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2012-11-04T23:59:59.0000000-08:00" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="A724F6EFB6EE48D650455FAC0BC5CBCAE739336E" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
   <Role name="SocialGames.Worker">
-    <Instances count="2" />
+    <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="StatisticsConnectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=SocialGames;Integrated Security=True" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEFCtkD3GyDWWTWKJUXFC898wDQYJKoZIhvcNAQEBBQAEggEAa/67XTR15ya3ZweHwd5UgKmz4qATKiN+kIJGbxn9SnHbpokPMJX8QT+Bwo3PrO47KDjEdgB20Ur5/NoZy+yFo/46XpgDa10DvfIv9hMoyIY98p1HYeam8/tsUSuid4FBivS+yc24hxyqAAgCUyg2bXf1p1+L/ZhGkwpNjljGQZILJnZMP4K6EN2cIVl1T8DEn/BCVtaRoCJ6Nl7B2tl8GWpWACCBEy9ZyANwZoq2s7SANI2ptByg9+XIGZw31ZPLDvQ5Y2ly+oKN0CovMzC8GT1U66RgD2M4dzadCwiYukHMkho08nWCB0DnZWTEwQs4RquGvA2AWhke8U+JiB66KTAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECOr3v0rkDBrcgBB7w9QhAAOv+mzN4C6PnC63" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2012-11-04T23:59:59.0000000-08:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="A724F6EFB6EE48D650455FAC0BC5CBCAE739336E" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

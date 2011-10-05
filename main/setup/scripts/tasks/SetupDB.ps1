@@ -96,5 +96,8 @@ $settingKey = "DataConnectionString";
 UpdateConfigurationSetting $localServiceConfigurationPath $connectionString $settingKey;
 UpdateWebConfigurationSetting $webConfigurationPath $connectionString $settingKey;
 
+$settingKey = "Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString";
+UpdateConfigurationSetting $localServiceConfigurationPath $connectionString $settingKey;
+
 $settingKey = "BlobUrl";
 UpdateWebConfigurationSetting $webConfigurationPath $blobEndpoint $settingKey;

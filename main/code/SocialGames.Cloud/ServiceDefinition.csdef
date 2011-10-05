@@ -20,7 +20,6 @@
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
-      <Import moduleName="RemoteAccess" />
     </Imports>
   </WebRole>
   <WorkerRole name="SocialGames.Worker" vmsize="Small">
@@ -30,8 +29,6 @@
     </ConfigurationSettings>
     <Imports>
       <Import moduleName="Diagnostics" />
-      <Import moduleName="RemoteAccess" />
-      <Import moduleName="RemoteForwarder" />
     </Imports>
   </WorkerRole>
 </ServiceDefinition>

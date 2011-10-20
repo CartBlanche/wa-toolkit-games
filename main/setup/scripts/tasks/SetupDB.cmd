@@ -9,23 +9,13 @@ IF EXIST %WINDIR%\SysWow64 (
 	SET powerShellDir=%WINDIR%\system32\windowspowershell\v1.0
 )
 
-ECHO ------------------------------------------------------------------
-ECHO  After completing this setup please follow the instructions 
-ECHO  in the Readme document to run the sample.
-ECHO.
-ECHO  The setup will now create a database for the sample.
-ECHO ------------------------------------------------------------------
-PAUSE
-ECHO.
-ECHO.
-
-%powerShellDir%\powershell.exe -NonInteractive -NoProfile -Command "Set-ExecutionPolicy unrestricted"
-%powerShellDir%\powershell.exe -NonInteractive -NoProfile -command "%~dp0SetupDB"
+%powerShellDir%\powershell.exe -NonInteractive -Command "Set-ExecutionPolicy unrestricted"
+%powerShellDir%\powershell.exe -NonInteractive -command "%~dp0SetupDB ..\database ..\..\.. ..\..\..\code\SocialGames.Cloud ..\..\..\code\SocialGames.Web"
 
 if errorlevel 1 (
-   echo -------------------------------------------------------------------------------
-   echo   Database creation failed. Please check error messages above.
-   echo -------------------------------------------------------------------------------
+  echo -------------------------------------------------------------------------------
+  echo   Database creation failed. Please check error messages above.
+  echo -------------------------------------------------------------------------------
+  @PAUSE
 )
 
-PAUSE

@@ -11,25 +11,36 @@ SET Password=%4%
 
 if "%2%"=="" set dbName=SocialGames
 
+SqlCmd -S %SqlAzure% -U %User% -P %Password% -b -Q "exit(select 99 AS DbExists FROM [master].dbo.sysdatabases WHERE name = '%dbName%')"
+
+IF ERRORLEVEL 99 (
+    choice /C:YN /M "WARNING, the database %dbName% already exists, if you continue all data will be lost, do you want to continue and drop the database ?"
+	
+	IF ERRORLEVEL 2 (
+		ECHO.
+		ECHO ========== Database script execution aborted ==========
+		ECHO.
+
+		EXIT 0
+	)
+)
+
 echo.
 echo ========= Dropping Database %dbName% =========
 echo.
 
-OSQL -S %SqlAzure% -d master -U %User% -P %Password% -b -n -Q "DROP DATABASE [%dbName%]"
+SqlCmd -S %SqlAzure% -d master -U %User% -P %Password% -b -n -Q "DROP DATABASE [%dbName%]"
 
 echo.
 echo ========= Creating Database %dbName% =========
 echo.
 
-OSQL -S %SqlAzure% -d master -U %User% -P %Password% -b -n -Q "CREATE DATABASE [%dbName%]"
+SqlCmd -S %SqlAzure% -d master -U %User% -P %Password% -b -n -Q "CREATE DATABASE [%dbName%]"
 
 echo.
 echo ========= Creating Database Schema =========
 echo.
 
-OSQL -S %SqlAzure% -d %dbName% -U %User% -P %Password%  -b -n -i "%~dp0SqlAzure.CreateSchema.sql"
-
-echo.
-echo Creating %dbName% database Done!
+SqlCmd -S %SqlAzure% -d %dbName% -U %User% -P %Password%  -b -n -i "SqlAzure.CreateSchema.sql"
 
 exit %errorlevel%

@@ -8,7 +8,7 @@
     <dependency hint="Windows Identity Foundation SDK 4.0; 6.1.7600.16436" name="Windows Identity Foundation SDK 4.0" description="The Windows Identity Foundation SDK provides templates for use with Visual Studio and code samples. This download requires the Windows Identity Foundation runtime be present." helpLink="http://www.microsoft.com/download/en/details.aspx?displaylang=en&amp;id=4451" type="Uninstall" />
   </dependencies>
   <setupCommands>
-    <setup command="setup\scripts\tasks\SetupDB.cmd" name="Sample Database Setup" 
-	description="Creating a database for the sample..." />
+    <setup command="setup\setup.cmd" name="Sample Setup" 
+	description="Windows Azure Toolkit for Social Games setup..." />
   </setupCommands>
 </DependencyCheckerConfiguration>

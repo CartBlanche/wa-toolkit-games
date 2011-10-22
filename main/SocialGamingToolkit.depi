@@ -6,6 +6,7 @@
     <dependency hint="MVC3" name="ASP.NET MVC 3" helpLink="http://www.asp.net/mvc/mvc3" type="WebPI" />
     <dependency hint="WindowsAzureToolsVS2010" name="Windows Azure Tools for Microsoft Visual Studio 2010" helpLink="http://www.microsoft.com/downloads/details.aspx?FamilyID=7a1089b6-4050-4307-86c4-9dadaa5ed018" type="WebPI" />
     <dependency hint="Windows Identity Foundation SDK 4.0; 6.1.7600.16436" name="Windows Identity Foundation SDK 4.0" description="The Windows Identity Foundation SDK provides templates for use with Visual Studio and code samples. This download requires the Windows Identity Foundation runtime be present." helpLink="http://www.microsoft.com/download/en/details.aspx?displaylang=en&amp;id=4451" type="Uninstall" />
+	<dependency hint="PowerShell2" name="Windows PowerShell 2.0" type="WebPI" />
   </dependencies>
   <setupCommands>
     <setup command="setup\setup.cmd" name="Sample Setup" 

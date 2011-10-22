@@ -1,15 +1,5 @@
 param([string]$configurationFilePath, [string]$serviceConfigurationPath, [string]$WebConfigPath)
 
-function UpdateConfigurationSetting($configurationFile, $value, $settingKey)
-{
-    [xml]$xml = get-content $configurationFile;
-
-	$entry = $xml.ServiceConfiguration.Role.ConfigurationSettings.Setting | Where-Object { $_.name -match $settingKey }
-	$entry.value = $value 
-
-    $xml.Save($configurationFile);
-}
-
 function UpdateWebConfig($configurationFile, $issuer, $relyingPartyRealm, $signingKey)
 {
     [xml]$xml = get-content $configurationFile;
@@ -162,23 +152,3 @@ $cert = new-Object System.Security.Cryptography.X509Certificates.X509Certificate
 UpdateWebConfig $configurationFile $issuer $relyingPartyRealm $cert.Thumbprint;
 
 
-# -----------------------------------
-# Updating ServiceConfiguration.cscfg
-# -----------------------------------
-
-Write-Output ""
-Write-Output "Updating Service Configuration..."
-
-if($useLocalComputeEmulator)
-{
-	$serviceConfigurationPath = "$serviceConfigurationPath\ServiceConfiguration.Local.cscfg";
-}
-else
-{
-	$serviceConfigurationPath = "$serviceConfigurationPath\ServiceConfiguration.Cloud.cscfg";
-}
-
-$value = "$acsNamespace.accesscontrol.windows.net";
-$key = "AcsNamespace";
-
-UpdateConfigurationSetting $serviceConfigurationPath $value $key

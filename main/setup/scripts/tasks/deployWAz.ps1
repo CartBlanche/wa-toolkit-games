@@ -1,3 +1,4 @@
+param([string]$webConfigPath)
 
 function GetConfigurationValue($entry)
 {
@@ -11,6 +12,19 @@ function GetConfigurationValue($entry)
 		return "";
 	}
 	return $entry;
+}
+
+function UpdateWebConfigurationSetting($configurationFile, $settingValue, $settingKey)
+{
+Write-Output "configurationFile: $configurationFile"
+Write-Output "settingValue: $settingValue"
+Write-Output "settingKey: $settingKey"
+
+	[xml]$xml = get-content $configurationFile;
+	$entry = $xml.configuration.appSettings.add | Where-Object { $_.key -match $settingKey }
+	$entry.value = $settingValue;
+
+    $xml.Save($configurationFile);
 }
 
 if ((Get-PSSnapin | ?{$_.Name -eq "WAPPSCmdlets"}) -eq $null) {
@@ -37,6 +51,8 @@ Set-Location $scriptDir
 [string] $rdpCertificatePassword = GetConfigurationValue($xml.Configuration.rdpCertificatePassword)
 [string] $sslCertificatePath = GetConfigurationValue($xml.Configuration.sslCertificatePath)
 [string] $sslCertificatePassword = GetConfigurationValue($xml.Configuration.sslCertificatePassword)
+
+$webConfigurationPath = "$webConfigPath\Web.config";
 
 if (-not ([System.IO.Path]::IsPathRooted("$packageFile")))
 {
@@ -89,7 +105,8 @@ if ($sslCertificatePath -ne "")
 # Get the storage account 
 $storageAccount = Get-StorageAccount -SubscriptionId $subscriptionId -Certificate $certificate | where {$_.ServiceName -eq $storageAccountName}
 # If there's a nostorage account with that name then we will create it
-Write-Output "storageAccountName: "$storageAccountName
+Write-Output "storageAccountName: $storageAccountName"
+Write-Output "storageAccount: $storageAccount"
 
 if ($storageAccountLabel -eq "")
 {
@@ -107,6 +124,8 @@ if ($storageAccount -eq "")
 $storageAccountKey = (Get-StorageKeys -ServiceName $storageAccountName -SubscriptionId $subscriptionId -Certificate $certificate ).Primary
 
 # Update DataConnectionString in Package configuration file
+$connectionString = "DefaultEndpointsProtocol={0};AccountName={1};AccountKey={2}" -f "https", $storageAccountName, $storageAccountKey
+
 if (Test-Path "$configurationFile")
 {
 	$connectionString = "DefaultEndpointsProtocol={0};AccountName={1};AccountKey={2}" -f "https", $storageAccountName, $storageAccountKey
@@ -115,6 +134,10 @@ if (Test-Path "$configurationFile")
     $xml.ServiceConfiguration.Role | ForEach-Object { $_.ConfigurationSettings.Setting | Where-Object { $_.name -match "Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" } | ForEach-Object { $_.value = $connectionString } }	
 	$xml.Save("$configurationFile")
 }
+
+$settingKey = "DataConnectionString";
+UpdateWebConfigurationSetting $webConfigurationPath $connectionString $settingKey;
+
 
 # If there's a deployment on staging we will wipe it out
 if(($hostedService | Get-Deployment Staging).DeploymentId -ne $null) {

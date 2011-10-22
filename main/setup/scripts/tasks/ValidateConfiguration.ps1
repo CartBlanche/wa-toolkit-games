@@ -100,8 +100,6 @@ function CheckLocalDataBaseSettings()
 	
 	CheckPlaceholder "Database/ServerName" $xml.Configuration.Database.ServerName;
 	CheckEmptyOrPlaceholder "Database/DatabaseName" $xml.Configuration.Database.DatabaseName $true;
-	CheckPlaceholder "Database/Username" $xml.Configuration.Database.Username;
-	CheckPlaceholder "Database/Password" $xml.Configuration.Database.Password;
 }
 
 function CheckAzureDataBaseSettings()
@@ -190,7 +188,6 @@ function ValidateConfiguration($configurationFilePath)
 	if ($UseLocalComputeEmulator)
 	{
 		CheckLocalDataBaseSettings;
-		CheckAcsSettings;
 	}
 	else
 	{

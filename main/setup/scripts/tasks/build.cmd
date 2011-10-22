@@ -22,7 +22,7 @@ if exist %WINDIR%\Microsoft.NET\Framework\v4.0.30319 (
 )
 
 :run
-call "%msbuild%" %cd%\..\..\..\code\SocialGames.sln /p:Configuration=Release /t:publish /p:TargetProfile=Small
+call "%msbuild%" %cd%\..\..\..\code\SocialGames.sln /p:Configuration=Release /t:publish /p:TargetProfile=Cloud
 
 @if errorlevel 1 goto :error
 @echo.

@@ -1,11 +1,31 @@
 param([string]$databaseScriptsPath, [string]$configurationFilePath, [string]$serviceConfigurationPath, [string]$webConfigPath)
 
-function UpdateConfigurationSetting($configurationFile, $connectionString, $settingKey)
+function UpdateConfigurationSetting($configurationFile, $settingValue, $settingKey)
 {
     [xml]$xml = get-content $configurationFile;
+	
+	$xml.ServiceConfiguration.Role | 
+	  ForEach-Object  { $_.ConfigurationSettings.Setting } | 
+	  Where-Object { $_.name -match $settingKey } | 
+	  ForEach-Object  { $_.value = $settingValue;}
+	  
+    $xml.Save($configurationFile);
+}
 
-	$entry = $xml.ServiceConfiguration.Role.ConfigurationSettings.Setting | Where-Object { $_.name -match $settingKey }
-	$entry.value = $connectionString 
+function UpdateWebConfigurationSetting($configurationFile, $settingValue, $settingKey)
+{
+	[xml]$xml = get-content $configurationFile;
+	$entry = $xml.configuration.appSettings.add | Where-Object { $_.key -match $settingKey }
+	$entry.value = $settingValue;
+
+    $xml.Save($configurationFile);
+}
+
+function UpdateWebConfigurationConnectionSetting($configurationFile, $connectionString, $settingKey)
+{
+    [xml]$xml = get-content $configurationFile;
+	$entry = $xml.configuration.connectionStrings.add | Where-Object { $_.name -match $settingKey }
+	$entry.connectionString = $connectionString;
 
     $xml.Save($configurationFile);
 }
@@ -148,27 +168,33 @@ $settingKey = "StatisticsConnectionString";
 UpdateWebConfigurationConnectionSetting $webConfigurationPath $connectionString $settingKey;
 UpdateConfigurationSetting $serviceConfigurationPath $connectionString $settingKey;
 
+$storageConnectionString = ""
+
 if($useLocalComputeEmulator -AND $storageAccountName -eq $null) 
 {
-    $connectionString = "UseDevelopmentStorage=true";
+    $storageConnectionString = "UseDevelopmentStorage=true";
 	$blobEndpoint = "http://127.0.0.1:10000/devstoreaccount1/";    
 }
 else 
 {
+	$blobEndpoint = "http://$storageAccountName.blob.core.windows.net/";
 	if($storageAccountName -ne $null -AND $storageAccountKey -ne $null)
 	{
-		$connectionString = "DefaultEndpointsProtocol=https;AccountName=$storageAccountName;AccountKey=$storageAccountKey";
-		$blobEndpoint = "http://$storageAccountName.blob.core.windows.net/";
+		$storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=$storageAccountName;AccountKey=$storageAccountKey";
 	}
 }
 
-$settingKey = "DataConnectionString";
-UpdateConfigurationSetting $serviceConfigurationPath $connectionString $settingKey;
-UpdateWebConfigurationSetting $webConfigurationPath $connectionString $settingKey;
-
-$settingKey = "Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString";
-UpdateConfigurationSetting $serviceConfigurationPath $connectionString $settingKey;
-
 $settingKey = "BlobUrl";
 UpdateWebConfigurationSetting $webConfigurationPath $blobEndpoint $settingKey;
+
+if($storageConnectionString -ne "")
+{
+	$settingKey = "DataConnectionString";
+	UpdateConfigurationSetting $serviceConfigurationPath $storageConnectionString $settingKey;
+	UpdateWebConfigurationSetting $webConfigurationPath $storageConnectionString $settingKey;
+
+	$settingKey = "Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString";
+	UpdateConfigurationSetting $serviceConfigurationPath $storageConnectionString $settingKey;
+}
+
 

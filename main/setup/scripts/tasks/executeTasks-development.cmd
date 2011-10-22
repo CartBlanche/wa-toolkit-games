@@ -5,8 +5,7 @@ setlocal
 cd "%~dp0"
 
 CALL .\ValidateConfiguration.cmd
-CALL .\installPSSnapIn.cmd
+@REM CALL .\installPSSnapIn.cmd
 CALL .\SetupDB.cmd
-CALL .\SetupACS.cmd
 
 pause

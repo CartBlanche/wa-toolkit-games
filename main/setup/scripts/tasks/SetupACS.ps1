@@ -20,6 +20,15 @@ function UpdateWebConfig($configurationFile, $issuer, $relyingPartyRealm, $signi
 	$xml.Save($configurationFile);
 }
 
+function UpdateWebConfigurationSetting($configurationFile, $settingValue, $settingKey)
+{
+	[xml]$xml = get-content $configurationFile;
+	$entry = $xml.configuration.appSettings.add | Where-Object { $_.key -match $settingKey }
+	$entry.value = $settingValue;
+
+    $xml.Save($configurationFile);
+}
+
 # ------------------------------ 
 # Obtaining Configuration Values
 # ------------------------------
@@ -151,4 +160,7 @@ $cert = new-Object System.Security.Cryptography.X509Certificates.X509Certificate
 
 UpdateWebConfig $configurationFile $issuer $relyingPartyRealm $cert.Thumbprint;
 
+$settingKey = "AcsNamespace";
+$acs = "$acsNamespace.accesscontrol.windows.net";
+UpdateWebConfigurationSetting $configurationFile $acs $settingKey;
 

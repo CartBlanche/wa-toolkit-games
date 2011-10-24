@@ -16,10 +16,6 @@ function GetConfigurationValue($entry)
 
 function UpdateWebConfigurationSetting($configurationFile, $settingValue, $settingKey)
 {
-Write-Output "configurationFile: $configurationFile"
-Write-Output "settingValue: $settingValue"
-Write-Output "settingKey: $settingKey"
-
 	[xml]$xml = get-content $configurationFile;
 	$entry = $xml.configuration.appSettings.add | Where-Object { $_.key -match $settingKey }
 	$entry.value = $settingValue;
@@ -105,8 +101,6 @@ if ($sslCertificatePath -ne "")
 # Get the storage account 
 $storageAccount = Get-StorageAccount -SubscriptionId $subscriptionId -Certificate $certificate | where {$_.ServiceName -eq $storageAccountName}
 # If there's a nostorage account with that name then we will create it
-Write-Output "storageAccountName: $storageAccountName"
-Write-Output "storageAccount: $storageAccount"
 
 if ($storageAccountLabel -eq "")
 {
@@ -138,6 +132,13 @@ if (Test-Path "$configurationFile")
 $settingKey = "DataConnectionString";
 UpdateWebConfigurationSetting $webConfigurationPath $connectionString $settingKey;
 
+$settingKey = "ApiUrl";
+$apiEndpoint = "http://$hostedServiceName.cloudapp.net/";
+UpdateWebConfigurationSetting $webConfigurationPath $apiEndpoint $settingKey;
+
+$settingKey = "BlobUrl";
+$blobEndpoint = "http://$storageAccountName.blob.core.windows.net/";
+UpdateWebConfigurationSetting $webConfigurationPath $blobEndpoint $settingKey;
 
 # If there's a deployment on staging we will wipe it out
 if(($hostedService | Get-Deployment Staging).DeploymentId -ne $null) {

@@ -35,10 +35,6 @@
     <RelyingPartyRealm>https://127.0.0.1/</RelyingPartyRealm>
     <!-- Set to true to enable Windows Live ID as an identity provider -->
     <UseWindowsLiveIdentityProvider>true</UseWindowsLiveIdentityProvider>
-    <!-- Set to true to enable Yahoo! as an identity provider -->
-    <UseYahooIdentityProvider>true</UseYahooIdentityProvider>
-    <!-- Set to true to enable Google as an identity provider -->
-    <UseGoogleIdentityProvider>true</UseGoogleIdentityProvider>
     <!--Set to true to enable Facebook as an identity provider. If Facebook is enabled as an identity 
         provider, specify the Facebook application name, application ID and secret.
         see : http://msdn.microsoft.com/en-us/library/gg185919.aspx.-->

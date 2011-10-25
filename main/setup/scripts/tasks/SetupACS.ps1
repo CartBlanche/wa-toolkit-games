@@ -39,8 +39,6 @@ $acsNamespace = $xml.Configuration.AccessControlService.Namespace;
 $mgmtKey = $xml.Configuration.AccessControlService.ManagementKey;
 $relyingPartyRealm = $xml.Configuration.AccessControlService.RelyingPartyRealm;
 
-$useYahooIdentityProvider = [System.Convert]::ToBoolean($xml.Configuration.AccessControlService.UseYahooIdentityProvider.ToLower());
-$useGoogleIdentityProvider = [System.Convert]::ToBoolean($xml.Configuration.AccessControlService.UseGoogleIdentityProvider.ToLower());
 $useWindowsLiveIdentityProvider = [System.Convert]::ToBoolean($xml.Configuration.AccessControlService.UseWindowsLiveIdentityProvider.ToLower());
 $useFacebookIdentityProvider = [System.Convert]::ToBoolean($xml.Configuration.AccessControlService.UseFacebookIdentityProvider.ToLower());
 
@@ -72,20 +70,6 @@ if ($useWindowsLiveIdentityProvider)
 {
     Write-Output "Configuring Windows Live ID as Identity Provider...";
 	$allowedIdentityProviders += "Windows Live ID";
-}
-
-if ($useYahooIdentityProvider) 
-{
-    Write-Output "Configuring Yahoo! as Identity Provider...";
-    $dummy = Add-IdentityProvider -mgmtToken $mgmtToken -type "Preconfigured" –preconfiguredIPType "Yahoo!";
-	$allowedIdentityProviders += "Yahoo!";
-}
-
-if ($useGoogleIdentityProvider)
-{
-    Write-Output "Configuring Google as Identity Provider...";
-	$dummy = Add-IdentityProvider -mgmtToken $mgmtToken -type "Preconfigured" –preconfiguredIPType "Google";
-	$allowedIdentityProviders += "Google";
 }
 
 if ($useFacebookIdentityProvider)

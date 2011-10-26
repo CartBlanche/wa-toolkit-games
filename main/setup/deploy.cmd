@@ -5,7 +5,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 CD "%~dp0"
 
    ECHO --------------------------IMPORTANT-------------------------------
-   ECHO  Please now follow the instructions in the StartHere document
+   ECHO  Please follow the instructions in the StartHere document
    ECHO  to complete the settings in the Configuration.xml file.
    ECHO ------------------------------------------------------------------
    PAUSE

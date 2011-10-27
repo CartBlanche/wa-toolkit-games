@@ -8,7 +8,7 @@
     </ConfigurationSettings>
   </Role>
   <Role name="SocialGames.Worker">
-    <Instances count="2" />
+    <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="StatisticsConnectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=SocialGames;Integrated Security=True" />

@@ -102,14 +102,14 @@ else
 {
 	Write-Output ""
 	Write-Output "Creating the SQL Azure Server..."
-	
-	if ((Get-PSSnapin | ?{$_.Name -eq "WAPPSCmdlets"}) -eq $null) 
-	{
-		Add-PSSnapin WAPPSCmdlets	
-	} 
 
 	if ($serverName -eq $null)
 	{
+		if ((Get-PSSnapin | ?{$_.Name -eq "WAPPSCmdlets"}) -eq $null) 
+		{
+			Add-PSSnapin WAPPSCmdlets	
+		} 
+	
 		$sqlServer = New-SqlAzureServer -AdministratorLogin $username -AdministratorLoginPassword $password -Location $serverLocation -SubscriptionId $subscriptionId -Certificate $certificate
 
 		$sqlServer | New-SqlAzureFirewallRule -RuleName "MicrosoftServices" -StartIpAddress "0.0.0.0" -EndIpAddress "0.0.0.0"
@@ -125,8 +125,8 @@ else
 		$username = $username + "@" + $serverName.Split('.')[0];
 	}
 
-	Write-Output "Server Name: " $serverName
-	Write-Output "User Name: " $username
+	Write-Output "Server Name:  $serverName"
+	Write-Output "User Name:  $username"
 	
     & $sqlAzureScriptPath $serverName $databaseName $username $password;
     if($LASTEXITCODE -ne 0) { exit $LASTEXITCODE; }
@@ -159,3 +159,23 @@ $settingKey = "StatisticsConnectionString";
 UpdateWebConfigurationConnectionSetting $webConfigurationPath $connectionString $settingKey;
 UpdateConfigurationSetting $serviceConfigurationPath $connectionString $settingKey;
 
+if(!$storageAccountName -or !$storageAccountKey) 
+{
+    $connectionString = "UseDevelopmentStorage=true";
+	$blobEndpoint = "http://127.0.0.1:10000/devstoreaccount1/";
+}
+else
+{
+    $connectionString = "DefaultEndpointsProtocol=https;AccountName=$storageAccountName;AccountKey=$storageAccountKey";
+	$blobEndpoint = "http://$storageAccountName.blob.core.windows.net/";
+}
+
+$settingKey = "DataConnectionString";
+UpdateConfigurationSetting $localServiceConfigurationPath $connectionString $settingKey;
+UpdateWebConfigurationSetting $webConfigurationPath $connectionString $settingKey;
+
+$settingKey = "Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString";
+UpdateConfigurationSetting $localServiceConfigurationPath $connectionString $settingKey;
+
+$settingKey = "BlobUrl";
+UpdateWebConfigurationSetting $webConfigurationPath $blobEndpoint $settingKey;

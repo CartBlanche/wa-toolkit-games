@@ -69,7 +69,7 @@ if ((Test-Path cert:\CurrentUser\MY\$thumbprint) -eq $true){
 # Get the hosted service 
 $hostedService = Get-HostedServices -SubscriptionId $subscriptionId -Certificate $certificate | where {$_.ServiceName -eq $hostedServiceName}
 # If there's a no hosted service with that name then we will create it
-if ($hostedService -eq "")
+if ($hostedService -eq $null)
 {
 	Write-Host "Creating new Hosted Service"
     # Create and Retrieve the hosted service
@@ -107,7 +107,7 @@ if ($storageAccountLabel -eq "")
 	$storageAccountLabel = "Social Games"
 }
 
-if ($storageAccount -eq "")
+if ($storageAccount -eq $null)
 {
 	Write-Host "Creating new Storage Account"
     # Create the storage account

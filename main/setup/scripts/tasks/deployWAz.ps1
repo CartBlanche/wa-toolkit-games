@@ -50,7 +50,7 @@ if ((Test-Path cert:\CurrentUser\MY\$thumbprint) -eq $true){
 }
 
 # Get the hosted service 
-$hostedService = Get-HostedServices -SubscriptionId $subscriptionId -Certificate $certificate | where {$_.ServiceName -eq $hostedServiceName}
+$hostedService = Get-HostedService -ServiceName $hostedServiceName -SubscriptionId $subscriptionId -Certificate $certificate 
 
 # Retrieve the storage account key
 $storageAccountKey = (Get-StorageKeys -ServiceName $storageAccountName -SubscriptionId $subscriptionId -Certificate $certificate ).Primary

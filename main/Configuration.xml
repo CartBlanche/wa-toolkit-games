@@ -4,17 +4,15 @@
   <UseLocalComputeEmulator>true</UseLocalComputeEmulator>
 
   <Database>
-    <!--Database server name. Specify a SQL Server (e.g. .\SQLEXPRESS) or a SQL Azure 
-        server (e.g. yourserver.database.windows.net). When deploying to Windows Azure, leave blank 
-        to create a new SQL Azure server, in which case its name will be assigned by SQL Azure.-->
+    <!--Database server name. Specify the name of a SQL Server (e.g. .\SQLEXPRESS). When deploying
+	    to Windows Azure, leave blank to create a new SQL Azure server, in which case its name will
+		be assigned by SQL Azure, or specify the name of an existing SQL Azure server (e.g. yourserver.database.windows.net).-->
     <ServerName>.\SQLEXPRESS</ServerName>
     <!--Name of the application database.-->
     <DatabaseName>SocialGames</DatabaseName>
-    <!--Name of the database login. Required when using SQL Azure or SQL Server with 
-        SQL authentication.-->
+    <!--Name of the database login. Required when using SQL Azure.-->
     <Username>{USER_NAME}</Username>
-    <!--Password of the database login. Required when using SQL Azure or SQL Server with 
-        SQL authentication.-->
+    <!--Password of the database login. Required when using SQL Azure.-->
     <Password>{PASSWORD}</Password>
     <!--Location of a new SQL Azure server. This setting is used only when deploying to Windows 
         Azure. Leave blank when using an existing server.-->
@@ -49,8 +47,8 @@
 
   <WindowsAzureStorage>
     <!--Name of the storage account to use. When executing locally, leave blank to use the 
-        storage emulator. When deploying to Windows Azure, if the specified storage account 
-        does not exist, it will be created.-->
+        storage emulator or use an existing storage account. When deploying to Windows Azure, if 
+		the specified storage account does not exist, it will be created.-->
     <StorageAccountName>{ACCOUNT_NAME}</StorageAccountName>
     <!--Access Key of the storage account. Leave blank when using the storage emulator
         or when creating a new storage account.-->

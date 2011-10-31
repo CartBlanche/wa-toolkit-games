@@ -4,9 +4,9 @@
   <UseLocalComputeEmulator>true</UseLocalComputeEmulator>
 
   <Database>
-    <!--Database server name. Specify the name of a SQL Server (e.g. .\SQLEXPRESS). When deploying
-	    to Windows Azure, leave blank to create a new SQL Azure server, in which case its name will
-		be assigned by SQL Azure, or specify the name of an existing SQL Azure server (e.g. yourserver.database.windows.net).-->
+    <!--Database server name. Specify the name of a SQL Server (e.g. .\SQLEXPRESS). When deploying to Windows 
+        Azure, leave blank to create a new SQL Azure server, in which case its name will be assigned by SQL Azure,
+        or specify the name of an existing SQL Azure server (e.g. yourserver.database.windows.net).-->
     <ServerName>.\SQLEXPRESS</ServerName>
     <!--Name of the application database.-->
     <DatabaseName>SocialGames</DatabaseName>
@@ -47,8 +47,8 @@
 
   <WindowsAzureStorage>
     <!--Name of the storage account to use. When executing locally, leave blank to use the 
-        storage emulator or use an existing storage account. When deploying to Windows Azure, if 
-		the specified storage account does not exist, it will be created.-->
+        storage emulator or use an existing storage account. When deploying to Windows Azure, 
+        if the specified storage account does not exist, it will be created.-->
     <StorageAccountName>{ACCOUNT_NAME}</StorageAccountName>
     <!--Access Key of the storage account. Leave blank when using the storage emulator
         or when creating a new storage account.-->

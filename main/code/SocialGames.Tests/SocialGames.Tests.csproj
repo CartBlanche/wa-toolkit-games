@@ -84,10 +84,6 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.ApplicationServer.Http, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WebApi.Core.0.3.0\lib\40\Microsoft.ApplicationServer.Http.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Json">
       <HintPath>..\packages\JsonValue.0.5.0\lib\40\Microsoft.Json.dll</HintPath>

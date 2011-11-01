@@ -125,8 +125,6 @@ function CheckAcsSettings()
 	CheckEmptyOrPlaceholder "AccessControlService/ManagementKey" $xml.Configuration.AccessControlService.ManagementKey $true;
 	CheckEmptyOrPlaceholder "AccessControlService/RelyingPartyRealm" $xml.Configuration.AccessControlService.RelyingPartyRealm $true;
 	CheckBooleanOrPlaceholder "AccessControlService/UseWindowsLiveIdentityProvider" $xml.Configuration.AccessControlService.UseWindowsLiveIdentityProvider $true;
-	CheckBooleanOrPlaceholder "AccessControlService/UseYahooIdentityProvider" $xml.Configuration.AccessControlService.UseYahooIdentityProvider $true;
-	CheckBooleanOrPlaceholder "AccessControlService/UseGoogleIdentityProvider" $xml.Configuration.AccessControlService.UseGoogleIdentityProvider $true;
 	CheckBooleanOrPlaceholder "AccessControlService/UseFacebookIdentityProvider" $xml.Configuration.AccessControlService.UseFacebookIdentityProvider $true;
     
 	if (HasBooleanValue($xml.Configuration.AccessControlService.UseFacebookIdentityProvider))

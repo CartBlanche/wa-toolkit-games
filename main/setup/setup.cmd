@@ -4,19 +4,13 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 %~d0
 CD "%~dp0"
 
-   ECHO --------------------------IMPORTANT-------------------------------
-   ECHO  Please follow the instructions in the StartHere document
-   ECHO  to complete the settings in the Configuration.xml file.
-   ECHO ------------------------------------------------------------------
+   ECHO ------------------------OPTIONAL STEP-------------------------------
+   ECHO  Update the configuration.xml file if you would like to customize 
+   ECHO  the configuration settings of this project. You may skip this step 
+   ECHO  if you want to use the default settings. For more information see
+   ECHO  the StartHere document.
+   ECHO --------------------------------------------------------------------
    PAUSE
-   SET /P Install="Have you completed the Configuration.xml file successfully? Setup will now install the sample Web application. (Y/N): "
-   
-   IF /I "!Install!"=="Y"  (
-     cscript scripts\tasks\runAs.vbs scripts\tasks\executeTasks-development.cmd	
-   ) ELSE (
-      ECHO.
-      ECHO The sample application will not be installed.
-   )
+   cscript scripts\tasks\runAs.vbs scripts\tasks\executeTasks-development.cmd	
 
 ECHO.
-PAUSE

@@ -15,8 +15,8 @@ CD "%~dp0"
      cscript scripts\tasks\runAs.vbs scripts\tasks\executeTasks.cmd	
    ) ELSE (
       ECHO.
-      ECHO The 'Blob Share' sample application will not be installed.
+      ECHO The Social Games sample application will not be installed.
+	  PAUSE
    )
 
 ECHO.
-PAUSE

@@ -28,9 +28,9 @@
         the ACS Portal, under Management Service | ManagementClient | Symmetric Key | Key.-->
     <ManagementKey>{YOUR_ACS_MANAGEMENT_KEY}</ManagementKey>
     <!--Relying party realm. Identifies the relying party to the identity provider. Leave the default
-        value when running in the compute emulator. When deploying to Windows Azure, use the HTTPS endpoint
+        value when running in the compute emulator. When deploying to Windows Azure, use the HTTP endpoint
         of your hosted service.-->
-    <RelyingPartyRealm>https://127.0.0.1/</RelyingPartyRealm>
+    <RelyingPartyRealm>http://127.0.0.1:81/</RelyingPartyRealm>
     <!-- Set to true to enable Windows Live ID as an identity provider -->
     <UseWindowsLiveIdentityProvider>true</UseWindowsLiveIdentityProvider>
     <!--Set to true to enable Facebook as an identity provider. If Facebook is enabled as an identity 

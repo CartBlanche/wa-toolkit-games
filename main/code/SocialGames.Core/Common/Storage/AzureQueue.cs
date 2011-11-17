@@ -24,7 +24,6 @@
 
             var client = account.CreateCloudQueueClient();
             this.queue = client.GetQueueReference(queueName);
-            this.queue.CreateIfNotExist();
         }
 
         public void AddMessage(T message)

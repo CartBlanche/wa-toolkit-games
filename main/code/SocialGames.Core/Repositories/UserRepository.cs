@@ -46,12 +46,14 @@
             }
 
             this.userContainer = userContainer;
-            this.userContainer.EnsureExist(true);
-
             this.userSessionContainer = userSessionContainer;
-            this.userSessionContainer.EnsureExist(true);
-
             this.friendsContainer = friendsContainer;
+        }
+
+        public void EnsureExist()
+        {
+            this.userContainer.EnsureExist(true);
+            this.userSessionContainer.EnsureExist(true);
             this.friendsContainer.EnsureExist(true);
         }
 

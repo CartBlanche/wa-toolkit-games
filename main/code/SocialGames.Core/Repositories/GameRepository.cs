@@ -66,18 +66,20 @@
 
             this.skirmishGameQueue = skirmishGameMessageQueue;
             this.leaveGameQueue = leaveGameMessageQueue;
-
             this.gameContainer = gameContainer;
-            this.gameContainer.EnsureExist(true);
-
             this.gameQueueContainer = gameQueueContainer;
-            this.gameQueueContainer.EnsureExist(true);
-
             this.userContainer = userContainer;
-            this.userContainer.EnsureExist(true);
-
             this.inviteQueue = inviteQueue;
+        }
+
+        public void EnsureExist()
+        {
+            this.gameContainer.EnsureExist(true);
+            this.gameQueueContainer.EnsureExist(true);
+            this.userContainer.EnsureExist(true);
             this.inviteQueue.EnsureExist();
+            this.skirmishGameQueue.EnsureExist();
+            this.leaveGameQueue.EnsureExist();
         }
 
         public void AddUserToGameQueue(string userId, GameType gameType)

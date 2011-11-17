@@ -8,6 +8,8 @@
 
     public interface IUserRepository
     {
+        void EnsureExist();
+
         void AddOrUpdateUser(UserProfile user);
 
         UserProfile GetUser(UserID userId);

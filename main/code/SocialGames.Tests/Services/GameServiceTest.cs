@@ -486,7 +486,10 @@
             this.gameContainer.EnsureExist(true);
             this.gameQueueContainer.EnsureExist(true);
 
-            return new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteMessageQueue);
+            var repo = new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteMessageQueue);
+            repo.EnsureExist();
+
+            return repo;
         }
 
         private UserRepository CreateUserRepository()
@@ -500,7 +503,10 @@
             this.userSessionContainer.EnsureExist(true);
             this.friendContainer.EnsureExist(true);
 
-            return new UserRepository(this.userContainer, this.userSessionContainer, this.friendContainer);
+            var repo = new UserRepository(this.userContainer, this.userSessionContainer, this.friendContainer);
+            repo.EnsureExist();
+
+            return repo;
         }
 
         private Game CreateNewGame(IGameRepository gameRepository, params string[] userIds)

@@ -6,6 +6,8 @@
 
     public interface IGameRepository
     {
+        void EnsureExist();
+
         void AddUserToGameQueue(string userId, GameType gameType);
 
         void AddUserToGameQueue(string userId, Guid gameId);

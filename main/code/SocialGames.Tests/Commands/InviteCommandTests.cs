@@ -35,6 +35,7 @@
 
             this.notificationRepository = new NotificationRepository(this.notificationContainer);
             this.userRepository = new UserRepository(this.userContainer, this.userSessionContainer, this.friendsContainer);
+            this.userRepository.EnsureExist();
             this.command = new InviteCommand(this.notificationRepository, this.userRepository);
         }
 

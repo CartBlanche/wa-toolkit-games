@@ -17,12 +17,6 @@
         private readonly IGameRepository gameRepository;
         private readonly IUserRepository userRepository;
 
-        static GameService()
-        {
-            new GameRepository().EnsureExist();
-            new UserRepository().EnsureExist();
-        }
-
         public GameService()
             : this(new GameRepository(), new UserRepository(), new HttpContextUserProvider())
         { 

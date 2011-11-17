@@ -45,14 +45,15 @@
         {
             this.cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             this.skirmishGameMessageQueue = new AzureQueue<SkirmishGameQueueMessage>(this.cloudStorageAccount, skirmishGameMessageQueueName);
-            this.skirmishGameMessageQueue.Clear();
             this.leaveGameMessageQueue = new AzureQueue<LeaveGameMessage>(this.cloudStorageAccount, leaveGameMessageQueueName);
-            this.leaveGameMessageQueue.Clear();
             this.gameContainer = new AzureBlobContainer<Game>(this.cloudStorageAccount, gameContainerName, true);
             this.gameQueueContainer = new AzureBlobContainer<GameQueue>(this.cloudStorageAccount, gameQueueContainerName, true);
             this.userContainer = new AzureBlobContainer<UserProfile>(this.cloudStorageAccount, userContainerName, true);
             this.inviteQueue = new AzureQueue<InviteMessage>(this.cloudStorageAccount, inviteQueueName);
             this.gameRepository = new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteQueue);
+            this.gameRepository.EnsureExist();
+            this.skirmishGameMessageQueue.Clear();
+            this.leaveGameMessageQueue.Clear();
         }
 
         [TestMethod]

@@ -52,6 +52,10 @@
             RegisterRoutes(RouteTable.Routes);
 
             FederatedAuthentication.ServiceConfigurationCreated += this.OnServiceConfigurationCreated;
+
+            // initialize blob and queue resources
+            new GameRepository().EnsureExist();
+            new UserRepository().EnsureExist();
         }
 
         private void OnServiceConfigurationCreated(object sender, ServiceConfigurationCreatedEventArgs e)

@@ -9,6 +9,7 @@ cd "%~dp0"
 set buildType=Release
 set verbosity=quiet
 set pause=true
+set VisualStudioVersion=10.0
 
 :: Check for 64-bit Framework
 if exist %WINDIR%\Microsoft.NET\Framework64\v4.0.30319 (

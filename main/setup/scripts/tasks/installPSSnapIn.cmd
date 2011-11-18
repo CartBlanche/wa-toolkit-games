@@ -11,11 +11,11 @@ ECHO.
 ECHO Copying Microsoft.WindowsAzure.Diagnostics.dll...
 ECHO.
 
-IF EXIST "c:\Program Files\Windows Azure SDK\v1.5\ref\Microsoft.WindowsAzure.Diagnostics.dll" (
-	copy "c:\Program Files\Windows Azure SDK\v1.5\ref\Microsoft.WindowsAzure.Diagnostics.dll" ..\WindowsAzureCmdlets\ /Y
+IF EXIST "c:\Program Files\Windows Azure SDK\v1.6\ref\Microsoft.WindowsAzure.Diagnostics.dll" (
+	copy "c:\Program Files\Windows Azure SDK\v1.6\ref\Microsoft.WindowsAzure.Diagnostics.dll" ..\WindowsAzureCmdlets\ /Y
 ) ELSE (
 	echo ---------------------------------------------------------------------------------------------
-	echo   The diagnostics assembly for the Windows Azure SDK 1.5 could not be found at "c:\Program Files\Windows Azure SDK\v1.5\ref\Microsoft.WindowsAzure.Diagnostics.dll"
+	echo   The diagnostics assembly for the Windows Azure SDK 1.6 could not be found at "c:\Program Files\Windows Azure SDK\v1.5\ref\Microsoft.WindowsAzure.Diagnostics.dll"
 	echo ---------------------------------------------------------------------------------------------
 	
 	exit 1

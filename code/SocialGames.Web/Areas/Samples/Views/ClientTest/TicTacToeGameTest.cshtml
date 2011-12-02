@@ -1,0 +1,114 @@
+﻿@using Microsoft.Samples.SocialGames.Web.Areas.Samples.Extensions;
+
+@{
+    ViewBag.Title = "TicTacToeGame Test";
+}
+
+<link href="@Url.Content("~/Content/qunit.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/qunit.js")" type="text/javascript"></script>
+<script src="@Url.AreaContent("Scripts/game/TicTacToeGame.js")" type="text/javascript"></script>
+
+
+<h1 id="qunit-header">TicTacToeGame Tests</h1>
+
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">test markup, will be hidden</div>
+
+<script type="text/javascript">
+    $(function () {
+        test("Create Empty Board", function () {
+            var game = new TicTacToeGame();
+
+            for (var x = 0; x < 3; x++)
+                for (var y = 0; y < 3; y++)
+                    ok(game.isEmpty(x, y));
+
+            equal(game.isTie(), false);
+            equal(game.hasWinner(), false);
+        });
+
+        test("Valid Moves on Empty Board", function () {
+            var game = new TicTacToeGame();
+
+            for (var x = 0; x < 3; x++)
+                for (var y = 0; y < 3; y++) {
+                    ok(game.isValid(x, y, TTTColor.Cross));
+                    ok(game.isValid(x, y, TTTColor.Circle));
+                }
+        });
+
+        test("No Winner in Empty Board", function () {
+            var game = new TicTacToeGame();
+
+            equal(game.getWinner(), TTTColor.Empty);
+        });
+
+        test("Get Winner in First Row", function () {
+            var game = new TicTacToeGame();
+            game.move(0, 0, TTTColor.Cross);
+            game.move(1, 0, TTTColor.Cross);
+            game.move(2, 0, TTTColor.Cross);
+
+            equal(game.getWinner(), TTTColor.Cross);
+
+            equal(game.isTie(), false);
+            equal(game.hasWinner(), true);
+        });
+
+        test("Get Winners in Rows", function () {
+            for (var row = 0; row < 3; row++) {
+                var game = new TicTacToeGame();
+                game.move(0, row, TTTColor.Circle);
+                game.move(1, row, TTTColor.Circle);
+                game.move(2, row, TTTColor.Circle);
+
+                equal(game.getWinner(), TTTColor.Circle);
+
+                equal(game.isTie(), false);
+                equal(game.hasWinner(), true);
+            }
+        });
+
+        test("Get Winners in Columns", function () {
+            for (var col = 0; col < 3; col++) {
+                var game = new TicTacToeGame();
+                game.move(col, 0, TTTColor.Circle);
+                game.move(col, 1, TTTColor.Circle);
+                game.move(col, 2, TTTColor.Circle);
+
+                equal(game.getWinner(), TTTColor.Circle);
+
+                equal(game.isTie(), false);
+                equal(game.hasWinner(), true);
+            }
+        });
+
+        test("Get Winner in First Diagonal", function () {
+            var game = new TicTacToeGame();
+            game.move(0, 0, TTTColor.Cross);
+            game.move(1, 0, TTTColor.Cross);
+            game.move(2, 0, TTTColor.Cross);
+
+            equal(game.getWinner(), TTTColor.Cross);
+
+            equal(game.isTie(), false);
+            equal(game.hasWinner(), true);
+        });
+
+        test("Get Winner in Second Diagonal", function () {
+            var game = new TicTacToeGame();
+            game.move(2, 0, TTTColor.Cross);
+            game.move(1, 1, TTTColor.Cross);
+            game.move(0, 2, TTTColor.Cross);
+
+            equal(game.getWinner(), TTTColor.Cross);
+
+            equal(game.isTie(), false);
+            equal(game.hasWinner(), true);
+        });
+    });
+</script>
+

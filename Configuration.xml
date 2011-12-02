@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <!--Set to true to run the application locally in the compute emulator.-->
+  <UseLocalComputeEmulator>true</UseLocalComputeEmulator>
+
+  <Database>
+    <!--Database server name. Specify the name of a SQL Server (e.g. .\SQLEXPRESS). When deploying to Windows 
+        Azure, leave blank to create a new SQL Azure server, in which case its name will be assigned by SQL Azure,
+        or specify the name of an existing SQL Azure server (e.g. yourserver.database.windows.net).-->
+    <ServerName>.\SQLEXPRESS</ServerName>
+    <!--Name of the application database.-->
+    <DatabaseName>SocialGames</DatabaseName>
+    <!--Name of the database login. Required when using SQL Azure.-->
+    <Username>{USER_NAME}</Username>
+    <!--Password of the database login. Required when using SQL Azure.-->
+    <Password>{PASSWORD}</Password>
+    <!--Location of a new SQL Azure server. This setting is used only when deploying to Windows 
+        Azure. Leave blank when using an existing server.-->
+    <Location>{SERVER_LOCATION}</Location>
+  </Database>
+
+  <AccessControlService>
+    <!--Name of the ACS namespace created for the application. Use the namespace only, not 
+        the full URL (e.g. watgames). You need to create the ACS namespace by visiting the 
+        Windows Azure Management Portal.-->
+    <Namespace>{YOUR_ACS_NAMESPACE}</Namespace>
+    <!--Management Service credentials for this Access Control Service namespace. Retrieved from 
+        the ACS Portal, under Management Service | ManagementClient | Symmetric Key | Key.-->
+    <ManagementKey>{YOUR_ACS_MANAGEMENT_KEY}</ManagementKey>
+    <!--Relying party realm. Identifies the relying party to the identity provider. Leave the default
+        value when running in the compute emulator. When deploying to Windows Azure, use the HTTP endpoint
+        of your hosted service.-->
+    <RelyingPartyRealm>http://127.0.0.1:81/</RelyingPartyRealm>
+    <!-- Set to true to enable Windows Live ID as an identity provider -->
+    <UseWindowsLiveIdentityProvider>true</UseWindowsLiveIdentityProvider>
+    <!--Set to true to enable Facebook as an identity provider. If Facebook is enabled as an identity 
+        provider, specify the Facebook application name, application ID and secret.
+        see : http://msdn.microsoft.com/en-us/library/gg185919.aspx.-->
+    <UseFacebookIdentityProvider>false</UseFacebookIdentityProvider>
+    <!--Facebook application name. Required if Facebook is enabled as an identity provider.-->
+    <FacebookApplicationName>{APPLICATION_NAME}</FacebookApplicationName>
+    <!--Facebook application application ID. Required if Facebook is enabled as an identity provider.-->
+    <FacebookApplicationId>{APPLICATION_ID}</FacebookApplicationId>
+    <!--Facebook application secret. Required if Facebook is enabled as an identity provider.-->
+    <FacebookSecret>{APPLICATION_SECRET}</FacebookSecret>
+  </AccessControlService>
+
+  <WindowsAzureStorage>
+    <!--Name of the storage account to use. When executing locally, leave blank to use the 
+        storage emulator or use an existing storage account. When deploying to Windows Azure, 
+        if the specified storage account does not exist, it will be created.-->
+    <StorageAccountName>{ACCOUNT_NAME}</StorageAccountName>
+    <!--Access Key of the storage account. Leave blank when using the storage emulator
+        or when creating a new storage account.-->
+    <StorageAccountKey>{ACCOUNT_KEY}</StorageAccountKey>
+    <!--Location of a new storage account. This setting is used only when deploying to Windows 
+        Azure and the storage account does not exist and needs to be created. Leave blank when 
+        using the storage emulator or an existing storage account.-->
+    <StorageAccountLocation>{ACCOUNT_LOCATION}</StorageAccountLocation>    
+    <!--Specify a label when creating a new storage account.-->
+    <StorageAccountLabel>{ACCOUNT_LABEL}</StorageAccountLabel>
+  </WindowsAzureStorage>
+
+  <hostedService>
+    <!--Name of the hosted service where the application will be deployed. This setting is used 
+        only for deploying to Windows Azure. If the hosted service does not exist, it will be created.-->
+    <name>{HOSTED_SERVICE_NAME}</name>
+    <!--Label of the hosted service. This setting is used only when deploying to Windows 
+        Azure and the hosted service does not exist and needs to be created. Leave blank when 
+        using an existing hosted service.-->
+    <label>{HOSTED_SERVICE_LABEL}</label>
+    <!--Location of the hosted service. This setting is used only when deploying to Windows 
+        Azure and the hosted service does not exist and needs to be created. Leave blank when 
+        using an existing hosted service.-->
+    <location>{HOSTED_SERVICE_LOCATION}</location>
+  </hostedService>
+
+  <!--ID of the Windows Azure subscription where the application will be deployed.-->
+  <subscriptionId>{SUBSCRIPTION_ID}</subscriptionId>
+  <!--Management certificate thumbprint of the Windows Azure subscription. The certificate 
+      needs to be installed in the Personal/My or Local Computer/My certificate store.-->
+  <managementCertificateThumbprint>{MANAGEMENT_CERTIFICATE_THUMBPRINT}</managementCertificateThumbprint>
+  <!--Path to the Remote Desktop certificate used for password encryption. When deploying to 
+      Windows Azure, the certificate is uploaded to the hosted service. To take advantage of this
+      feature, remote desktop needs to be enabled in the cloud project.-->
+  <rdpCertificatePath>{REMOTE_DESKTOP_CERTIFICATE}</rdpCertificatePath>
+  <!--Remote Desktop certificate password.-->
+  <rdpCertificatePassword>{REMOTE_DESKTOP_CERTIFICATE_PASSWORD}</rdpCertificatePassword>
+
+  <deployment>
+    <!--Location of the hosted service package file. The default points to the location where
+        the deployment scripts build the solution.-->
+    <packageFile>..\..\..\code\SocialGames.Cloud\bin\Release\app.publish\SocialGames.Cloud.cspkg</packageFile>
+    <!--Location of the hosted service configuration file. The default points to the location where
+        the deployment scripts build the solution.-->
+    <configurationFile>..\..\..\code\SocialGames.Cloud\bin\Release\app.publish\ServiceConfiguration.Cloud.cscfg</configurationFile>
+    <!--Label that identifies the deployment. If you plan to deploy multiple times, update the default to include
+        a version number or a deployment date.-->
+    <label>Social Games</label>
+  </deployment>
+</Configuration>

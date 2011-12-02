@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Your Friends";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jQuery.tmpl.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/knockout-1.2.1.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
+
+<h2>Your Friends</h2>
+
+<p>Use this URL to invite other users: <span data-bind="text: inviteURL()" />
+</p>
+
+<h3>Friends</h3>
+
+<fieldset>
+    <div data-bind='template: { name: "FriendList", foreach: friends() }' />
+</fieldset>
+
+<script id="FriendList" type="text/html">
+       ${$data.DisplayName} <br> 
+</script>
+
+<h3>Invitations</h3>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>From</th>
+<th>Action</th>
+</tr>
+</thead>
+    <tbody data-bind='template: { name: "NotificationList", foreach: notifications() }' />
+</table>
+
+<script id="NotificationList" type="text/html">
+<tr>
+       <td>${$data.Message} </td> 
+       <td>${$data.SenderName} </td>
+       <td><a href="${$data.Url}">Go</a> </td> 
+</tr>
+</script>
+
+<script type="text/javascript">
+    var userId = "@this.ViewBag.CurrentUserId";
+    var BlobUrl = "@this.ViewBag.BlobUrl";
+    var si = new ServerInterface();
+    var user = new UserService(userId, BlobUrl, si);
+
+    function getFriends() {
+        user.getFriendsInfo(function (friends) {
+            window.viewModel.refreshFriends(friends);
+        }, function (req, status, error) {
+            var errorMessage;
+            if (req.responseText == undefined) {
+                errorMessage = "POST Error:\nreq:" + req + "\nstatus:" + status + "\nerror:" + error;
+            }
+            else {
+                errorMessage = "POST Error:\nreq:" + req.responseText + "\nstatus:" + status + "\nerror:" + error;
+            }
+            alert(errorMessage);
+        });
+    }
+</script>
+<script type="text/javascript">
+    function ViewModel() {
+        this.user = ko.observable(userId);
+        this.friends = ko.observableArray();
+        this.notifications = ko.observableArray();
+        this.inviteURL = ko.observable(document.location.href + "/" + userId);
+    }
+
+    function sgnotificationsCallback(data) {
+        for (var n in data.Notifications) {
+            var notification = data.Notifications[n];
+
+            if (notification.SenderName == null || notification.SenderName == "")
+                notification.SenderName = notification.SenderId;
+
+            if (notification.Type == "Invite")
+                viewModel.notifications.push(notification);
+        }
+    }
+
+    ViewModel.prototype.refreshFriends = function (friends) {
+        //    this.friends().length = 0;
+
+        for (n in friends)
+            this.friends.push(friends[n]);
+    }
+
+    jQuery(document).ready(function () {
+        window.viewModel = new ViewModel();
+
+        ko.applyBindings(window.viewModel);
+        user.getFriendsInfo(
+            function (friends) { window.viewModel.refreshFriends(friends); },
+            function () { alert('Error Get Friends'); });
+
+        user.getNotifications(userId, function () { });
+    });
+</script>

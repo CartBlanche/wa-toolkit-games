@@ -16,3 +16,4 @@ ClientBin/
 TestResults/
 *.build.csdef
 Output/
+packages/

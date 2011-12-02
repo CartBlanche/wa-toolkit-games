@@ -1,12 +1,10 @@
-﻿@using Microsoft.Samples.SocialGames.Web.Areas.Samples.Extensions;
-
-@{
+﻿@{
     ViewBag.Title = "TicTacToeGame Test";
 }
 
 <link href="@Url.Content("~/Content/qunit.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/qunit.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/FourInARowGame.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/FourInARow/Game.js")" type="text/javascript"></script>
 
 
 <h1 id="qunit-header">FourInARowGame Tests</h1>

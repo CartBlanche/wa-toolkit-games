@@ -44,7 +44,7 @@
 
         public HttpResponseMessage UpdateProfile(HttpRequestMessage request)
         {
-            var formContent = GetFormContent(request);
+            dynamic formContent = request.Content.ReadAsAsync<JsonValue>().Result;
             var displayName = (string)(formContent.displayName ?? string.Empty);
 
             var userProfile = this.userRepository.GetUser(CurrentUserId);

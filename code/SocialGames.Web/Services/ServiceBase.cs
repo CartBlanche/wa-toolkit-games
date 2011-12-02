@@ -78,11 +78,5 @@
             return response;
         }
 
-        public static dynamic GetFormContent(HttpRequestMessage request)
-        {
-            var body = request.Content.ReadAsString();
-
-            return FormUrlEncodedExtensions.ParseFormUrlEncoded(body);
-        }
     }
 }

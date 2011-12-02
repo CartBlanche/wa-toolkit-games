@@ -20,7 +20,7 @@
 
         public EventService()
             : this(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"))
-        { 
+        {
         }
 
         public EventService(CloudStorageAccount account)
@@ -43,7 +43,7 @@
                 return BadRequest("The user is not authenticated");
             }
 
-            var formContent = GetFormContent(request);
+            dynamic formContent = request.Content.ReadAsAsync<JsonValue>().Result;
 
             // Command Type
             int commandType;

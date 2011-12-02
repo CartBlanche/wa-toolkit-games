@@ -31,7 +31,7 @@
 
         public HttpResponseMessage Queue(HttpRequestMessage request)
         {
-            var formContent = GetFormContent(request);
+            dynamic formContent = request.Content.ReadAsAsync<JsonValue>().Result;
             GameType gameType;
 
             if (!Enum.TryParse<GameType>(formContent.gameType.Value, true, out gameType))
@@ -152,7 +152,7 @@
 
         public HttpResponseMessage Command(Guid gameId, HttpRequestMessage request)
         {
-            var formContent = GetFormContent(request);
+            dynamic formContent = request.Content.ReadAsAsync<JsonValue>().Result;
             var game = this.gameRepository.GetGame(gameId);
             if (game == null)
             {
@@ -206,7 +206,7 @@
         [Authorize]
         public HttpResponseMessage Invite(Guid gameQueueId, HttpRequestMessage request)
         {
-            var formContent = GetFormContent(request);
+            dynamic formContent = request.Content.ReadAsAsync<JsonValue>().Result;
             var users = formContent.users != null ?
                     ((JsonArray)formContent.users).ToObjectArray().Select(o => o.ToString()).ToList() :
                     null;

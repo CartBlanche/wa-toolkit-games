@@ -1,19 +1,17 @@
-﻿@using Microsoft.Samples.SocialGames.Web.Areas.Samples.Extensions;
-
-@{
+﻿@{
     ViewBag.Title = "Tic Tac Toe";
 }
 
-<script src="@Url.AreaContent("Scripts/jQuery.tmpl.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/knockout-1.2.1.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jQuery.tmpl.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/knockout-1.2.1.js")" type="text/javascript"></script>
 
-<script src="@Url.Content("~/Scripts/game/ServerInterface.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/game/GameService.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/game/UserService.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeBoard.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeGame.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeViewModel.js")" type="text/javascript"></script>
-<script src="@Url.AreaContent("Scripts/game/TicTacToeController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/ServerInterface.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/GameService.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/UserService.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/TicTacToe/Board.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/TicTacToe/Game.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/TicTacToe/ViewModel.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/TicTacToe/Controller.js")" type="text/javascript"></script>
 
 <h2>Tic Tac Toe</h2>
 <div id="game">

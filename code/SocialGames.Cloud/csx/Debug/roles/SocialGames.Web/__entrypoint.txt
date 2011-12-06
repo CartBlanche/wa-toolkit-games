@@ -1,1 +1,0 @@
-bin\Microsoft.Samples.SocialGames.Web.dll

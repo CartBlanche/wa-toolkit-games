@@ -17,6 +17,7 @@
 *\.git
 *\.git\*
 *\*.suo
+*\*.user
 *\Comments.txt
 Comments.txt
 *\StyleCop.cache

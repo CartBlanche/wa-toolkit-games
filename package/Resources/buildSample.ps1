@@ -56,7 +56,7 @@ $ErrorActionPreference = "Stop"
 #-| CopySample Step -------------------------------------------------------
 #---------------------------------------------------------------------------
 
-[string] $beginExcludes = ".svn obj bin"
+[string] $beginExcludes = ".git obj bin csx package\*"
 
 Copy-Sample $sampleManifestFile $tempDirectory $beginExcludes $assetsDirectory
 

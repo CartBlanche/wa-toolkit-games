@@ -2,13 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.WindowsAzure;
-    using Microsoft.Samples.SocialGames.Common;
 
-    public class UserRepository : IUserRepository, IInitializer
+    public class UserRepository : IUserRepository, IStorageInitializer
     {
         private readonly IAzureBlobContainer<UserProfile> userContainer;
         private readonly IAzureBlobContainer<UserSession> userSessionContainer;

@@ -3,13 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.WindowsAzure;
-    using Microsoft.Samples.SocialGames.Common;
 
-    public class GameRepository : IGameRepository, IInitializer
+    public class GameRepository : IGameRepository, IStorageInitializer
     {
         private readonly IAzureQueue<SkirmishGameQueueMessage> skirmishGameQueue;
         private readonly IAzureQueue<LeaveGameMessage> leaveGameQueue;

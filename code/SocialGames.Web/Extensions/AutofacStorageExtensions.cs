@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Autofac;
-using Microsoft.Samples.SocialGames.Common.Storage;
-using Microsoft.WindowsAzure;
+﻿using Autofac;
 using Autofac.Builder;
-using Autofac.Features.LightweightAdapters;
+using Microsoft.Samples.SocialGames.Common.Storage;
 
 namespace Microsoft.Samples.SocialGames.Extensions
 {

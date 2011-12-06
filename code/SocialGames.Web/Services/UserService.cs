@@ -1,18 +1,12 @@
 ﻿namespace Microsoft.Samples.SocialGames.Web.Services
 {
     using System;
-    using System.Globalization;
-    using System.IO;
     using System.Json;
     using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Runtime.Serialization.Json;
-    using System.Web;
     using System.Web.Mvc;
-    using Microsoft.ApplicationServer.Http;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.Web.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
 
     public class UserService : ServiceBase, IUserService

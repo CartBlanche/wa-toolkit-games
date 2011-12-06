@@ -1,10 +1,7 @@
 ﻿namespace Microsoft.Samples.SocialGames.Common.Storage
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Text;
     using Microsoft.WindowsAzure.StorageClient;
     using Microsoft.WindowsAzure.StorageClient.Protocol;
 

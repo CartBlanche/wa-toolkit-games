@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.JobEngine;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.Repositories;

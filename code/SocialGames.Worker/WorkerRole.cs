@@ -11,6 +11,7 @@
     using Autofac;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.JobEngine;
+    using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
@@ -19,7 +20,6 @@
     using Microsoft.WindowsAzure.Diagnostics;
     using Microsoft.WindowsAzure.Diagnostics.Management;
     using Microsoft.WindowsAzure.ServiceRuntime;
-    using Microsoft.Samples.SocialGames.Common;
 
     public class WorkerRole : RoleEntryPoint
     {
@@ -49,7 +49,7 @@
             var container = builder.Build();
 
             // Call Initializers
-            var initializers = container.Resolve<IEnumerable<IInitializer>>();
+            var initializers = container.Resolve<IEnumerable<IStorageInitializer>>();
             foreach (var initializer in initializers)
             {
                 initializer.Initialize();

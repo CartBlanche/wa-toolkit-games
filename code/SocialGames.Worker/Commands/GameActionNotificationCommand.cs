@@ -1,7 +1,6 @@
 ﻿namespace Microsoft.Samples.SocialGames.Worker.Commands
 {
     using System;
-    using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.Repositories;
 

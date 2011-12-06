@@ -2,17 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Net.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Autofac;
     using Autofac.Integration.Mvc;
     using Microsoft.ApplicationServer.Http;
-    using Microsoft.ApplicationServer.Http.Activation;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.IdentityModel.Web;
     using Microsoft.IdentityModel.Web.Configuration;
-    using Microsoft.Samples.SocialGames.Common;
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.Samples.SocialGames.Extensions;
@@ -76,7 +73,7 @@
             FederatedAuthentication.ServiceConfigurationCreated += this.OnServiceConfigurationCreated;
 
             // Call Initializers
-            var initializers = DependencyResolver.Current.GetServices<IInitializer>();
+            var initializers = DependencyResolver.Current.GetServices<IStorageInitializer>();
             foreach (var initializer in initializers)
             {
                 initializer.Initialize();

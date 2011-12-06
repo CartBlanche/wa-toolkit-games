@@ -5,10 +5,8 @@
     using System.Linq;
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.WindowsAzure;
-    using Microsoft.Samples.SocialGames.Common;
 
-    public class NotificationRepository : INotificationRepository, IInitializer
+    public class NotificationRepository : INotificationRepository, IStorageInitializer
     {
         private readonly IAzureBlobContainer<NotificationStatus> notificationsContainer;
 

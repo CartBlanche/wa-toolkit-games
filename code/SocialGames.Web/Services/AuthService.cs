@@ -1,7 +1,6 @@
 ﻿namespace Microsoft.Samples.SocialGames.Web.Services
 {
     using System;
-    using System.Configuration;
     using System.Json;
     using System.Net;
     using System.Net.Http;

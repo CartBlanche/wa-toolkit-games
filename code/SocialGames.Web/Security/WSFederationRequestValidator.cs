@@ -1,10 +1,8 @@
 ﻿namespace Microsoft.Samples.SocialGames.Web.Security
 {
-    using System;
     using System.Web;
     using System.Web.Util;
 
-    using Microsoft.IdentityModel.Protocols.WSFederation;
 
     /// <summary>
     /// This WSFederationRequestValidator validates the wresult parameter of the

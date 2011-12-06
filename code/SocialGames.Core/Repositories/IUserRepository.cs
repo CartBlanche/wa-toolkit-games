@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Microsoft.Samples.SocialGames.Entities;
-    using GameID = System.Guid;
     using UserID = System.String;
 
     public interface IUserRepository

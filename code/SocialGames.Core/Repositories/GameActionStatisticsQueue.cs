@@ -1,13 +1,10 @@
 ﻿namespace Microsoft.Samples.SocialGames.Repositories
 {
     using System;
-    using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.WindowsAzure;
-    using Microsoft.Samples.SocialGames.Common;
 
-    public class GameActionStatisticsQueue : IGameActionStatisticsQueue, IInitializer
+    public class GameActionStatisticsQueue : IGameActionStatisticsQueue, IStorageInitializer
     {
         private readonly IAzureQueue<GameActionStatisticsMessage> gameActionStatisticGameQueue;
 

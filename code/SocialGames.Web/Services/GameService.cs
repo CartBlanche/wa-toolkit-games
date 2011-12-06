@@ -5,12 +5,10 @@
     using System.Json;
     using System.Linq;
     using System.Net.Http;
-    using System.Runtime.Serialization.Json;
     using System.Web.Mvc;
-    using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.Web.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
+    using Microsoft.Samples.SocialGames.Web.Extensions;
 
     public class GameService : ServiceBase, IGameService
     {

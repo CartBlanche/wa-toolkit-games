@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Services
+﻿namespace Microsoft.Samples.SocialGames.Web.Services
 {
     using System;
     using System.Globalization;
@@ -12,18 +12,13 @@
     using System.Web.Mvc;
     using Microsoft.ApplicationServer.Http;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.GamePlay.Extensions;
+    using Microsoft.Samples.SocialGames.Web.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
 
     public class UserService : ServiceBase, IUserService
     {
         private readonly IUserRepository userRepository;
         private readonly IStatisticsRepository statsRepository;
-
-        public UserService()
-            : this(new UserRepository(), new StatisticsRepository("StatisticsConnectionString"), new HttpContextUserProvider())
-        {            
-        }
 
         public UserService(IUserRepository userRepository, IStatisticsRepository statsRepository, IUserProvider userProvider)
             : base(userProvider)
@@ -44,8 +39,13 @@
 
         public HttpResponseMessage UpdateProfile(HttpRequestMessage request)
         {
+
             dynamic formContent = request.Content.ReadAsAsync<JsonValue>().Result;
-            var displayName = (string)(formContent.displayName ?? string.Empty);
+            var displayName = string.Empty;
+            if (formContent != null)
+            {
+                displayName = (string)(formContent.displayName ?? string.Empty);
+            }
 
             var userProfile = this.userRepository.GetUser(CurrentUserId);
 

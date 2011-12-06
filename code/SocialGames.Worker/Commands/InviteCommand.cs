@@ -12,11 +12,6 @@
         private INotificationRepository notificationRepository;
         private IUserRepository userRepository;
 
-        public InviteCommand()
-            : this(new NotificationRepository(), new UserRepository())
-        {
-        }
-
         public InviteCommand(INotificationRepository notificationRepository, IUserRepository userRepository)
         {
             this.notificationRepository = notificationRepository;

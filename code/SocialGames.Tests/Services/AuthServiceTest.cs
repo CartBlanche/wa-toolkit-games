@@ -35,7 +35,7 @@
 
             var selector = authService.LoginSelector("http://mysite/testpath/returnpage");
 
-            var actualIdentityProviders = selector.Content.ReadAsString();
+            var actualIdentityProviders = selector.Content.ReadAsStringAsync().Result;
             var expectedIdentityProviders = File.ReadAllText("identityProvidersJsonList.txt");
 
             Assert.AreEqual<string>(expectedIdentityProviders, actualIdentityProviders);

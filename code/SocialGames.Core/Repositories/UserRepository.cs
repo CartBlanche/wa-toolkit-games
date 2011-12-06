@@ -6,27 +6,13 @@
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.WindowsAzure;
+    using Microsoft.Samples.SocialGames.Common;
 
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, IInitializer
     {
         private readonly IAzureBlobContainer<UserProfile> userContainer;
         private readonly IAzureBlobContainer<UserSession> userSessionContainer;
         private readonly IAzureBlobContainer<Friends> friendsContainer;
-
-        public UserRepository()
-            : this(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"))
-        {
-        }
-
-        public UserRepository(CloudStorageAccount account)
-            : this(account, ConfigurationConstants.UsersContainerName, ConfigurationConstants.UserSessionsContainerName, ConfigurationConstants.FriendsContainerName)
-        {
-        }
-
-        public UserRepository(CloudStorageAccount account, string usersContainerName, string userSessionContainerName, string friendsContainerName)
-            : this(new AzureBlobContainer<UserProfile>(account, usersContainerName, true), new AzureBlobContainer<UserSession>(account, userSessionContainerName, true), new AzureBlobContainer<Friends>(account, friendsContainerName, true))
-        {
-        }
 
         public UserRepository(IAzureBlobContainer<UserProfile> userContainer, IAzureBlobContainer<UserSession> userSessionContainer, IAzureBlobContainer<Friends> friendsContainer)
         {
@@ -50,7 +36,7 @@
             this.friendsContainer = friendsContainer;
         }
 
-        public void EnsureExist()
+        public void Initialize()
         {
             this.userContainer.EnsureExist(true);
             this.userSessionContainer.EnsureExist(true);
@@ -181,5 +167,6 @@
 
             return list;
         }
+
     }
 }

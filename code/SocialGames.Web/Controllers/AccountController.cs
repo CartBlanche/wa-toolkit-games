@@ -8,7 +8,7 @@
     using Microsoft.IdentityModel.Protocols.WSFederation;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.GamePlay.Services;
+    using Microsoft.Samples.SocialGames.Web.Services;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Web.Controllers;
 
@@ -16,11 +16,6 @@
     {
         private readonly IUserRepository userRepository;
         private IUserProvider userProvider;
-
-        public AccountController()
-            : this(new UserRepository(), new HttpContextUserProvider())
-        {
-        }
 
         public AccountController(IUserRepository userRepository, IUserProvider userProvider)
         {

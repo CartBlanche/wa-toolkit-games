@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Extensions
+﻿namespace Microsoft.Samples.SocialGames.Web.Extensions
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Controllers
+﻿namespace Microsoft.Samples.SocialGames.Web.Controllers
 {
     using System;
     using System.Collections.Generic;

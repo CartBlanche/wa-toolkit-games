@@ -33,19 +33,19 @@
     <Property name="ProjectName" value="SocialGames.Web" />
     <Property name="Configuration" value="Debug" />
     <Property name="Platform" value="AnyCPU" />
-    <Property name="OutputDir" value="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\obj\Debug\SocialGames.Web\" />
+    <Property name="OutputDir" value="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\obj\Debug\SocialGames.Web\" />
     <Property name="EntryPoint" value="Microsoft.Samples.SocialGames.Web.dll" />
-    <Property name="SourceDir" value="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Web\" />
+    <Property name="SourceDir" value="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Web\" />
     <Property name="RoleTargetFramework" value="v4.0" />
-    <Property name="SitePhysicalPath" value="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Web\" />
-    <Property name="OriginalItemSpec" value="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\SocialGames.Cloud.ccproj" />
-    <Property name="MSBuildSourceProjectFile" value="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\SocialGames.Cloud.ccproj" />
+    <Property name="SitePhysicalPath" value="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Web\" />
+    <Property name="OriginalItemSpec" value="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\SocialGames.Cloud.ccproj" />
+    <Property name="MSBuildSourceProjectFile" value="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\SocialGames.Cloud.ccproj" />
     <Property name="MSBuildSourceTargetName" value="ResolveSingleWebRoleReference" />
     <Property name="TargetFrameworkVersion" value="v4.0" />
     <Property name="TargetRuntimeVersion" value="v4.0" />
   </Properties>
   <Sites>
-    <Site name="Web" physicalDirectory="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Web\">
+    <Site name="Web" physicalDirectory="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Web\">
       <Bindings>
         <Binding name="Endpoint1" endpointName="Endpoint1" />
       </Bindings>

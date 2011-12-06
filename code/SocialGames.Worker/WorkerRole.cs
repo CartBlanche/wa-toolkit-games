@@ -8,14 +8,18 @@
     using System.Net;
     using System.Security.Permissions;
     using System.Threading;
+    using Autofac;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.JobEngine;
+    using Microsoft.Samples.SocialGames.Entities;
+    using Microsoft.Samples.SocialGames.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Worker.Commands;
     using Microsoft.WindowsAzure;
     using Microsoft.WindowsAzure.Diagnostics;
     using Microsoft.WindowsAzure.Diagnostics.Management;
     using Microsoft.WindowsAzure.ServiceRuntime;
+    using Microsoft.Samples.SocialGames.Common;
 
     public class WorkerRole : RoleEntryPoint
     {
@@ -39,10 +43,22 @@
 
         public override void Run()
         {
-            var account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
-            var userRepository = new UserRepository(account);
-            var gameRepository = new GameRepository(account);
-            var workerContext = new InMemoryWorkerContext();
+            // Setup AutoFac
+            var builder = new ContainerBuilder();
+            DependancySetup(builder);
+            var container = builder.Build();
+
+            // Call Initializers
+            var initializers = container.Resolve<IEnumerable<IInitializer>>();
+            foreach (var initializer in initializers)
+            {
+                initializer.Initialize();
+            }
+
+            var account = container.Resolve<CloudStorageAccount>();
+            var userRepository = container.Resolve<IUserRepository>();
+            var gameRepository = container.Resolve<IGameRepository>();
+            var workerContext = container.Resolve<IWorkerContext>();
 
             // TaskBuilder callback for logging errors
             Action<ICommand, IDictionary<string, object>, Exception> logException = (cmd, context, ex) =>
@@ -51,52 +67,48 @@
             };
 
             // Game Queue for Skirmish game
-            Task.TriggeredBy(Message.OfType<SkirmishGameQueueMessage>())
+            Task.TriggeredBy(Message.OfType<SkirmishGameQueueMessage>(account, ConfigurationConstants.SkirmishGameQueue))
                 .SetupContext((message, context) =>
                 {
                     context.Add("userId", message.UserId);
                 })
-                .Do(
-                    new SkirmishGameQueueCommand(userRepository, gameRepository, workerContext))
+                .Do(container.Resolve<SkirmishGameQueueCommand>())
                 .OnError(logException)
                 .Start();
 
             // Leave game messages
-            Task.TriggeredBy(Message.OfType<LeaveGameMessage>())
+            Task.TriggeredBy(Message.OfType<LeaveGameMessage>(account, ConfigurationConstants.LeaveGameQueue))
                 .SetupContext((message, context) =>
                 {
                     context.Add("userId", message.UserId);
                     context.Add("gameId", message.GameId);
                 })
-                .Do(
-                    new LeaveGameCommand(userRepository, gameRepository))
+                .Do(container.Resolve<LeaveGameCommand>())
                 .OnError(logException)
                 .Start();
 
             // Game Action for Notification messages
-            Task.TriggeredBy(Message.OfType<GameActionMessage>(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"), ConfigurationConstants.GameActionNotificationsQueue))
+            Task.TriggeredBy(Message.OfType<GameActionNotificationMessage>(account, ConfigurationConstants.GameActionNotificationsQueue))
                 .SetupContext((message, context) =>
                 {
                     context.Add("gameAction", message.GameAction);
                 })
-                .Do(
-                    new GameActionNotificationCommand())
+                .Do(container.Resolve<GameActionNotificationCommand>())
                 .OnError(logException)
                 .Start();
 
             // Game Action for Statistics messages
-            Task.TriggeredBy(Message.OfType<GameActionMessage>(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"), ConfigurationConstants.GameActionStatisticsQueue))
+            Task.TriggeredBy(Message.OfType<GameActionStatisticsMessage>(account, ConfigurationConstants.GameActionStatisticsQueue))
                 .SetupContext((message, context) =>
                 {
                     context.Add("gameAction", message.GameAction);
                 })
-                .Do(
-                    new GameActionStatisticsCommand(new StatisticsRepository("StatisticsConnectionString")))
+                .Do(container.Resolve<GameActionStatisticsCommand>())
                 .OnError(logException)
                 .Start();
 
             // Process for Invite messages
-            Task.TriggeredBy(Message.OfType<InviteMessage>(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"), ConfigurationConstants.InvitesQueue))
+            Task.TriggeredBy(Message.OfType<InviteMessage>(account, ConfigurationConstants.InvitesQueue))
                 .SetupContext((message, context) =>
                 {
                     context.Add("userId", message.UserId);
@@ -106,22 +118,78 @@
                     context.Add("message", message.Message);
                     context.Add("url", message.Url);
                 })
-                .Do(
-                    new InviteCommand())
+                .Do(container.Resolve<InviteCommand>())
                 .OnError(logException)
                 .Start();
 
             // Timeout for game queue
             Task.TriggeredBy(Schedule.Every(5 * 1000))
-                .Do(
-                    new GameQueueAutoStartCommand(gameRepository, workerContext))
+                .Do(container.Resolve<GameQueueAutoStartCommand>())
                 .OnError(logException)
                 .Start();
 
             while (true)
             {
-                Thread.Sleep(1 * 1000);
+                Thread.Sleep(1000);
             }
+        }
+
+        protected void DependancySetup(ContainerBuilder builder)
+        {
+            // Cloud Storage Account
+            builder.RegisterInstance<CloudStorageAccount>(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"));
+
+            // Queues
+            builder.RegisterQueue<GameActionStatisticsMessage>(ConfigurationConstants.GameActionStatisticsQueue)
+                .AsImplementedInterfaces();
+            builder.RegisterQueue<GameActionNotificationMessage>(ConfigurationConstants.GameActionNotificationsQueue)
+                .AsImplementedInterfaces();
+            builder.RegisterQueue<LeaveGameMessage>(ConfigurationConstants.LeaveGameQueue)
+                .AsImplementedInterfaces();
+            builder.RegisterQueue<InviteMessage>(ConfigurationConstants.InvitesQueue)
+                .AsImplementedInterfaces();
+            builder.RegisterQueue<SkirmishGameQueueMessage>(ConfigurationConstants.SkirmishGameQueue)
+                .AsImplementedInterfaces();
+
+            // Blobs
+            builder.RegisterBlob<UserProfile>(ConfigurationConstants.UsersContainerName, true /* jsonpSupport */)
+                .AsImplementedInterfaces();
+            builder.RegisterBlob<UserSession>(ConfigurationConstants.UserSessionsContainerName, true /* jsonpSupport */)
+                .AsImplementedInterfaces();
+            builder.RegisterBlob<Friends>(ConfigurationConstants.FriendsContainerName, true /* jsonpSupport */)
+                .AsImplementedInterfaces();
+            builder.RegisterBlob<NotificationStatus>(ConfigurationConstants.NotificationsContainerName, true /* jsonpSupport */)
+                .AsImplementedInterfaces();
+            builder.RegisterBlob<Game>(ConfigurationConstants.GamesContainerName, true /* jsonpSupport */)
+                .AsImplementedInterfaces();
+            builder.RegisterBlob<GameQueue>(ConfigurationConstants.GamesQueuesContainerName, true /* jsonpSupport */)
+                .AsImplementedInterfaces();
+            builder.RegisterBlob<SkirmishGameQueueMessage>(ConfigurationConstants.SkirmishGameQueue, true /* jsonpSupport */)
+                .AsImplementedInterfaces();
+            builder.RegisterBlob<UserProfile>(ConfigurationConstants.GamesContainerName, true /* jsonpSupport */)
+                .AsImplementedInterfaces();
+
+            // Repositories
+            builder.RegisterType<GameActionNotificationQueue>().AsImplementedInterfaces();
+            builder.RegisterType<GameActionStatisticsQueue>().AsImplementedInterfaces();
+            builder.RegisterType<GameRepository>().AsImplementedInterfaces();
+            builder.RegisterType<IdentityProviderRepository>().AsImplementedInterfaces();
+            builder.RegisterType<NotificationRepository>().AsImplementedInterfaces();
+            builder.RegisterType<StatisticsRepository>().AsImplementedInterfaces()
+                .WithParameter(new NamedParameter("nameOrConnectionString", "StatisticsConnectionString"));
+            builder.RegisterType<UserRepository>().AsImplementedInterfaces();
+
+            // Commands
+            builder.RegisterType<GameActionCommand>();
+            builder.RegisterType<GameActionNotificationCommand>();
+            builder.RegisterType<GameActionStatisticsCommand>();
+            builder.RegisterType<GameQueueAutoStartCommand>();
+            builder.RegisterType<InviteCommand>();
+            builder.RegisterType<LeaveGameCommand>();
+            builder.RegisterType<SkirmishGameQueueCommand>();
+
+            // Misc
+            builder.RegisterType<InMemoryWorkerContext>().AsImplementedInterfaces();
         }
 
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]

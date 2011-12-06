@@ -9,7 +9,7 @@
         public static void IsBadRequest(HttpResponseMessage message, string description)
         {
             Assert.AreEqual(HttpStatusCode.BadRequest, message.StatusCode);
-            Assert.AreEqual(description, message.Content.ReadAsString());
+            Assert.AreEqual(description, message.Content.ReadAsStringAsync().Result);
         }
     }
 }

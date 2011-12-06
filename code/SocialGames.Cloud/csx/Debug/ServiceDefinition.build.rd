@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SocialGames.Cloud" generation="1" functional="0" release="0" Id="ed6521af-827c-4633-b6de-ff7e83c390dd" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SocialGames.Cloud" generation="1" functional="0" release="0" Id="5b7d0128-4832-4781-b64f-2da8a97ef2e1" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="SocialGames.CloudGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -92,7 +92,7 @@
       </maps>
       <components>
         <groupHascomponents>
-          <role name="SocialGames.Web" generation="1" functional="0" release="0" software="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\csx\Debug\roles\SocialGames.Web" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaIISHost.exe " memIndex="1792" hostingEnvironment="frontendadmin" hostingEnvironmentVersion="2">
+          <role name="SocialGames.Web" generation="1" functional="0" release="0" software="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\csx\Debug\roles\SocialGames.Web" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaIISHost.exe " memIndex="1792" hostingEnvironment="frontendadmin" hostingEnvironmentVersion="2">
             <componentports>
               <inPort name="Endpoint1" protocol="http" portRanges="80" />
             </componentports>
@@ -112,7 +112,7 @@
           </sCSPolicy>
         </groupHascomponents>
         <groupHascomponents>
-          <role name="SocialGames.Worker" generation="1" functional="0" release="0" software="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\csx\Debug\roles\SocialGames.Worker" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaWorkerHost.exe " memIndex="1792" hostingEnvironment="consoleroleadmin" hostingEnvironmentVersion="2">
+          <role name="SocialGames.Worker" generation="1" functional="0" release="0" software="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\csx\Debug\roles\SocialGames.Worker" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaWorkerHost.exe " memIndex="1792" hostingEnvironment="consoleroleadmin" hostingEnvironmentVersion="2">
             <settings>
               <aCS name="DataConnectionString" defaultValue="" />
               <aCS name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" defaultValue="" />
@@ -139,9 +139,9 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="5de3de43-8515-4618-a3ae-33ebbb32ab62" ref="Microsoft.RedDog.Contract\ServiceContract\SocialGames.CloudContract@ServiceDefinition.build">
+    <implementation Id="79ccf68a-e90f-488a-b7f9-985438401ee7" ref="Microsoft.RedDog.Contract\ServiceContract\SocialGames.CloudContract@ServiceDefinition.build">
       <interfacereferences>
-        <interfaceReference Id="635da309-8632-47ad-9720-8ee458f0b865" ref="Microsoft.RedDog.Contract\Interface\SocialGames.Web:Endpoint1@ServiceDefinition.build">
+        <interfaceReference Id="5fe02071-ebf5-4838-a8a3-79604a9cc6f4" ref="Microsoft.RedDog.Contract\Interface\SocialGames.Web:Endpoint1@ServiceDefinition.build">
           <inPort>
             <inPortMoniker name="/SocialGames.Cloud/SocialGames.CloudGroup/SocialGames.Web:Endpoint1" />
           </inPort>

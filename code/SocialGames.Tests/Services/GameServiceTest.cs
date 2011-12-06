@@ -104,6 +104,7 @@
 
             var request = new HttpRequestMessage();
             request.Content = new StringContent("gameType=Skirmish");
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var result = gameService.Queue(request);
             Assert.IsTrue(result.IsSuccessStatusCode);
@@ -127,11 +128,12 @@
 
             var request = new HttpRequestMessage();
             request.Content = new StringContent("gameType=Skirmish");
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var response = gameService.Queue(request);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.AreEqual("User Id cannot be empty", response.Content.ReadAsString());
+            Assert.AreEqual("User Id cannot be empty", response.Content.ReadAsStringAsync().Result);
         }
 
         [TestMethod]
@@ -146,11 +148,12 @@
 
             var request = new HttpRequestMessage();
             request.Content = new StringContent("gameType=Skirmish");
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var response = gameService.Queue(request);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.AreEqual("User Id cannot be empty", response.Content.ReadAsString());
+            Assert.AreEqual("User Id cannot be empty", response.Content.ReadAsStringAsync().Result);
         }
 
         #endregion
@@ -192,7 +195,7 @@
             var response = gameService.Leave(gameId, null);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.AreEqual("User Id cannot be null or empty", response.Content.ReadAsString());
+            Assert.AreEqual("User Id cannot be null or empty", response.Content.ReadAsStringAsync().Result);
         }
 
         [TestMethod]
@@ -209,7 +212,7 @@
             var response = gameService.Leave(gameId, null);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.AreEqual("User Id cannot be null or empty", response.Content.ReadAsString());
+            Assert.AreEqual("User Id cannot be null or empty", response.Content.ReadAsStringAsync().Result);
         }
         #endregion
 
@@ -252,7 +255,7 @@
 
             var response = gameService.Create();
 
-            var id = response.Content.ReadAsString();
+            var id = response.Content.ReadAsStringAsync().Result;
             var gameId = Guid.Parse(id);
             Assert.AreNotEqual(Guid.Empty, gameId);
 
@@ -277,7 +280,7 @@
             var response = gameService.Create();
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.IsTrue(response.Content.ReadAsString().StartsWith("User does not exist"));
+            Assert.IsTrue(response.Content.ReadAsStringAsync().Result.StartsWith("User does not exist"));
         }
 
         #endregion
@@ -299,7 +302,7 @@
             GameService gameService = this.CreateGameService(gameRepository, userRepository, userID);
 
             var response = gameService.Create();
-            var id = response.Content.ReadAsString();
+            var id = response.Content.ReadAsStringAsync().Result;
             var gameId = Guid.Parse(id);
 
             GameService newGameService = this.CreateGameService(gameRepository, userRepository, newUserID);
@@ -334,7 +337,7 @@
             GameService gameService = this.CreateGameService(gameRepository, userRepository, userID);
 
             var response = gameService.Create();
-            var id = response.Content.ReadAsString();
+            var id = response.Content.ReadAsStringAsync().Result;
             var gameId = Guid.Parse(id);
 
             var response2 = gameService.Join(gameId);
@@ -364,7 +367,7 @@
             var response = gameService.Join(gameId);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.IsTrue(response.Content.ReadAsString().StartsWith("Game Queue does not exist"));
+            Assert.IsTrue(response.Content.ReadAsStringAsync().Result.StartsWith("Game Queue does not exist"));
         }
 
         #endregion  
@@ -385,7 +388,7 @@
 
             var response = gameService.Create();
 
-            var id = response.Content.ReadAsString();
+            var id = response.Content.ReadAsStringAsync().Result;
             var gameId = Guid.Parse(id);
 
             gameService.Start(gameId);
@@ -418,7 +421,7 @@
             var response = gameService.Start(gameId);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.IsTrue(response.Content.ReadAsString().StartsWith("Game Queue does not exist"));
+            Assert.IsTrue(response.Content.ReadAsStringAsync().Result.StartsWith("Game Queue does not exist"));
         }
 
         #endregion
@@ -441,7 +444,9 @@
             var parametersTemplate = "users[]={0}&users[]={1}&message=Invite&url=http://127.0.0.1/";
             var parameters = string.Format(CultureInfo.InvariantCulture, parametersTemplate, userId1, userId2);
 
-            var request = new HttpRequestMessage { Content = new StringContent(parameters) };
+            var request = new HttpRequestMessage();
+            request.Content = new StringContent(parameters);
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var result = gameService.Invite(gameQueueId, request);
             Assert.IsTrue(result.IsSuccessStatusCode);

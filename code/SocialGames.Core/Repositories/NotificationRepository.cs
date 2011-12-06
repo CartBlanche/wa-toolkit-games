@@ -6,25 +6,11 @@
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.WindowsAzure;
+    using Microsoft.Samples.SocialGames.Common;
 
-    public class NotificationRepository : INotificationRepository
+    public class NotificationRepository : INotificationRepository, IInitializer
     {
         private readonly IAzureBlobContainer<NotificationStatus> notificationsContainer;
-
-        public NotificationRepository()
-            : this(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"))
-        { 
-        }
-
-        public NotificationRepository(CloudStorageAccount account)
-            : this(account, ConfigurationConstants.NotificationsContainerName)
-        { 
-        }
-
-        public NotificationRepository(CloudStorageAccount account, string notificationsContainerName)
-            : this(new AzureBlobContainer<NotificationStatus>(account, notificationsContainerName, true))
-        {
-        }
 
         public NotificationRepository(IAzureBlobContainer<NotificationStatus> notificationsContainer)
         {
@@ -34,6 +20,11 @@
             }
 
             this.notificationsContainer = notificationsContainer;
+            
+        }
+
+        public void Initialize()
+        {
             this.notificationsContainer.EnsureExist(true);
         }
 
@@ -73,5 +64,7 @@
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

@@ -6,11 +6,6 @@
 
     public static class Message
     {
-        public static CheckConditionWithAcceptCallback<TMessage> OfType<TMessage>() where TMessage : AzureQueueMessage
-        {
-            return OfType<TMessage>(new AzureQueue<TMessage>(CloudStorageAccount.FromConfigurationSetting("DataConnectionString")));
-        }
-
         public static CheckConditionWithAcceptCallback<TMessage> OfType<TMessage>(CloudStorageAccount account, string queueName) where TMessage : AzureQueueMessage
         {
             return OfType<TMessage>(new AzureQueue<TMessage>(account, queueName));

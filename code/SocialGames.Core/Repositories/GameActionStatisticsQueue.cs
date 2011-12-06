@@ -5,22 +5,13 @@
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.WindowsAzure;
+    using Microsoft.Samples.SocialGames.Common;
 
-    public class GameActionStatisticsQueue : IGameActionStatisticsQueue
+    public class GameActionStatisticsQueue : IGameActionStatisticsQueue, IInitializer
     {
-        private readonly IAzureQueue<GameActionMessage> gameActionStatisticGameQueue;
+        private readonly IAzureQueue<GameActionStatisticsMessage> gameActionStatisticGameQueue;
 
-        public GameActionStatisticsQueue()
-            : this(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"))
-        { 
-        }
-
-        public GameActionStatisticsQueue(CloudStorageAccount account)
-            : this(new AzureQueue<GameActionMessage>(account, ConfigurationConstants.GameActionStatisticsQueue))
-        { 
-        }
-
-        public GameActionStatisticsQueue(IAzureQueue<GameActionMessage> gameActionStatisticsQueue)
+        public GameActionStatisticsQueue(IAzureQueue<GameActionStatisticsMessage> gameActionStatisticsQueue)
         {
             if (gameActionStatisticsQueue == null)
             {
@@ -28,7 +19,7 @@
             }
 
             this.gameActionStatisticGameQueue = gameActionStatisticsQueue;
-            this.gameActionStatisticGameQueue.EnsureExist();
+            
         }
 
         public void Add(GameAction gameAction)
@@ -38,9 +29,14 @@
                 throw new ArgumentException("gameAction");
             }
 
-            GameActionMessage message = new GameActionMessage() { GameAction = gameAction };
+            GameActionStatisticsMessage message = new GameActionStatisticsMessage() { GameAction = gameAction };
 
             this.gameActionStatisticGameQueue.AddMessage(message);
         }
-   }
+
+        public void Initialize()
+        {
+            this.gameActionStatisticGameQueue.EnsureExist();
+        }
+    }
 }

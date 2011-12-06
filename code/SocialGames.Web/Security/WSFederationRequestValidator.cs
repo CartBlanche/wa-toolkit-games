@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Security
+﻿namespace Microsoft.Samples.SocialGames.Web.Security
 {
     using System;
     using System.Web;

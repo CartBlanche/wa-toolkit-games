@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Services
+﻿namespace Microsoft.Samples.SocialGames.Web.Services
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@
     using System.Web.Mvc;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.GamePlay.Extensions;
+    using Microsoft.Samples.SocialGames.Web.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.WindowsAzure;
 
@@ -17,16 +17,6 @@
     {
         private IGameActionNotificationQueue notificationQueue;
         private IGameActionStatisticsQueue statisticsQueue;
-
-        public EventService()
-            : this(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"))
-        {
-        }
-
-        public EventService(CloudStorageAccount account)
-            : this(new GameActionNotificationQueue(account), new GameActionStatisticsQueue(account), new HttpContextUserProvider())
-        {
-        }
 
         public EventService(IGameActionNotificationQueue notificationQueue, IGameActionStatisticsQueue statisticsQueue, IUserProvider userProvider)
             : base(userProvider)

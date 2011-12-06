@@ -58,6 +58,7 @@
  
             var request = new HttpRequestMessage();
             request.Content = new StringContent("type=2&commandData[param1]=one&commandData[param2]=two");
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var response = service.PostEvent("notifications", request);
 
@@ -79,6 +80,7 @@
 
             var request = new HttpRequestMessage();
             request.Content = new StringContent("type=2&commandData[param1]=one&commandData[param2]=two");
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var response = service.PostEvent("statistics", request);
 
@@ -100,11 +102,12 @@
 
             var request = new HttpRequestMessage();
             request.Content = new StringContent("type=2&commandData[param1]=one&commandData[param2]=two");
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var response = service.PostEvent("any", request);
 
             Assert.IsNotNull(response);
-            Assert.AreEqual("Invalid topic parameter", response.Content.ReadAsString());
+            Assert.AreEqual("Invalid topic parameter", response.Content.ReadAsStringAsync().Result);
         }
 
         [TestMethod]
@@ -114,11 +117,12 @@
 
             var request = new HttpRequestMessage();
             request.Content = new StringContent("type=Shot&commandData[param1]=one&commandData[param2]=two");
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var response = service.PostEvent("any", request);
 
             Assert.IsNotNull(response);
-            Assert.AreEqual("Invalid type parameter", response.Content.ReadAsString());
+            Assert.AreEqual("Invalid type parameter", response.Content.ReadAsStringAsync().Result);
         }
 
         private EventService CreateEventService()

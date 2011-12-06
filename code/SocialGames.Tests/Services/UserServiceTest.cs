@@ -71,7 +71,7 @@
 
             var response = userService.Verify(request);
 
-            Assert.AreEqual(userId, response.Content.ReadAsString());
+            Assert.AreEqual(userId, response.Content.ReadAsStringAsync().Result);
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@
             var response = userService.Verify(request);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.AreEqual("The user is not authenticated", response.Content.ReadAsString());
+            Assert.AreEqual("The user is not authenticated", response.Content.ReadAsStringAsync().Result);
         }
 
         [TestMethod]
@@ -104,10 +104,9 @@
             var parametersTemplate = "displayName={0}";
             var parameters = string.Format(CultureInfo.InvariantCulture, parametersTemplate, newName);
             
-            var request = new HttpRequestMessage
-            {
-                Content = new StringContent(parameters)
-            };
+            var request = new HttpRequestMessage();
+            request.Content = new StringContent(parameters);
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
             
             userService.UpdateProfile(request);
             user = userRepository.GetUser(userId);
@@ -122,12 +121,14 @@
             var userRepository = this.CreateUserRepository();
             var statisticsProvider = this.CreateStatisticsRepository();
             var userService = this.CreateUserService(userRepository, statisticsProvider, "invalid-user");
-            var request = new HttpRequestMessage { Content = new StringContent("displayName=john") };
+            var request = new HttpRequestMessage();
+            request.Content = new StringContent("displayName=john");
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var response = userService.UpdateProfile(request);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.AreEqual("User does not exist", response.Content.ReadAsString());
+            Assert.AreEqual("User does not exist", response.Content.ReadAsStringAsync().Result);
         }
 
         [TestMethod]
@@ -143,6 +144,7 @@
             userRepository.AddOrUpdateUser(user);
 
             var request = new HttpRequestMessage { Content = new StringContent("displayName=") };
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             userService.UpdateProfile(request);
             user = userRepository.GetUser(userId);
@@ -163,7 +165,9 @@
             var user = new UserProfile { Id = userId, DisplayName = userName };
             userRepository.AddOrUpdateUser(user);
 
-            var request = new HttpRequestMessage { Content = new StringContent(string.Empty) };
+            var request = new HttpRequestMessage();
+            request.Content = new StringContent(string.Empty);
+            request.Content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             userService.UpdateProfile(request);
             user = userRepository.GetUser(userId);
@@ -187,7 +191,7 @@
 
                 var response = userService.Leaderboard(10);
                 var serializer = new JavaScriptSerializer();
-                var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsString());
+                var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsStringAsync().Result);
 
                 Assert.AreEqual(3, boards.Count());
 
@@ -213,7 +217,7 @@
 
                 var response = userService.LeaderboardWithFocus(userId, 2);
                 var serializer = new JavaScriptSerializer();
-                var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsString());
+                var boards = serializer.Deserialize<Board[]>(response.Content.ReadAsStringAsync().Result);
 
                 Assert.AreEqual(3, boards.Count());
 
@@ -236,7 +240,7 @@
 
             var response = userService.GetFriends();
             var serializer = new JavaScriptSerializer();
-            var friends = serializer.Deserialize<string[]>(response.Content.ReadAsString());
+            var friends = serializer.Deserialize<string[]>(response.Content.ReadAsStringAsync().Result);
 
             Assert.IsNotNull(friends);
             Assert.AreEqual(0, friends.Count());
@@ -259,7 +263,7 @@
 
             var response = userService.GetFriends();
             var serializer = new JavaScriptSerializer();
-            var friends = serializer.Deserialize<string[]>(response.Content.ReadAsString());
+            var friends = serializer.Deserialize<string[]>(response.Content.ReadAsStringAsync().Result);
 
             Assert.IsNotNull(friends);
             Assert.AreEqual(2, friends.Count());
@@ -284,7 +288,7 @@
 
             var response = userService.GetFriendsInfo();
             var serializer = new JavaScriptSerializer();
-            var friends = serializer.Deserialize<UserInfo[]>(response.Content.ReadAsString());
+            var friends = serializer.Deserialize<UserInfo[]>(response.Content.ReadAsStringAsync().Result);
 
             Assert.IsNotNull(friends);
             Assert.AreEqual(2, friends.Count());
@@ -316,7 +320,7 @@
 
             var response = userService.GetFriendsInfo();
             var serializer = new JavaScriptSerializer();
-            var friends = serializer.Deserialize<UserInfo[]>(response.Content.ReadAsString());
+            var friends = serializer.Deserialize<UserInfo[]>(response.Content.ReadAsStringAsync().Result);
 
             Assert.IsNotNull(friends);
             Assert.AreEqual(2, friends.Count());

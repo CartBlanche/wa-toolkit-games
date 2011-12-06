@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Services
+﻿namespace Microsoft.Samples.SocialGames.Web.Services
 {
     using System;
     using System.Collections.Generic;
@@ -9,18 +9,13 @@
     using System.Web.Mvc;
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.GamePlay.Extensions;
+    using Microsoft.Samples.SocialGames.Web.Extensions;
     using Microsoft.Samples.SocialGames.Repositories;
 
     public class GameService : ServiceBase, IGameService
     {
         private readonly IGameRepository gameRepository;
         private readonly IUserRepository userRepository;
-
-        public GameService()
-            : this(new GameRepository(), new UserRepository(), new HttpContextUserProvider())
-        { 
-        }
 
         public GameService(IGameRepository gameRepository, IUserRepository userRepository, IUserProvider userProvider)
             : base(userProvider)

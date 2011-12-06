@@ -82,6 +82,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.4.2.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files\Windows Azure SDK\v1.4\ref\Microsoft.WindowsAzure.ServiceRuntime.dll</HintPath>
@@ -150,8 +153,9 @@
     <Compile Include="Helpers\CollectionHaveSameElementsComparison.cs" />
     <Compile Include="Helpers\DictionaryHaveSameElementsComparison.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\GameActionMessage.cs" />
+    <Compile Include="Repositories\GameActionNotificationMessage.cs" />
     <Compile Include="Repositories\GameActionNotificationQueue.cs" />
+    <Compile Include="Repositories\GameActionStatisticsMessage.cs" />
     <Compile Include="Repositories\GameActionStatisticsQueue.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Repositories\IdentityProviderRepository.cs" />
@@ -159,6 +163,7 @@
     <Compile Include="Repositories\IGameActionStatisticsQueue.cs" />
     <Compile Include="Repositories\IGameRepository.cs" />
     <Compile Include="Repositories\IIdentityProviderRepository.cs" />
+    <Compile Include="Repositories\IInitializer.cs" />
     <Compile Include="Repositories\InviteMessage.cs" />
     <Compile Include="Repositories\IStatisticsRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Samples.SocialGames.GamePlay.Services
+﻿namespace Microsoft.Samples.SocialGames.Web.Services
 {
     using System;
     using System.Configuration;
@@ -15,8 +15,8 @@
         private readonly IIdentityProviderRepository identityProviderRepository;
         private readonly HttpContextBase context;
 
-        public AuthService()
-            : this(new HttpContextWrapper(HttpContext.Current), new IdentityProviderRepository())
+        public AuthService(IIdentityProviderRepository identityProviderRepository)
+            : this(new HttpContextWrapper(HttpContext.Current), identityProviderRepository)
         {
         }
 

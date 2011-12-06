@@ -9,11 +9,6 @@
     {
         private INotificationRepository notificationRepository;
 
-        public GameActionNotificationCommand()
-            : this(new NotificationRepository())
-        {
-        }
-
         public GameActionNotificationCommand(INotificationRepository notificationRepository)
         {
             this.notificationRepository = notificationRepository;

@@ -7,8 +7,9 @@
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
     using Microsoft.WindowsAzure;
+    using Microsoft.Samples.SocialGames.Common;
 
-    public class GameRepository : IGameRepository
+    public class GameRepository : IGameRepository, IInitializer
     {
         private readonly IAzureQueue<SkirmishGameQueueMessage> skirmishGameQueue;
         private readonly IAzureQueue<LeaveGameMessage> leaveGameQueue;
@@ -16,21 +17,6 @@
         private readonly IAzureBlobContainer<GameQueue> gameQueueContainer;
         private readonly IAzureBlobContainer<UserProfile> userContainer;
         private readonly IAzureQueue<InviteMessage> inviteQueue;
-
-        public GameRepository()
-            : this(CloudStorageAccount.FromConfigurationSetting("DataConnectionString"))
-        {
-        }
-
-        public GameRepository(CloudStorageAccount account)
-            : this(account, ConfigurationConstants.GamesContainerName, ConfigurationConstants.GamesQueuesContainerName, ConfigurationConstants.UsersContainerName, ConfigurationConstants.InvitesQueue, ConfigurationConstants.SkirmishGameQueue, ConfigurationConstants.LeaveGameQueue)
-        {
-        }
-
-        public GameRepository(CloudStorageAccount account, string gamesContainerName, string gamesQueueContainerName, string usersContainerName, string inviteQueueName, string skirmishGameQueueName, string leaveGameQueueName)
-            : this(new AzureBlobContainer<Game>(account, gamesContainerName, true), new AzureBlobContainer<GameQueue>(account, gamesQueueContainerName, true), new AzureQueue<SkirmishGameQueueMessage>(account, skirmishGameQueueName), new AzureQueue<LeaveGameMessage>(account, leaveGameQueueName), new AzureBlobContainer<UserProfile>(account, usersContainerName, true), new AzureQueue<InviteMessage>(account, inviteQueueName))
-        {
-        }
 
         public GameRepository(IAzureBlobContainer<Game> gameContainer, IAzureBlobContainer<GameQueue> gameQueueContainer, IAzureQueue<SkirmishGameQueueMessage> skirmishGameMessageQueue, IAzureQueue<LeaveGameMessage> leaveGameMessageQueue, IAzureBlobContainer<UserProfile> userContainer, IAzureQueue<InviteMessage> inviteQueue)
         {
@@ -72,14 +58,14 @@
             this.inviteQueue = inviteQueue;
         }
 
-        public void EnsureExist()
+        public void Initialize()
         {
-            this.gameContainer.EnsureExist(true);
-            this.gameQueueContainer.EnsureExist(true);
-            this.userContainer.EnsureExist(true);
-            this.inviteQueue.EnsureExist();
             this.skirmishGameQueue.EnsureExist();
             this.leaveGameQueue.EnsureExist();
+            this.gameContainer.EnsureExist(true);
+            this.gameQueueContainer.EnsureExist();
+            this.userContainer.EnsureExist(true);
+            this.inviteQueue.EnsureExist();
         }
 
         public void AddUserToGameQueue(string userId, GameType gameType)

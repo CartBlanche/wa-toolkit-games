@@ -30,11 +30,11 @@
     <Property name="Platform" value="AnyCPU" />
     <Property name="SourceDir" value="" />
     <Property name="SitePhysicalPath" value="" />
-    <Property name="OutputDir" value="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\obj\Debug\SocialGames.Worker\" />
+    <Property name="OutputDir" value="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\obj\Debug\SocialGames.Worker\" />
     <Property name="EntryPoint" value="Microsoft.Samples.SocialGames.Worker.dll" />
     <Property name="RoleTargetFramework" value="v4.0" />
-    <Property name="OriginalItemSpec" value="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\SocialGames.Cloud.ccproj" />
-    <Property name="MSBuildSourceProjectFile" value="C:\Data\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\SocialGames.Cloud.ccproj" />
+    <Property name="OriginalItemSpec" value="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\SocialGames.Cloud.ccproj" />
+    <Property name="MSBuildSourceProjectFile" value="C:\Github\microsoft-dpe\wa-toolkit-games\code\SocialGames.Cloud\SocialGames.Cloud.ccproj" />
     <Property name="MSBuildSourceTargetName" value="ResolveSingleWorkerRoleReference" />
     <Property name="TargetFrameworkVersion" value="v4.0" />
     <Property name="TargetRuntimeVersion" value="v4.0" />

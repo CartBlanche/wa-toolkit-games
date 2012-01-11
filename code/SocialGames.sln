@@ -8,13 +8,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SocialGames.Cloud", "SocialGames.Cloud\SocialGames.Cloud.ccproj", "{B665774F-FCA2-448B-88D7-673BDF694EAF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{4F9F2F9E-5C83-4BAA-A737-DF13FA65876F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialGames.Web", "SocialGames.Web\SocialGames.Web.csproj", "{AC2B07B3-8E93-4CB3-82CB-2129C3AB9AE2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialGames.Core", "SocialGames.Core\SocialGames.Core.csproj", "{2E79855F-7ABE-443E-A94E-85B9B12DA44F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialGames.Worker", "SocialGames.Worker\SocialGames.Worker.csproj", "{687AFA5D-E5D7-4672-AD04-20AD35403E18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A8DDACC9-EC67-4A31-835D-76D5BDFF9206}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,8 +73,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{B665774F-FCA2-448B-88D7-673BDF694EAF} = {4F9F2F9E-5C83-4BAA-A737-DF13FA65876F}
 	EndGlobalSection
 EndGlobal

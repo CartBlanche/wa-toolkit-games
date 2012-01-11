@@ -1,0 +1,1327 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="C:\ECF\Tools\resources\Logging\Log.xsl"?>
+<Log Version="2.2010.6.2" FileVersion="2.2010.12.24">
+  <Entry>
+    <Date>2011-12-07 20:17:42.301</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>EXECUTING CMDLET Copy-Sample
+	-SampleManifestFile	D:\Github\microsoft-dpe\wa-toolkit-games\Sample.xml
+	-OutputDirectory	D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp
+	-Excludes	.git obj bin csx build</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.308</Date>
+    <Level>Information</Level>
+    <Indent>1</Indent>
+    <Message>Copying sample to working directory...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.732</Date>
+    <Level>Information</Level>
+    <Indent>1</Indent>
+    <Message>Copying assets to working directory...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.736</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>FINISHED EXECUTING CMDLET Copy-Sample (Execution time: 00:00:00.4320432)</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.746</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>EXECUTING CMDLET Remove-SourceControlBindings
+	-ProcessDirectory	D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.857</Date>
+    <Level>Debug</Level>
+    <Indent>1</Indent>
+    <Message>Cleaning bindings from project D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\code\SocialGames.Cloud\SocialGames.Cloud.ccproj</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.862</Date>
+    <Level>Debug</Level>
+    <Indent>1</Indent>
+    <Message>Cleaning bindings from project D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\code\SocialGames.Core\SocialGames.Core.csproj</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.867</Date>
+    <Level>Debug</Level>
+    <Indent>1</Indent>
+    <Message>Cleaning bindings from project D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\code\SocialGames.Tests\SocialGames.Tests.csproj</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.872</Date>
+    <Level>Debug</Level>
+    <Indent>1</Indent>
+    <Message>Cleaning bindings from project D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\code\SocialGames.Web\SocialGames.Web.csproj</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.878</Date>
+    <Level>Debug</Level>
+    <Indent>1</Indent>
+    <Message>Cleaning bindings from project D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\code\SocialGames.Worker\SocialGames.Worker.csproj</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.883</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>FINISHED EXECUTING CMDLET Remove-SourceControlBindings (Execution time: 00:00:00.1350135)</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:42.889</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>EXECUTING CMDLET Add-Headers
+	-CopyrightFile	D:\Github\microsoft-dpe\wa-toolkit-games\build\Resources\Copyright.txt
+	-FilesPath	D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:43.075</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>FINISHED EXECUTING CMDLET Add-Headers (Execution time: 00:00:00.1830183)</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:43.081</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>EXECUTING CMDLET Review-Document
+	-SampleXmlFile	D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\Sample.xml
+	-SkipCover	False
+	-Rules	System.String[]
+	-StopOnWarning	False</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:44.295</Date>
+    <Level>Information</Level>
+    <Indent>1</Indent>
+    <Message>Reviewing document D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.docx...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:46.973</Date>
+    <Level>Debug</Level>
+    <Indent>1</Indent>
+    <Message>Document OK!</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.105</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>FINISHED EXECUTING CMDLET Review-Document (Execution time: 00:00:07.0195155)</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.114</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>EXECUTING CMDLET Create-SampleNavigationSite
+	-SampleManifestsFile	D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\Sample.xml
+	-TemplatesDirectory	D:\Github\microsoft-dpe\wa-toolkit-games\build\Resources\Template
+	-XsltPath	D:\Github\microsoft-dpe\wa-toolkit-games\build\Resources\HtmlConversion\xsl
+	-OutputFolder	D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp
+	-IncludeTemplates	*.include.t4 *.include.tt</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.122</Date>
+    <Level>Debug</Level>
+    <Indent>1</Indent>
+    <Message>Converting document to HTML in output folder D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.129</Date>
+    <Level>Debug</Level>
+    <Indent>2</Indent>
+    <Message>Creating output path D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.132</Date>
+    <Level>Debug</Level>
+    <Indent>2</Indent>
+    <Message>Creating HTML output path D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.135</Date>
+    <Level>Debug</Level>
+    <Indent>2</Indent>
+    <Message>Copying ..\local folder to path D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.144</Date>
+    <Level>Debug</Level>
+    <Indent>2</Indent>
+    <Message>XSL Transformation file: D:\Github\microsoft-dpe\wa-toolkit-games\build\Resources\HtmlConversion\xsl\Domain.xsl</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.147</Date>
+    <Level>Information</Level>
+    <Indent>2</Indent>
+    <Message>--Splitting: D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.docx</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.151</Date>
+    <Level>Debug</Level>
+    <Indent>3</Indent>
+    <Message>Creating working copy of document D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.docx</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.173</Date>
+    <Level>Debug</Level>
+    <Indent>3</Indent>
+    <Message>Accepting revisions...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.237</Date>
+    <Level>Debug</Level>
+    <Indent>3</Indent>
+    <Message>Deleting comments...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.273</Date>
+    <Level>Debug</Level>
+    <Indent>3</Indent>
+    <Message>Reading Open XML document...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.285</Date>
+    <Level>Debug</Level>
+    <Indent>3</Indent>
+    <Message>Splitting and converting document to XML...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.290</Date>
+    <Level>Debug</Level>
+    <Indent>4</Indent>
+    <Message>Found 4 topic nodes.</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.294</Date>
+    <Level>Debug</Level>
+    <Indent>4</Indent>
+    <Message>Converting default topic Overview</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.298</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Writing document header...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.329</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId11, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.349</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image1.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\5190dc53-408a-40a8-8dc6-8d41120c0ccf.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.358</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\5190dc53-408a-40a8-8dc6-8d41120c0ccf.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.388</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Building topic bookmarks map...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.403</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848059 to topic 7f3b2875-8f0f-4219-a934-5503e3d0fa97</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.406</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc288126532 to topic 7f3b2875-8f0f-4219-a934-5503e3d0fa97</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.409</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc290300726 to topic 7f3b2875-8f0f-4219-a934-5503e3d0fa97</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.412</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848060 to topic 88cf6f6a-1a47-4382-8ebb-f5b56d0b1fa1</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.415</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848061 to topic 88cf6f6a-1a47-4382-8ebb-f5b56d0b1fa1</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.418</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _GoBack to topic 88cf6f6a-1a47-4382-8ebb-f5b56d0b1fa1</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.421</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848062 to topic 88cf6f6a-1a47-4382-8ebb-f5b56d0b1fa1</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.424</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848063 to topic 53d12bb1-518b-4258-9b7f-ce310f29e3fc</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.427</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848064 to topic 53d12bb1-518b-4258-9b7f-ce310f29e3fc</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.430</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848065 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.433</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc306882747 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.436</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc289858808 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.439</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc306882748 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.442</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc306882743 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.445</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848066 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.449</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848067 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.453</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc306882749 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.461</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Added bookmark _Toc307848068 to topic 6ab46434-c064-4884-acff-b47c94c46b6a</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.475</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 7f3b2875-8f0f-4219-a934-5503e3d0fa97.html#_Toc307848059...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.480</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 88cf6f6a-1a47-4382-8ebb-f5b56d0b1fa1.html#_Toc307848060...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.485</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 88cf6f6a-1a47-4382-8ebb-f5b56d0b1fa1.html#_Toc307848061...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.491</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 88cf6f6a-1a47-4382-8ebb-f5b56d0b1fa1.html#_Toc307848062...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.496</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 53d12bb1-518b-4258-9b7f-ce310f29e3fc.html#_Toc307848063...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.501</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 53d12bb1-518b-4258-9b7f-ce310f29e3fc.html#_Toc307848064...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.507</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 6ab46434-c064-4884-acff-b47c94c46b6a.html#_Toc307848065...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.512</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 6ab46434-c064-4884-acff-b47c94c46b6a.html#_Toc307848066...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.517</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 6ab46434-c064-4884-acff-b47c94c46b6a.html#_Toc307848067...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.522</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink 6ab46434-c064-4884-acff-b47c94c46b6a.html#_Toc307848068...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.528</Date>
+    <Level>Debug</Level>
+    <Indent>4</Indent>
+    <Message>Converting topic Overview</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.531</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Writing document header...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.550</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://www.microsoft.com/express/Web/...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.564</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://go.microsoft.com/fwlink/?linkid=186916...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.583</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://go.microsoft.com/fwlink/?LinkID=128752...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.596</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://www.microsoft.com/express/Database/InstallOptions.aspx...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.609</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://www.microsoft.com/download/en/details.aspx?id=4451...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.622</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://go.microsoft.com/fwlink/?LinkId=177670...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.648</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://go.microsoft.com/fwlink/?LinkID=207018...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.662</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://go.microsoft.com/fwlink/?LinkID=130354...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.674</Date>
+    <Level>Debug</Level>
+    <Indent>4</Indent>
+    <Message>Converting topic Get Started</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.677</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Writing document header...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.706</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId20, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.726</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image2.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\2f3f12d3-ecd5-4cfa-ad78-6160e85bb1ab.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.772</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\2f3f12d3-ecd5-4cfa-ad78-6160e85bb1ab.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.807</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId21, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.824</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image3.PNG -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\f569208e-ba16-4e74-80ae-ec07289d502b.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.854</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\f569208e-ba16-4e74-80ae-ec07289d502b.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.876</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId22, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.893</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image4.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\da46a668-16cf-4d3d-af93-953cacaabb39.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.908</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\da46a668-16cf-4d3d-af93-953cacaabb39.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.940</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId23, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.962</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image5.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\d7707a0f-83ef-48f9-bc9b-096863590a55.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:50.978</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\d7707a0f-83ef-48f9-bc9b-096863590a55.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.010</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId24, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.029</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image6.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\243f12f8-4373-48bd-b3fe-3499cd8bca33.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.076</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\243f12f8-4373-48bd-b3fe-3499cd8bca33.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.115</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId25, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.132</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image7.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\5d070913-80cf-484b-ad66-7a8d63885563.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.143</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\5d070913-80cf-484b-ad66-7a8d63885563.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.166</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://127.0.0.1:81/...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.183</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId27, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.207</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image8.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\df1752ed-8ac8-4499-b5a7-d812eddf1c2e.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.240</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\df1752ed-8ac8-4499-b5a7-d812eddf1c2e.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.271</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId28, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.288</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image9.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\67451334-a426-4d7f-84ab-28af85c32031.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.320</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\67451334-a426-4d7f-84ab-28af85c32031.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.354</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId29, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.373</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image10.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\ad93304d-84fb-4ae9-ac8f-82b45af4fb8c.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.406</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\ad93304d-84fb-4ae9-ac8f-82b45af4fb8c.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.441</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId30, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.458</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image11.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\619ea087-3cfb-4a5b-bcfc-d3fa1dbf977d.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.493</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\619ea087-3cfb-4a5b-bcfc-d3fa1dbf977d.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.518</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId31, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.539</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image12.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\86bd38af-ff2a-49c4-a71b-bfe062841222.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.600</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\86bd38af-ff2a-49c4-a71b-bfe062841222.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.634</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId32, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.651</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image13.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\4faabccc-1ccd-4c81-808d-ca99438324d6.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.683</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\4faabccc-1ccd-4c81-808d-ca99438324d6.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.709</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId33, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.726</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image14.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\e8adf58c-bf84-45fe-9627-5ab4693124cf.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.761</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\e8adf58c-bf84-45fe-9627-5ab4693124cf.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.795</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId34, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.813</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image15.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\2c20469f-9536-41da-bcdd-9687f84cc836.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.848</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\2c20469f-9536-41da-bcdd-9687f84cc836.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.873</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId35, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.893</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image16.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\60121d49-4c9f-4be5-a22a-630984022ff8.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.964</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\60121d49-4c9f-4be5-a22a-630984022ff8.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:51.989</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId36, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.006</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image17.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\e4daabb3-8fcb-4550-b856-e7a117442e6e.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.071</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\e4daabb3-8fcb-4550-b856-e7a117442e6e.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.098</Date>
+    <Level>Debug</Level>
+    <Indent>4</Indent>
+    <Message>Converting topic The Solution</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.102</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Writing document header...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.113</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId37, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.130</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image18.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\0e3b5d3f-b708-4956-85cb-3f77af99103b.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.189</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\0e3b5d3f-b708-4956-85cb-3f77af99103b.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.245</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId25, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.265</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image7.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\4b261ad6-22fd-4651-9633-4511202eae15.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.277</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\4b261ad6-22fd-4651-9633-4511202eae15.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.299</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId38, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.316</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image19.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\97044ed6-6775-44f2-b5a1-a3c41113fe90.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.331</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\97044ed6-6775-44f2-b5a1-a3c41113fe90.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.377</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId39, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.394</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image20.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\13e23889-7698-40f8-abbc-2c5d763cf0a2.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.403</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\13e23889-7698-40f8-abbc-2c5d763cf0a2.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.410</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId40, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.429</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image21.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\ac944c1a-57d4-4a1f-9e2e-ac3734d35bb3.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.439</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\ac944c1a-57d4-4a1f-9e2e-ac3734d35bb3.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.480</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId41, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.497</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image22.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\2e64a910-c9e7-4d5c-83ce-3c753fbbf390.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.505</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\2e64a910-c9e7-4d5c-83ce-3c753fbbf390.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.512</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId42, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.531</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image23.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\57b54d7b-3a86-4573-a46c-dd9cd3376658.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.542</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\57b54d7b-3a86-4573-a46c-dd9cd3376658.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.560</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId43, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.579</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image24.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\5d7122b2-fd84-44d8-808c-06ae1e07b848.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.634</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\5d7122b2-fd84-44d8-808c-06ae1e07b848.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.657</Date>
+    <Level>Debug</Level>
+    <Indent>4</Indent>
+    <Message>Converting topic Deployment</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.661</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Writing document header...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.757</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://wappowershell.codeplex.com/...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.764</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink #deploy...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.780</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://windows.azure.com/...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.804</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId47, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.822</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image25.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\c19bdace-4db3-4911-95b1-0efe9b1ca2d2.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.865</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\c19bdace-4db3-4911-95b1-0efe9b1ca2d2.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.890</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId48, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.912</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image26.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\293f4ced-a9b5-4f52-a0b0-ea42e84ed06d.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.953</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\293f4ced-a9b5-4f52-a0b0-ea42e84ed06d.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.978</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId49, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:52.995</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image27.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\022789dc-deb2-4a5d-a83a-0dc0a775189d.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.021</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\022789dc-deb2-4a5d-a83a-0dc0a775189d.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.061</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId50, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.079</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image28.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\0b98abbc-b412-497d-906e-24159e0b753b.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.114</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\0b98abbc-b412-497d-906e-24159e0b753b.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.139</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId51, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.159</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image29.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\6970abae-b1cd-4440-b85d-72538786ebb4.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.197</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\6970abae-b1cd-4440-b85d-72538786ebb4.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.223</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId52, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.240</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image30.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\5330c19f-db51-457e-b517-fa3ba32324f4.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.273</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\5330c19f-db51-457e-b517-fa3ba32324f4.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.299</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId53, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.317</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image31.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\981070e5-73fb-4a99-8f85-bfa9644e3541.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.356</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\981070e5-73fb-4a99-8f85-bfa9644e3541.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.381</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId54, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.400</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image32.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\700bb479-636e-4ba5-a8f2-efc14c4c8b0c.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.437</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\700bb479-636e-4ba5-a8f2-efc14c4c8b0c.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.477</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId55, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.495</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image33.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\38b24571-f6b8-4e07-95bd-aa93984489fa.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.507</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\38b24571-f6b8-4e07-95bd-aa93984489fa.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.607</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId56, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.626</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image34.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\9f52effb-792b-4fb7-8b07-0ef161b1111a.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.643</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\9f52effb-792b-4fb7-8b07-0ef161b1111a.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.731</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://msdn.microsoft.com/en-us/library/gg185919.aspx...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.785</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://msdn.microsoft.com/en-us/library/gg185919.aspx...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.796</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId59, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.815</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image35.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\b5b420f3-74e5-49f9-9192-a4b514579d14.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.838</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\b5b420f3-74e5-49f9-9192-a4b514579d14.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.925</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId60, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.944</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image36.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\0729cd16-51fc-459b-bcdb-05a34367058b.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:53.961</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\0729cd16-51fc-459b-bcdb-05a34367058b.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.042</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId61, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.063</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image37.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\2392b435-42b4-4517-bb3e-a5fbc05bad82.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.078</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\2392b435-42b4-4517-bb3e-a5fbc05bad82.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.096</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://wappowershell.codeplex.com/...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.121</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Converting hyperlink http://windows.azure.com/...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.137</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId64, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.155</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image38.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\75d9a6ca-68e5-43a4-907e-53061033ba65.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.174</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\75d9a6ca-68e5-43a4-907e-53061033ba65.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.206</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Resolving image: embed rId65, link ...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.225</Date>
+    <Level>Information</Level>
+    <Indent>5</Indent>
+    <Message>Extracting embedded image image39.png -&gt; D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\docs\Readme.html\html\images\fb14491d-e990-43ad-b91b-68393896872a.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.274</Date>
+    <Level>Debug</Level>
+    <Indent>5</Indent>
+    <Message>Image URL: images\fb14491d-e990-43ad-b91b-68393896872a.png</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.317</Date>
+    <Level>Debug</Level>
+    <Indent>3</Indent>
+    <Message>Replacing document with working copy...</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.325</Date>
+    <Level>Debug</Level>
+    <Indent>2</Indent>
+    <Message>Tranforming 5 ECF XML documents</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.331</Date>
+    <Level>Information</Level>
+    <Indent>3</Indent>
+    <Message>--Topic: default - Index</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.503</Date>
+    <Level>Information</Level>
+    <Indent>3</Indent>
+    <Message>--Topic: 7f3b2875-8f0f-4219-a934-5503e3d0fa97 - Overview</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.621</Date>
+    <Level>Information</Level>
+    <Indent>3</Indent>
+    <Message>--Topic: 88cf6f6a-1a47-4382-8ebb-f5b56d0b1fa1 - Get Started</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.777</Date>
+    <Level>Information</Level>
+    <Indent>3</Indent>
+    <Message>--Topic: 53d12bb1-518b-4258-9b7f-ce310f29e3fc - The Solution</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:54.925</Date>
+    <Level>Information</Level>
+    <Indent>3</Indent>
+    <Message>--Topic: 6ab46434-c064-4884-acff-b47c94c46b6a - Deployment</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:55.388</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>FINISHED EXECUTING CMDLET Create-SampleNavigationSite (Execution time: 00:00:05.2714728)</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:55.442</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>EXECUTING CMDLET Create-SelfExtract
+	-Name	WATGames.Setup.exe
+	-Input	D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\Sample.xml
+	-OutputFolder	D:\Github\microsoft-dpe\wa-toolkit-games\build\Output
+	-LicenseAgreementFile	D:\Github\microsoft-dpe\wa-toolkit-games\build\Resources\LicenseAgreement.txt
+	-ImageFile	D:\Github\microsoft-dpe\wa-toolkit-games\build\Resources\vertical.bmp
+	-ExcludeFiles	D:\Github\microsoft-dpe\wa-toolkit-games\build\Resources\Exclude.txt</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:55.449</Date>
+    <Level>Information</Level>
+    <Indent>1</Indent>
+    <Message>Validating ECF metadata: D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\Sample.xml</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:17:55.460</Date>
+    <Level>Information</Level>
+    <Indent>1</Indent>
+    <Message>Validating metadata file: D:\Github\microsoft-dpe\wa-toolkit-games\build\Output\temp\WindowsAzure\WATGames\Sample.xml</Message>
+  </Entry>
+  <Entry>
+    <Date>2011-12-07 20:18:01.555</Date>
+    <Level>Debug</Level>
+    <Indent>0</Indent>
+    <Message>FINISHED EXECUTING CMDLET Create-SelfExtract (Execution time: 00:00:06.1063893)</Message>
+  </Entry>
+</Log>

@@ -60,7 +60,7 @@
             this.skirmishGameQueue.EnsureExist();
             this.leaveGameQueue.EnsureExist();
             this.gameContainer.EnsureExist(true);
-            this.gameQueueContainer.EnsureExist();
+            this.gameQueueContainer.EnsureExist(true);
             this.userContainer.EnsureExist(true);
             this.inviteQueue.EnsureExist();
         }

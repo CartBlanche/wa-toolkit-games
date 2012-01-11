@@ -1,1 +1,0 @@
-.\Resources\PackageSample.cmd "..\Sample.xml" ".\Output" "Zip" ".\Resources\Template"

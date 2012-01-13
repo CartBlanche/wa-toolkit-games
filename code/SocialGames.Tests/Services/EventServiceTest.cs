@@ -8,7 +8,7 @@
     using System.Net.Http;
     using System.Text;
     using Microsoft.Samples.SocialGames.Common.Storage;
-    using Microsoft.Samples.SocialGames.GamePlay.Services;
+    using Microsoft.Samples.SocialGames.Web.Services;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Tests.Mocks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,8 +19,8 @@
     public class EventServiceTest
     {
         private int suffix;
-        private IAzureQueue<GameActionMessage> notificationsQueue;
-        private IAzureQueue<GameActionMessage> statisticsQueue;
+        private AzureQueue<GameActionNotificationMessage> notificationsQueue;
+        private AzureQueue<GameActionStatisticsMessage> statisticsQueue;
 
         [TestInitialize]
         public void Setup()
@@ -128,8 +128,8 @@
         private EventService CreateEventService()
         {
             CloudStorageAccount account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
-            this.notificationsQueue = new AzureQueue<GameActionMessage>(account, ConfigurationConstants.GameActionNotificationsQueue + "test" + this.suffix);
-            this.statisticsQueue = new AzureQueue<GameActionMessage>(account, ConfigurationConstants.GameActionStatisticsQueue + "test" + this.suffix);
+            this.notificationsQueue = new AzureQueue<GameActionNotificationMessage>(account, ConfigurationConstants.GameActionNotificationsQueue + "test" + this.suffix);
+            this.statisticsQueue = new AzureQueue<GameActionStatisticsMessage>(account, ConfigurationConstants.GameActionStatisticsQueue + "test" + this.suffix);
 
             return new EventService(new GameActionNotificationQueue(this.notificationsQueue), new GameActionStatisticsQueue(this.statisticsQueue), new StringUserProvider("test"));
         }

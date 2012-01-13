@@ -12,7 +12,7 @@
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.GamePlay.Services;
+    using Microsoft.Samples.SocialGames.Web.Services;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Tests.Mocks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -228,7 +228,7 @@
                     configSetter("UseDevelopmentStorage=true");
                 }
             });
-            var gameService = new GameService();
+            var gameService = new GameService(null, null, null);
             Assert.IsTrue(wasSetterCalled);
 
             FieldInfo fieldInfo = gameService.GetType().GetField("gameRepository", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -492,7 +492,7 @@
             this.gameQueueContainer.EnsureExist(true);
 
             var repo = new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteMessageQueue);
-            repo.EnsureExist();
+            repo.Initialize();
 
             return repo;
         }
@@ -509,7 +509,7 @@
             this.friendContainer.EnsureExist(true);
 
             var repo = new UserRepository(this.userContainer, this.userSessionContainer, this.friendContainer);
-            repo.EnsureExist();
+            repo.Initialize();
 
             return repo;
         }

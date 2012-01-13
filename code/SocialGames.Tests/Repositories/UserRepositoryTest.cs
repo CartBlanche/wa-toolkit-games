@@ -22,7 +22,10 @@
         [TestMethod]
         public void GetUserReferenceTest()
         {
-            var target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
             var userID = Guid.NewGuid().ToString();
             var userFirstVersion = new UserProfile() { Id = userID, DisplayName = "John" };
             target.AddOrUpdateUser(userFirstVersion);
@@ -39,7 +42,10 @@
         [ExpectedException(typeof(System.Net.WebException))]
         public void GetUserReferenceTimeOutTest()
         {
-            UserRepository target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
             string userID = Guid.NewGuid().ToString();
             UserProfile userFirstVersion = new UserProfile() { Id = userID, DisplayName = "John" };
             target.AddOrUpdateUser(userFirstVersion);
@@ -53,14 +59,20 @@
         [TestMethod]
         public void GetUserTest()
         {
-            UserRepository target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
             Assert.IsNull(target.GetUser(Guid.NewGuid().ToString()));
         }
 
         [TestMethod]
         public void AddOrUpdateUserTest()
         {
-            UserRepository target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
             string userID = Guid.NewGuid().ToString();
             UserProfile userFirstVersion = new UserProfile() { Id = userID, DisplayName = "John" };
             target.AddOrUpdateUser(userFirstVersion);
@@ -77,7 +89,10 @@
         [TestMethod]
         public void AddOrUpdateUserSessionTest()
         {
-            UserRepository target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
             IAzureBlobContainer<UserSession> userSessionContainer = (IAzureBlobContainer<UserSession>)
                 target.GetType().GetField("userSessionContainer", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(target);
 
@@ -96,7 +111,10 @@
         [TestMethod]
         public void FailedAddOrUpdateUserSessionTest()
         {
-            UserRepository target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
 
             UserSession userSessionFirstVersion = new UserSession() { UserId = null, ActiveGameQueueId = Guid.NewGuid() };
             ExceptionAssert.ShouldThrow<ArgumentException>(() => target.AddOrUpdateUserSession(userSessionFirstVersion));
@@ -109,7 +127,10 @@
         [ExpectedException(typeof(ArgumentException))]
         public void AddOrUpdateUserWithEmptyIDTest()
         {
-            UserRepository target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
             target.AddOrUpdateUser(new UserProfile() { Id = string.Empty });
         }
 
@@ -117,7 +138,10 @@
         [ExpectedException(typeof(ArgumentException))]
         public void GetUserWithEmptyIdTest()
         {
-            UserRepository target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
             target.GetUser(string.Empty);
         }
 
@@ -125,50 +149,18 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void AddOrUpdateUserWithNullUserTest()
         {
-            UserRepository target = new UserRepository(CloudStorageAccount.DevelopmentStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var target = new UserRepository(users, sessions, friends);
             target.AddOrUpdateUser(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void UserRepositoryConstructorWithNullAccount()
+        public void UserRepositoryConstructorWithNullParameters()
         {
-            new UserRepository(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void UserRepositoryConstructorWithNullAccountAndContainer()
-        {
-            new UserRepository(null, "userContainer", "userSessionContainer", "friendContainer");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void UserRepositoryConstructorWithNullUserContainerName()
-        {
-            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, null, "userSessionContainer", "friendContainer");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void UserRepositoryConstructorWithNullUserSessionContainerName()
-        {
-            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, "userContainer", null, "friendContainer");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void UserRepositoryConstructorWithEmptyUserContainerName()
-        {
-            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, string.Empty, "userSessionContainer", "friendContainer");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void UserRepositoryConstructorWithEmptyUserSessionContainerName()
-        {
-            new UserRepository(CloudStorageAccount.DevelopmentStorageAccount, "userContainer", string.Empty, "friendContainer");
+            new UserRepository(null, null, null);
         }
 
         [TestMethod]
@@ -198,7 +190,7 @@
                     }
             });
 
-            new UserRepository();
+            new UserRepository(null, null, null);
             Assert.IsTrue(wasSetterCalled);
         }
     }

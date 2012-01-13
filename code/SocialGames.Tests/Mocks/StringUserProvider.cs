@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.Samples.SocialGames.Tests.Mocks
 {
-    using Microsoft.Samples.SocialGames.GamePlay.Services;
+    using Microsoft.Samples.SocialGames.Web.Services;
 
     public class StringUserProvider : IUserProvider
     {

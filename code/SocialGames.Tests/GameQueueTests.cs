@@ -9,6 +9,7 @@
     using Microsoft.Samples.SocialGames.Tests.Repositories;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.WindowsAzure;
+    using Microsoft.Samples.SocialGames.Common.Storage;
 
     [TestClass]
     public class GameQueueTests
@@ -67,12 +68,15 @@
 
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
 
-            IGameRepository gameRepository = new GameRepository();
+            IGameRepository gameRepository = new GameRepository(null, null, null, null, null, null);
 
             UserProfile firstUser = new UserProfile() { Id = Guid.NewGuid().ToString(), DisplayName = "John" };
             UserProfile secondUser = new UserProfile() { Id = Guid.NewGuid().ToString(), DisplayName = "Peter" };
 
-            IUserRepository userRepository = new UserRepository();
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var userRepository = new UserRepository(users, sessions, friends);
 
             userRepository.AddOrUpdateUser(firstUser);
             userRepository.AddOrUpdateUser(secondUser);

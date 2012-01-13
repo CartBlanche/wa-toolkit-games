@@ -17,7 +17,7 @@
     public class GameActionNotificationQueueTests
     {
         private int suffix;
-        private IAzureQueue<GameActionMessage> gameActionNotificationQueue;
+        private AzureQueue<GameActionNotificationMessage> gameActionNotificationQueue;
 
         [TestInitialize]
         public void Setup()
@@ -72,7 +72,7 @@
         private GameActionNotificationQueue CreateQueue()
         {
             CloudStorageAccount account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
-            this.gameActionNotificationQueue = new AzureQueue<GameActionMessage>(account, ConfigurationConstants.GameActionNotificationsQueue + "test" + this.suffix);
+            this.gameActionNotificationQueue = new AzureQueue<GameActionNotificationMessage>(account, ConfigurationConstants.GameActionNotificationsQueue + "test" + this.suffix);
 
             return new GameActionNotificationQueue(this.gameActionNotificationQueue);
         }

@@ -4,7 +4,7 @@
     using System.Collections.Specialized;
     using System.IO;
     using System.Web;
-    using Microsoft.Samples.SocialGames.GamePlay.Services;
+    using Microsoft.Samples.SocialGames.Web.Services;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;

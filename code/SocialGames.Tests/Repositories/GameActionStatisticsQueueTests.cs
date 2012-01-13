@@ -17,7 +17,7 @@
     public class GameActionStatisticsQueueTests
     {
         private int suffix;
-        private IAzureQueue<GameActionMessage> gameActionStatisticsQueue;
+        private AzureQueue<GameActionStatisticsMessage> gameActionStatisticsQueue;
 
         [TestInitialize]
         public void Setup()
@@ -72,7 +72,7 @@
         private GameActionStatisticsQueue CreateQueue()
         {
             CloudStorageAccount account = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
-            this.gameActionStatisticsQueue = new AzureQueue<GameActionMessage>(account, ConfigurationConstants.GameActionStatisticsQueue + "test" + this.suffix);
+            this.gameActionStatisticsQueue = new AzureQueue<GameActionStatisticsMessage>(account, ConfigurationConstants.GameActionStatisticsQueue + "test" + this.suffix);
 
             return new GameActionStatisticsQueue(this.gameActionStatisticsQueue);
         }

@@ -9,7 +9,7 @@
     using Microsoft.Samples.SocialGames.Common;
     using Microsoft.Samples.SocialGames.Common.JobEngine;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.GamePlay;
+    using Microsoft.Samples.SocialGames.Web;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Tests.Commands;
     using Microsoft.Samples.SocialGames.Worker.Commands;

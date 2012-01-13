@@ -51,7 +51,7 @@
             this.userContainer = new AzureBlobContainer<UserProfile>(this.cloudStorageAccount, userContainerName, true);
             this.inviteQueue = new AzureQueue<InviteMessage>(this.cloudStorageAccount, inviteQueueName);
             this.gameRepository = new GameRepository(this.gameContainer, this.gameQueueContainer, this.skirmishGameMessageQueue, this.leaveGameMessageQueue, this.userContainer, this.inviteQueue);
-            this.gameRepository.EnsureExist();
+            this.gameRepository.Initialize();
             this.skirmishGameMessageQueue.Clear();
             this.leaveGameMessageQueue.Clear();
         }
@@ -155,7 +155,10 @@
         {
             Game game = this.FrancisGabrielDonAndLukeGame();
             var francisUser = new UserProfile { Id = Guid.NewGuid().ToString(), DisplayName = "Francis" };
-            var userRepository = new UserRepository(this.cloudStorageAccount);
+            var users = new AzureBlobContainer<UserProfile>(CloudStorageAccount.DevelopmentStorageAccount);
+            var sessions = new AzureBlobContainer<UserSession>(CloudStorageAccount.DevelopmentStorageAccount);
+            var friends = new AzureBlobContainer<Friends>(CloudStorageAccount.DevelopmentStorageAccount);
+            var userRepository = new UserRepository(users, sessions, friends);
             userRepository.AddOrUpdateUser(francisUser);
             this.gameRepository.AddOrUpdateGame(game);
             this.gameRepository.LeaveUserFromGame(francisUser.Id, game.Id);
@@ -210,16 +213,9 @@
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void GameRepositoryConstructorWithNullAccount()
+        public void GameRepositoryConstructorWithNullConstructorParameter()
         {
-            new GameRepository(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void GameRepositoryConstructorWithNullGameContainerName()
-        {
-            new GameRepository(this.cloudStorageAccount, null, gameQueueContainerName, userContainerName, inviteQueueName, skirmishGameMessageQueueName, leaveGameMessageQueueName);
+            new GameRepository(null, null, null, null, null, null);
         }
 
         [TestMethod]
@@ -250,15 +246,15 @@
                 }
             });
 
-            new GameRepository();
+            new GameRepository(null, null, null, null, null, null);
             Assert.IsTrue(wasSetterCalled);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void TestGameRepositoryWithNullAccount()
+        public void TestGameRepositoryWithNullParameters()
         {
-            new GameRepository(null, "name1", "name2", "name3", "name4", "name5", "name6");
+            new GameRepository(null, null, null, null, null, null);
         }
 
         private Game JohnPeterAndBrianGame()

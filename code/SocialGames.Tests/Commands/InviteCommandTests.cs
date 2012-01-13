@@ -15,7 +15,7 @@
     {
         private InviteCommand command;
         private INotificationRepository notificationRepository;
-        private IUserRepository userRepository;
+        private UserRepository userRepository;
 
         private AzureBlobContainer<NotificationStatus> notificationContainer;
         private AzureBlobContainer<UserProfile> userContainer;
@@ -35,7 +35,7 @@
 
             this.notificationRepository = new NotificationRepository(this.notificationContainer);
             this.userRepository = new UserRepository(this.userContainer, this.userSessionContainer, this.friendsContainer);
-            this.userRepository.EnsureExist();
+            this.userRepository.Initialize();
             this.command = new InviteCommand(this.notificationRepository, this.userRepository);
         }
 

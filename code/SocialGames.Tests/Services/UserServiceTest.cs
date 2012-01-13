@@ -11,7 +11,7 @@
     using Microsoft.Samples.SocialGames;
     using Microsoft.Samples.SocialGames.Common.Storage;
     using Microsoft.Samples.SocialGames.Entities;
-    using Microsoft.Samples.SocialGames.GamePlay.Services;
+    using Microsoft.Samples.SocialGames.Web.Services;
     using Microsoft.Samples.SocialGames.Repositories;
     using Microsoft.Samples.SocialGames.Tests.Mocks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

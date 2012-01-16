@@ -206,6 +206,7 @@
     <Content Include="Scripts\Games\FourInARow\Game.js" />
     <Content Include="Scripts\Games\FourInARow\ViewModel.js" />
     <Content Include="Scripts\Games\GameService.js" />
+    <Content Include="Scripts\Games\GameServiceNodeJs.js" />
     <Content Include="Scripts\Games\ServerInterface.js" />
     <Content Include="Scripts\Games\TicTacToe\Board.js" />
     <Content Include="Scripts\Games\TicTacToe\Controller.js" />
@@ -252,6 +253,7 @@
     <Content Include="Scripts\knockout-1.2.1.debug.js" />
     <Content Include="Scripts\knockout-1.2.1.js" />
     <Content Include="Scripts\qunit.js" />
+    <Content Include="Scripts\socket.io.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -337,6 +339,7 @@
     <Content Include="Views\Account\Leaderboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Samples\Views\TicTacToe\NodeJs.cshtml" />
     <None Include="Startup\SetupWifRuntime.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

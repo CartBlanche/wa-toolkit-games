@@ -17,9 +17,12 @@
     using Microsoft.Samples.SocialGames.Web.Services;
     using Microsoft.WindowsAzure;
     using Microsoft.WindowsAzure.ServiceRuntime;
+    using System;
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static bool storageInitialized = false;
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -71,12 +74,26 @@
             RegisterRoutes(RouteTable.Routes);
 
             FederatedAuthentication.ServiceConfigurationCreated += this.OnServiceConfigurationCreated;
+        }
 
-            // Call Initializers
-            var initializers = DependencyResolver.Current.GetServices<IStorageInitializer>();
-            foreach (var initializer in initializers)
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if (!storageInitialized)
             {
-                initializer.Initialize();
+                lock (this.GetType())
+                {
+                    if (!storageInitialized)
+                    {
+                        // Call Initializers
+                        var initializers = DependencyResolver.Current.GetServices<IStorageInitializer>();
+                        foreach (var initializer in initializers)
+                        {
+                            initializer.Initialize();
+                        }
+
+                        storageInitialized = true;
+                    }
+                }
             }
         }
 

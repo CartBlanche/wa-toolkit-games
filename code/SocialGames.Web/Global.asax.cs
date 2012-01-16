@@ -110,8 +110,6 @@
                 .AsImplementedInterfaces();
             builder.RegisterBlob<GameQueue>(ConfigurationConstants.GamesQueuesContainerName, true /* jsonpSupport */)
                 .AsImplementedInterfaces();
-            builder.RegisterBlob<UserProfile>(ConfigurationConstants.GamesContainerName, true /* jsonpSupport */)
-                .AsImplementedInterfaces();
 
             // Repositories
             builder.RegisterType<GameActionNotificationQueue>().AsImplementedInterfaces();

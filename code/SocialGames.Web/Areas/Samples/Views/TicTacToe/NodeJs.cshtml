@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "TicTacToe using Node.Js";
+}
+<script src="@Url.Content("~/Scripts/jQuery.tmpl.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/knockout-1.2.1.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/socket.io.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/ServerInterface.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/GameServiceNodeJs.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/UserService.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/TicTacToe/Board.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/TicTacToe/Game.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/TicTacToe/ViewModel.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Games/TicTacToe/Controller.js")" type="text/javascript"></script>
+<h2>
+    Tic Tac Toe using Node.js</h2>
+
+<script type="text/javascript">
+        //First check for canvas, show an "Upgrade your browser" screen if they don't have it.
+        var canvas = document.createElement('canvas');
+        if (canvas.getContext == null || canvas.getContext('2d') == null) {
+            window.location.assign('@Url.Action("OldBrowser")');
+        }
+</script>
+
+<div id="main">
+    <div style="display: none" data-bind="visible: gameQueueId() != null">
+        <fieldset>
+            <legend>Player</legend>
+            <div>
+                Welcome <b><span data-bind='text: playerName()'></span></b>
+            </div>
+            <div data-bind="visible: isOwner() && gameQueueId() != null && gameId() == null">
+                <span>Use this URL to invite other players: <span data-bind="text: inviteURL()" />
+                </span>
+                <br />
+            </div>
+            <div data-bind="visible: noPlayers() == 1 && isOwner()">
+                <span>Waiting for your opponent...</span>
+            </div>
+        </fieldset>
+    </div>
+    <div style="display: none" data-bind="visible: gameQueueId() != null">
+        <fieldset>
+            <legend>Players</legend>
+            <div data-bind='template: { name: "queueStatus", foreach: players()}' />
+            <script id="queueStatus" type="text/html">
+            <li><b>${$data.UserName}</b></li>
+            </script>
+        </fieldset>
+    </div>
+    <div style="display: none" data-bind="visible: gameId() != null">
+        <fieldset>
+            <legend>Game</legend>
+            <div>Game Id <span data-bind="text: gameId()"></span></div>
+            <div>
+                You are <span data-bind="visible: playerColor() == TTTColor.Cross">Xs</span> <span
+                    data-bind="visible: playerColor() == TTTColor.Circle">Os</span>
+            </div>
+            <div data-bind="visible: playerColor() == currentColor()">
+                Your turn!</div>
+            <div data-bind="visible: playerColor() != currentColor()">
+                Opponent turn!</div>
+            <div data-bind="visible: isTie()">
+                Tie!!</div>
+            <div data-bind="visible: playerColor() == winnerColor()">
+                You won!!</div>
+            <div data-bind="visible: playerColor() != winnerColor() && winnerColor() != TTTColor.Empty">
+                You lose!!</div>
+            <canvas id="board" width="300" height="300"></canvas>
+        </fieldset>
+    </div>
+</div>
+<script type="text/javascript">
+    var viewModel;
+    var gameQueueId = getQueryVariable("id");
+    var nullGameId = "00000000-0000-0000-0000-000000000000";
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
+        }
+    }
+
+    var apiURL = "@this.ViewBag.ApiUrl";
+    var blobURL = "@this.ViewBag.BlobUrl";
+    var nodeJsURL = "@this.ViewBag.NodeJsUrl";
+
+    var socket = io.connect(nodeJsURL);
+
+    var si = new ServerInterface();
+    var gs = new GameService(apiURL, blobURL, si, socket);
+    var us = new UserService(apiURL, blobURL, si);
+
+    var controller;
+
+    function start() {
+        var canvas = document.getElementById("board");
+        var board = new TicTacToeBoard(canvas);
+        var game = new TicTacToeGame();
+
+        var controller = new TicTacToeController(viewModel, gs, board, game);
+
+        controller.setGameQueueId(gameQueueId);
+
+        controller.start();
+    }
+
+    $(function () {
+        viewModel = new TicTacToeViewModel();
+        ko.applyBindings(viewModel);
+
+        us.verify(
+            function () { start(); },
+            function () {
+                var newlocation = '@Url.Action("Login")?ReturnUrl=' + encodeURIComponent(window.location.href);
+                window.location.assign(newlocation);
+            }
+        );
+    });
+</script>
+

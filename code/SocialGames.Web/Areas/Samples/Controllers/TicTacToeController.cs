@@ -10,13 +10,5 @@
         {
             return View();
         }
-
-        [Authorize]
-        public ActionResult NodeJs()
-        {
-            this.ViewBag.NodeJsUrl = System.Configuration.ConfigurationManager.AppSettings["NodeJsUrl"];
-
-            return View();
-        }
     }
 }

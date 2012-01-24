@@ -20,3 +20,4 @@ Output/
 packages/
 log.txt
 log.xml
+build/

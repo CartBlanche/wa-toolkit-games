@@ -16,7 +16,6 @@ Bin/
 ClientBin/
 TestResults/
 *.build.csdef
-Output/
 packages/
 log.txt
 log.xml

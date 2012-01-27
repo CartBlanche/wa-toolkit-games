@@ -3,7 +3,7 @@ The Windows Azure Toolkit for Social Games is a set of guidance, samples, and to
 
 See the wiki for more documentation.
 
-* [Getting Started](wiki/getting-started)
-* [Running the Samples](wiki/running)
-* [Deployment](wiki/deployment)
-* [Architecture](wiki/architecture)
+* [Getting Started](https://github.com/WindowsAzure-Toolkits/wa-toolkit-games/wiki/getting-started)
+* [Running the Samples](https://github.com/WindowsAzure-Toolkits/wa-toolkit-games/wiki/running)
+* [Deployment](https://github.com/WindowsAzure-Toolkits/wa-toolkit-games/wiki/deployment)
+* [Architecture](https://github.com/WindowsAzure-Toolkits/wa-toolkit-games/wiki/architecture)
